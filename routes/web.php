@@ -1,5 +1,6 @@
 <?php
-
+require_once 'mn-web.php';
+require_once 'tp-web.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
