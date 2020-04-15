@@ -1,0 +1,11 @@
+table tbody tr td .row-actions a {
+    visibility: hidden;
+}
+
+table tbody tr:hover .row-actions a {
+    visibility: visible;
+}
+
+table.tnct-table tbody tr td {
+    vertical-align: top !important;
+}

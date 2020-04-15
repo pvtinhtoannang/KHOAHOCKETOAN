@@ -14,6 +14,8 @@ License: You must have a valid license purchased only from themeforest(the above
 -->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
+@include ('admin.layouts.head-tags')
+
 <!-- begin::Head -->
 <head>
     <meta charset="utf-8"/>
@@ -35,8 +37,9 @@ License: You must have a valid license purchased only from themeforest(the above
     </script>
 
     <!--end::Fonts -->
-
-    <script src="https://cdn.tiny.cloud/1/b05bmj6q7bhbcjmqneibb5cisuo0coq6gkosrl8ok61ri4if/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <link href="/assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tiny.cloud/1/b05bmj6q7bhbcjmqneibb5cisuo0coq6gkosrl8ok61ri4if/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea.wysiwyg-editor',
@@ -53,38 +56,46 @@ License: You must have a valid license purchased only from themeforest(the above
             image_advtab: true,
             content_css: '//www.tiny.cloud/css/codepen.min.css',
             link_list: [
-                { title: 'My page 1', value: 'http://www.tinymce.com' },
-                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                {title: 'My page 1', value: 'http://www.tinymce.com'},
+                {title: 'My page 2', value: 'http://www.moxiecode.com'}
             ],
             image_list: [
-                { title: 'My page 1', value: 'http://www.tinymce.com' },
-                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                {title: 'My page 1', value: 'http://www.tinymce.com'},
+                {title: 'My page 2', value: 'http://www.moxiecode.com'}
             ],
             image_class_list: [
-                { title: 'None', value: '' },
-                { title: 'Some class', value: 'class-name' }
+                {title: 'None', value: ''},
+                {title: 'Some class', value: 'class-name'}
             ],
             importcss_append: true,
             file_picker_callback: function (callback, value, meta) {
                 /* Provide file and text for the link dialog */
                 if (meta.filetype === 'file') {
-                    callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                    callback('https://www.google.com/logos/google.jpg', {text: 'My text'});
                 }
 
                 /* Provide image and alt text for the image dialog */
                 if (meta.filetype === 'image') {
-                    callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                    callback('https://www.google.com/logos/google.jpg', {alt: 'My alt text'});
                 }
 
                 /* Provide alternative source and posted for the media dialog */
                 if (meta.filetype === 'media') {
-                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                    callback('movie.mp4', {source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg'});
                 }
             },
             templates: [
-                { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                {
+                    title: 'New Table',
+                    description: 'creates a new table',
+                    content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+                },
+                {title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...'},
+                {
+                    title: 'New list with dates',
+                    description: 'New List with dates',
+                    content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
+                }
             ],
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
             template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
@@ -162,6 +173,7 @@ License: You must have a valid license purchased only from themeforest(the above
 </head>
 
 <!-- end::Head -->
+>>>>>>> b814fbe90f2939534f0da96b01fe1cdfe5f2f100
 
 <!-- begin::Body -->
 <body
@@ -173,7 +185,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="index.html">
-            <img alt="Logo" src="/assets/media/logos/logo-light.png"/>
+            <img alt="Logo" src="/assets/media/logos/logo.png"/>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -197,8 +209,8 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- begin:: Aside -->
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
-                    <a href="index.html">
-                        <img alt="Logo" src="/assets/media/logos/logo-light.png"/>
+                    <a href="{{ route('GET_ADMIN_DASHBOARD_ROUTE')  }}">
+                        <img alt="Logo" src="/assets/media/logos/logo.png"/>
                     </a>
                 </div>
                 <div class="kt-aside__brand-tools">
@@ -263,7 +275,7 @@ License: You must have a valid license purchased only from themeforest(the above
 												</g>
 											</svg></span><span class="kt-menu__link-text">Bảng tin</span></a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_POST_NEW_ROUTE') || Request::url() === route('GET_POST_ALL_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_POST_NEW_ROUTE') || Request::url() === route('GET_POST_ALL_ROUTE') || @Request::url() === route('GET_CATEGORY_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -287,7 +299,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Bài viết</span></span></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_POST_ALL_ROUTE')) kt-menu__item--active @endif" aria-haspopup="true"><a
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_POST_ALL_ROUTE')) kt-menu__item--active @endif"
+                                        aria-haspopup="true"><a
                                             href="{{ route('GET_POST_ALL_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Tất cả bài viết</span></a></li>
@@ -296,8 +309,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                             href="{{ route('GET_POST_NEW_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Viết bài mới</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a
-                                            href="layout_subheader_actions.html" class="kt-menu__link "><i
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_CATEGORY_ROUTE')) kt-menu__item--active @endif"
+                                        aria-haspopup="true"><a
+                                            href="{{ route('GET_CATEGORY_ROUTE') }}"
+                                            class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Chuyên mục</span></a></li>
                                     <li class="kt-menu__item " aria-haspopup="true"><a
@@ -1728,8 +1743,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-header__topbar-item kt-header__topbar-item--user">
                         <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                             <div class="kt-header__topbar-user">
-                                <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
-                                <span class="kt-header__topbar-username kt-hidden-mobile">Sean</span>
+                                <span class="kt-header__topbar-welcome kt-hidden-mobile">Chào,</span>
+                                <span class="kt-header__topbar-username kt-hidden-mobile">{{   }}</span>
                                 <img class="kt-hidden" alt="Pic" src="/assets/media/users/300_25.jpg"/>
 
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
@@ -1844,7 +1859,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <div class="kt-subheader__toolbar">
                         <div class="kt-subheader__wrapper">
-                            <a href="#" class="btn kt-subheader__btn-daterange" id="kt_dashboard_daterangepicker" data-toggle="kt-tooltip" title="Select dashboard daterange" data-placement="left">
+                            <a href="#" class="btn kt-subheader__btn-daterange" id="kt_dashboard_daterangepicker"
+                               data-toggle="kt-tooltip" title="Select dashboard daterange" data-placement="left">
                                 <span class="kt-subheader__btn-daterange-title" id="kt_dashboard_daterangepicker_title">Today</span>&nbsp;
                                 <span class="kt-subheader__btn-daterange-date" id="kt_dashboard_daterangepicker_date">Aug 16</span>
                                 <i class="flaticon2-calendar-1"></i>
@@ -1861,13 +1877,21 @@ License: You must have a valid license purchased only from themeforest(the above
                             <a href="#" class="btn kt-subheader__btn-primary btn-icon">
                                 <i class="flaticon2-settings"></i>
                             </a>
-                            <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="Quick actions" data-placement="left">
-                                <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
+                            <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="Quick actions"
+                                 data-placement="left">
+                                <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                                         class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
-                                            <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                            <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000" />
+                                            <polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
+                                            <path
+                                                d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
+                                                id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                            <path
+                                                d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z"
+                                                id="Combined-Shape" fill="#000000"/>
                                         </g>
                                     </svg>
 
@@ -2526,6 +2550,9 @@ License: You must have a valid license purchased only from themeforest(the above
         </a>
     </div>
 </div>
+<<<<<<< HEAD
+@include('admin.layouts.footer-scripts')
+=======
 
 <!-- end::Demo Panel -->
 
@@ -2648,7 +2675,17 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--begin::Global App Bundle(used by all pages) -->
 <script src="/assets/app/bundle/app.bundle.js" type="text/javascript"></script>
 
+
+<!--begin::Page Vendors(used by this page) -->
+<script src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+
+<!--end::Page Vendors -->
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="/assets/js/form.js"></script>
+
 <!--end::Global App Bundle -->
+>>>>>>> b814fbe90f2939534f0da96b01fe1cdfe5f2f100
 </body>
 
 <!-- end::Body -->

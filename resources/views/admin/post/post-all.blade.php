@@ -5,23 +5,60 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-
+                <h3 class="kt-portlet__head-title">
+                    Bài viết
+                </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <a href="{{ route('GET_POST_NEW_ROUTE') }}" class="btn btn-brand btn-icon-sm">
-                        <i class="flaticon2-plus"></i> Viết bài mới
-                    </a>
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
+                            <i class="la la-plus"></i>
+                            Viết bài mới
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="kt-portlet__body">
 
-            <!--begin: Search Form -->
+            <!--begin: Datatable -->
+            <table class="table table-striped table-hover tnct-table" id="posts">
+                <thead>
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Tác giả</th>
+                    <th>Chuyên mục</th>
+                    <th>Thẻ</th>
+                    <th>Thời gian</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for($i = 0; $i <= 10; $i++)
+                    <tr>
+                        <td class="kt-font-bold">Tiêu đề bài viết
+                            <div class="nowrap row-actions">
+                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                    <i class="la la-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                    <i class="la la-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td>Tác giả</td>
+                        <td>Chuyên mục</td>
+                        <td>Thẻ</td>
+                        <td>2/12/2018</td>
+                    </tr>
+                @endfor
+                </tbody>
+            </table>
 
-
-            <!--end: Search Form -->
+            <!--end: Datatable -->
         </div>
-       
     </div>
 @endsection

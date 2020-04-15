@@ -2,6 +2,18 @@ form#post #title {
   font-size: 1.7rem;
 }
 
+table tbody tr td .row-actions a {
+  visibility: hidden;
+}
+
+table tbody tr:hover .row-actions a {
+  visibility: visible;
+}
+
+table.tnct-table tbody tr td {
+  vertical-align: top !important;
+}
+
 .template-title {
   font-size: 23px;
   font-weight: 500;
@@ -9,8 +21,19 @@ form#post #title {
   margin-bottom: 20px;
 }
 
+.template-sub-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #434349;
+  margin-bottom: 20px;
+}
+
 .tox-notifications-container {
   display: none !important;
+}
+
+.no-padding {
+  padding: 0 !important;
 }
 
 /*# sourceMappingURL=app.css.map */

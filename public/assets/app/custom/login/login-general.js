@@ -1,11 +1,11 @@
 "use strict";
 
 // Class Definition
-var KTLoginGeneral = function() {
+var KTLoginGeneral = function () {
 
     var login = $('#kt_login');
 
-    var showErrorMsg = function(form, type, msg) {
+    var showErrorMsg = function (form, type, msg) {
         var alert = $('<div class="kt-alert kt-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
 			<span></span>\
@@ -19,7 +19,7 @@ var KTLoginGeneral = function() {
     }
 
     // Private Functions
-    var displaySignUpForm = function() {
+    var displaySignUpForm = function () {
         login.removeClass('kt-login--forgot');
         login.removeClass('kt-login--signin');
 
@@ -27,7 +27,7 @@ var KTLoginGeneral = function() {
         KTUtil.animateClass(login.find('.kt-login__signup')[0], 'flipInX animated');
     }
 
-    var displaySignInForm = function() {
+    var displaySignInForm = function () {
         login.removeClass('kt-login--forgot');
         login.removeClass('kt-login--signup');
 
@@ -36,7 +36,7 @@ var KTLoginGeneral = function() {
         //login.find('.kt-login__signin').animateClass('flipInX animated');
     }
 
-    var displayForgotForm = function() {
+    var displayForgotForm = function () {
         login.removeClass('kt-login--signin');
         login.removeClass('kt-login--signup');
 
@@ -46,33 +46,33 @@ var KTLoginGeneral = function() {
 
     }
 
-    var handleFormSwitch = function() {
-        $('#kt_login_forgot').click(function(e) {
+    var handleFormSwitch = function () {
+        $('#kt_login_forgot').click(function (e) {
             e.preventDefault();
             displayForgotForm();
         });
 
-        $('#kt_login_forgot_cancel').click(function(e) {
+        $('#kt_login_forgot_cancel').click(function (e) {
             e.preventDefault();
             displaySignInForm();
         });
 
-        $('#kt_login_signup').click(function(e) {
+        $('#kt_login_signup').click(function (e) {
             e.preventDefault();
             displaySignUpForm();
         });
 
-        $('#kt_login_signup_cancel').click(function(e) {
+        $('#kt_login_signup_cancel').click(function (e) {
             e.preventDefault();
             displaySignInForm();
         });
     }
 
-    var handleSignInFormSubmit = function() {
-        $('#kt_login_signin_submit').click(function(e) {
+    var handleSignInFormSubmit = function () {
+        $('#kt_login_signin_submit').click(function (e) {
             e.preventDefault();
             var btn = $(this);
-            var form = $(this).closest('form');           
+            var form = $(this).closest('form');
 
             form.validate({
                 rules: {
@@ -82,6 +82,15 @@ var KTLoginGeneral = function() {
                     },
                     password: {
                         required: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Vui lòng nhập email",
+                        email: "Email của bạn không đúng định dạng. VD: abc@gmail.com"
+                    },
+                    password: {
+                        required: "Vui lòng nhập mật khẩu"
                     }
                 }
             });
@@ -93,20 +102,28 @@ var KTLoginGeneral = function() {
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
-                success: function(response, status, xhr, $form) {
-                	// similate 2s delay
-                	setTimeout(function() {
-	                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-	                    showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
+                url: 'login',
+                method: 'POST',
+                success: function (response, status, xhr, $form) {
+                    // similate 2s delay
+                    setTimeout(function () {
+                        btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+                        if(response !== 'error'){
+                            showErrorMsg(form, 'success', 'Đăng nhập thành công. Bắt đầu chuyển hướng');
+                            window.location.replace(response);
+                        }else{
+                            showErrorMsg(form, 'danger', 'Xin lỗi, tài khoản hoặc mật khẩu của bạn chưa đúng!');
+                        }
+
                     }, 2000);
+
                 }
             });
         });
     }
 
-    var handleSignUpFormSubmit = function() {
-        $('#kt_login_signup_submit').click(function(e) {
+    var handleSignUpFormSubmit = function () {
+        $('#kt_login_signup_submit').click(function (e) {
             e.preventDefault();
 
             var btn = $(this);
@@ -114,7 +131,7 @@ var KTLoginGeneral = function() {
 
             form.validate({
                 rules: {
-                    fullname: {
+                    name: {
                         required: true
                     },
                     email: {
@@ -130,6 +147,22 @@ var KTLoginGeneral = function() {
                     agree: {
                         required: true
                     }
+                },
+                messages: {
+                    name: "Vui lòng nhập họ và tên của bạn!",
+                    email: {
+                        required: "Vui lòng nhập email",
+                        email: "Email của bạn không đúng định dạng. VD: abc@gmail.com"
+                    },
+                    password: {
+                        required: "Vui lòng nhập mật khẩu"
+                    },
+                    rpassword: {
+                        required: "Vui lòng nhập xác nhận mật khẩu"
+                    },
+                    agree: {
+                        required: "Vui lòng đồng ý với các điều khoản của chúng tôi"
+                    }
                 }
             });
 
@@ -140,29 +173,30 @@ var KTLoginGeneral = function() {
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
-                success: function(response, status, xhr, $form) {
-                	// similate 2s delay
-                	setTimeout(function() {
-	                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-	                    form.clearForm();
-	                    form.validate().resetForm();
+                url: 'register',
+                method: 'POST',
+                success: function (response, status, xhr, $form) {
+                    // similate 2s delay
+                    setTimeout(function () {
+                        btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+                        form.clearForm();
+                        form.validate().resetForm();
 
-	                    // display signup form
-	                    displaySignInForm();
-	                    var signInForm = login.find('.kt-login__signin form');
-	                    signInForm.clearForm();
-	                    signInForm.validate().resetForm();
+                        // display signup form
+                        displaySignInForm();
+                        var signInForm = login.find('.kt-login__signin form');
+                        signInForm.clearForm();
+                        signInForm.validate().resetForm();
 
-	                    showErrorMsg(signInForm, 'success', 'Thank you. To complete your registration please check your email.');
-	                }, 2000);
+                        showErrorMsg(signInForm, 'danger', response);
+                    }, 2000);
                 }
             });
         });
     }
 
-    var handleForgotFormSubmit = function() {
-        $('#kt_login_forgot_submit').click(function(e) {
+    var handleForgotFormSubmit = function () {
+        $('#kt_login_forgot_submit').click(function (e) {
             e.preventDefault();
 
             var btn = $(this);
@@ -185,22 +219,27 @@ var KTLoginGeneral = function() {
 
             form.ajaxSubmit({
                 url: '',
-                success: function(response, status, xhr, $form) { 
-                	// similate 2s delay
-                	setTimeout(function() {
-                		btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false); // remove
-	                    form.clearForm(); // clear form
-	                    form.validate().resetForm(); // reset validation states
+                success: function (response, status, xhr, $form) {
+                    // similate 2s delay
+                    setTimeout(function () {
+                        btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false); // remove
+                        form.clearForm(); // clear form
+                        form.validate().resetForm(); // reset validation states
 
-	                    // display signup form
-	                    displaySignInForm();
-	                    var signInForm = login.find('.kt-login__signin form');
-	                    signInForm.clearForm();
-	                    signInForm.validate().resetForm();
+                        // display signup form
+                        displaySignInForm();
+                        var signInForm = login.find('.kt-login__signin form');
+                        signInForm.clearForm();
+                        signInForm.validate().resetForm();
 
-	                    showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
-                	}, 2000);
+                        showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
+                    }, 2000);
+                },
+                error: function(xhr, status, error) {
+                    // handle error
+                    console.log(xhr);
                 }
+
             });
         });
     }
@@ -208,7 +247,7 @@ var KTLoginGeneral = function() {
     // Public Functions
     return {
         // public functions
-        init: function() {
+        init: function () {
             handleFormSwitch();
             handleSignInFormSubmit();
             handleSignUpFormSubmit();
@@ -218,6 +257,6 @@ var KTLoginGeneral = function() {
 }();
 
 // Class Initialization
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     KTLoginGeneral.init();
 });

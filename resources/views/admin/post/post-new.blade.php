@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-3">
                 <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-bg-success">
+                    <div class="kt-portlet__head kt-bg-primary">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Đăng</h3>
                         </div>
@@ -22,11 +22,11 @@
                     <div class="kt-portlet__body">
                     </div>
                     <div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right">
-                        <a href="#" class="btn btn-success">Đăng</a>
+                        <a href="#" class="btn btn-primary">Đăng</a>
                     </div>
                 </div>
                 <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-bg-success">
+                    <div class="kt-portlet__head kt-bg-primary">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Chuyên mục</h3>
                         </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-bg-success">
+                    <div class="kt-portlet__head kt-bg-primary">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Thẻ</h3>
                         </div>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-portlet__head--noborder kt-bg-success">
+                    <div class="kt-portlet__head kt-portlet__head--noborder kt-bg-primary">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Ảnh đại diện</h3>
                         </div>
