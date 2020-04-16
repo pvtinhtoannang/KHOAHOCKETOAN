@@ -121,3 +121,7 @@
 <script src="/assets/app/bundle/app.bundle.js" type="text/javascript"></script>
 
 <!--end::Global App Bundle -->
+
+<script src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+<script src="/assets/js/form.js" type="text/javascript"></script>
+
