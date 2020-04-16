@@ -15,7 +15,7 @@ Route::get('/', function () {
     return 0;
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'GET_ADMIN_DASHBOARD_ROUTE', 'uses' => 'AdminController@getAdminDashboard']);
     //post
     Route::get('/post-new', ['as' => 'GET_POST_NEW_ROUTE', 'uses' => 'PostController@getPostNew']);
