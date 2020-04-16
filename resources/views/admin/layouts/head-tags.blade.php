@@ -83,6 +83,7 @@
     </script>
 
     <!--begin::Page Vendors Styles(used by this page) -->
+    <link href="/assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/css/app.css" rel="stylesheet" type="text/css"/>
 
