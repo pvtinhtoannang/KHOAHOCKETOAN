@@ -1586,7 +1586,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                             <div class="kt-header__topbar-user">
                                 <span class="kt-header__topbar-welcome kt-hidden-mobile">Chào,</span>
-                                <span class="kt-header__topbar-username kt-hidden-mobile">=</span>
+                                <span class="kt-header__topbar-username kt-hidden-mobile">{{ $users_data['name']  }}</span>
                                 <img class="kt-hidden" alt="Pic" src="/assets/media/users/300_25.jpg"/>
 
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
@@ -1608,7 +1608,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
                                 </div>
                                 <div class="kt-user-card__name">
-                                    Sean Stone
+                                    {{ $users_data['name']  }}
                                 </div>
                                 <div class="kt-user-card__badge">
                                     <span class="btn btn-success btn-sm btn-bold btn-font-md">23 messages</span>
@@ -1625,7 +1625,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="kt-notification__item-details">
                                         <div class="kt-notification__item-title kt-font-bold">
-                                            My Profile
+                                            Hồ sơ của tôi
                                         </div>
                                         <div class="kt-notification__item-time">
                                             Account settings and more
@@ -1672,8 +1672,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </a>
                                 <div class="kt-notification__custom">
-                                    <a href="custom_user_login-v2.html" target="_blank"
-                                       class="btn btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                    <a href="{{ route('getLogout') }}" title="Đăng xuất" target="_self"
+                                       class="btn btn-label-brand btn-sm btn-bold">Đăng xuất</a>
                                 </div>
                             </div>
 

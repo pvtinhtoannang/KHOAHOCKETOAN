@@ -70,21 +70,22 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <div class="kt-login__forgot">
                                 <div class="kt-login__head">
-                                    <h3 class="kt-login__title">Forgotten Password ?</h3>
-                                    <div class="kt-login__desc">Enter your email to reset your password:</div>
+                                    <h3 class="kt-login__title">Bạn quên mật khẩu?</h3>
+                                    <div class="kt-login__desc">Nhập email của bạn để khôi phục mật khẩu:</div>
                                 </div>
                                 <div class="kt-login__form">
-                                    <form class="kt-form" action="">
+                                    <form class="kt-form" action="forgot">
+                                        @csrf
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Email" name="email"
                                                    id="kt_email" autocomplete="off">
                                         </div>
                                         <div class="kt-login__actions">
                                             <button id="kt_login_forgot_submit"
-                                                    class="btn btn-brand btn-pill btn-elevate">Request
+                                                    class="btn btn-brand btn-pill btn-elevate">Gửi yêu cầu
                                             </button>
                                             <button id="kt_login_forgot_cancel" class="btn btn-outline-brand btn-pill">
-                                                Cancel
+                                                Huỷ bỏ
                                             </button>
                                         </div>
                                     </form>
