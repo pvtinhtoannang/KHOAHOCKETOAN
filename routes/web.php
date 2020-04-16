@@ -23,4 +23,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     //category
     Route::get('/category', ['as' => 'GET_CATEGORY_ROUTE', 'uses' => 'CategoryController@getCategory']);
+    Route::post('/category', ['as' => 'POST_CATEGORY_ROUTE', 'uses' => 'CategoryController@postAddNewCategory']);
+
+    //ajax
+    Route::get('/check-slug/{slug}', 'AdminAjaxController@checkSlug');
+
 });
