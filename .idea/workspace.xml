@@ -2,18 +2,117 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aeaf1ed9-018d-49b1-86c0-04c784a87ef8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/my-profile.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/css/reset-container.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/css/reset.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/images/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/bootstrap/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/HELP-US-OUT.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/css/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/css/mixins.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/css/variables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/animated.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/bordered-pulled.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/core.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/fixed-width.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/font-awesome.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/icons.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/larger.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/list.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/mixins.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/path.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/rotated-flipped.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/screen-reader.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/stacked.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/less/variables.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_animated.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_bordered-pulled.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_core.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_fixed-width.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_icons.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_larger.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_list.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_mixins.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_path.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_rotated-flipped.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_screen-reader.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_stacked.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/_variables.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/.sass-cache/a2a8e73faf620148485a5b3429f807fe1e192e39/font-awesome.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_animated.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_bordered-pulled.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_core.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_fixed-width.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_larger.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_path.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_rotated-flipped.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_screen-reader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_stacked.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/font-awesome.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/font-awesome/scss/font-awesome.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/mmenu/jquery.mmenu.all.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/mmenu/jquery.mmenu.all.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/ajax-loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/config.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/fonts/slick.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/fonts/slick.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/fonts/slick.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/fonts/slick.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick-theme.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick-theme.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick-theme.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/includes/slick/slick.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/js/jquery-1.12.4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/assets/js/jquery-migrate-1.4.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/css/style.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/css/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/arrows-slick-tim-khoa-hoc-left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/arrows-slick-tim-khoa-hoc-right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/avatar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/bg-taisaochon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/graphic-tablet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/images.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/khoahoc-item.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/partner.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/images/timkhoahoc.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/js/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/sass/pvtinh_khkt_footer.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/sass/pvtinh_khkt_khoahochot.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/sass/pvtinh_khkt_partner.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/sass/pvtinh_khkt_taisaochon.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/frontend/components-assets/sass/pvtinh_khkt_timkhoahoc.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/app/custom/login/login-general.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/app/custom/login/login-general.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/dashboard-master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/dashboard-master.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/login/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/login/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/tp-web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/tp-web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,16 +218,19 @@
   <component name="ProjectId" id="1aZt6TSD1KV1BqvoEflnbEu96zI" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lrvkenz.local" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\public\assets\media\logos" />
-      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\admin\login" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\admin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\frontend" />
+      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\frontend\components-assets\js" />
+      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\frontend\components-assets\images" />
+      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\frontend\components-assets\css" />
+      <recent name="D:\DEV\LARAVEL\KHOAHOCKETOAN\resources\views\frontend\components-assets\scss" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -155,6 +257,8 @@
       <updated>1586954770495</updated>
       <workItem from="1586954779356" duration="97000" />
       <workItem from="1587021260312" duration="7382000" />
+      <workItem from="1587043524587" duration="58000" />
+      <workItem from="1587089871149" duration="13988000" />
     </task>
     <servers />
   </component>

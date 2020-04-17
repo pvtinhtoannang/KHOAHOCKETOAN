@@ -1,3 +1,4 @@
+@section('title', 'Đăng nhập')
 <!DOCTYPE html>
 
 <!--

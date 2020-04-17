@@ -15,7 +15,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 @include ('admin.layouts.head-tags')
-
+@php
+    $size = 40;
+    $default = '/assets/media/users/300_25.jpg';
+    $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $users_data['email'] ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+@endphp
 
 <!-- begin::Body -->
 <body
@@ -1586,12 +1590,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                             <div class="kt-header__topbar-user">
                                 <span class="kt-header__topbar-welcome kt-hidden-mobile">Chào,</span>
-                                <span class="kt-header__topbar-username kt-hidden-mobile">{{ $users_data['name']  }}</span>
-                                <img class="kt-hidden" alt="Pic" src="/assets/media/users/300_25.jpg"/>
-
+                                <span
+                                    class="kt-header__topbar-username kt-hidden-mobile">{{ $users_data['name']  }}</span>
+                                <img class="kt-hidden" alt="Pic" src="{{ $grav_url }}"/>
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 <span
-                                    class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">S</span>
+                                    class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">{{ substr($users_data['name'], 0,1)  }}</span>
                             </div>
                         </div>
                         <div
@@ -1599,19 +1603,20 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <!--begin: Head -->
                             <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x"
-                                 style="background-image: url(../assets/media/misc/bg-1.jpg)">
+                                 style="background-image: url('../assets/media/misc/bg-1.jpg')">
                                 <div class="kt-user-card__avatar">
-                                    <img class="kt-hidden" alt="Pic" src="/assets/media/users/300_25.jpg"/>
+
+                                    <img class="kt-hidden" alt="Pic" src="{{ $grav_url }}"/>
 
                                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                     <span
-                                        class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
+                                        class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{ substr($users_data['name'], 0,1)  }}</span>
                                 </div>
                                 <div class="kt-user-card__name">
                                     {{ $users_data['name']  }}
                                 </div>
                                 <div class="kt-user-card__badge">
-                                    <span class="btn btn-success btn-sm btn-bold btn-font-md">23 messages</span>
+                                    <span class="btn btn-success btn-sm btn-bold btn-font-md">23 thông báo</span>
                                 </div>
                             </div>
 
@@ -1619,7 +1624,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <!--begin: Navigation -->
                             <div class="kt-notification">
-                                <a href="#" class="kt-notification__item">
+                                <a href="{{ route('GET_MY_PROFILE') }}" class="kt-notification__item">
                                     <div class="kt-notification__item-icon">
                                         <i class="flaticon2-calendar-3 kt-font-success"></i>
                                     </div>
@@ -1628,20 +1633,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Hồ sơ của tôi
                                         </div>
                                         <div class="kt-notification__item-time">
-                                            Account settings and more
+                                            thay đổi email và mật khẩu
                                         </div>
                                     </div>
                                 </a>
                                 <a href="#" class="kt-notification__item">
                                     <div class="kt-notification__item-icon">
-                                        <i class="flaticon2-mail kt-font-warning"></i>
+                                        <i class="flaticon-settings-1 kt-font-warning"></i>
                                     </div>
                                     <div class="kt-notification__item-details">
                                         <div class="kt-notification__item-title kt-font-bold">
-                                            My Messages
+                                            Cài đặt website
                                         </div>
                                         <div class="kt-notification__item-time">
-                                            Inbox and tasks
+                                            cấu hình thông tin website
                                         </div>
                                     </div>
                                 </a>
@@ -1795,14 +1800,16 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- begin:: Footer -->
             <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop">
                 <div class="kt-footer__copyright">
-                    2019&nbsp;&copy;&nbsp;<a href="http://keenthemes.com/metronic" target="_blank" class="kt-link">Keenthemes</a>
+                    2018&nbsp;&copy;&nbsp;<a href="https://toannangcantho.com" target="_blank" class="kt-link">Toàn Năng
+                        - 2020 Toàn Năng Cần Thơ</a>
                 </div>
                 <div class="kt-footer__menu">
                     <a href="http://keenthemes.com/metronic" target="_blank"
-                       class="kt-footer__menu-link kt-link">About</a>
+                       class="kt-footer__menu-link kt-link">Liên hệ</a>
                     <a href="http://keenthemes.com/metronic" target="_blank"
-                       class="kt-footer__menu-link kt-link">Team</a>
-                    <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
+                       class="kt-footer__menu-link kt-link">Đội ngũ nhân viên</a>
+                    <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Liên
+                        hệ</a>
                 </div>
             </div>
 
