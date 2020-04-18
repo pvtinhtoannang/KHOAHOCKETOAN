@@ -15,17 +15,23 @@ Route::get('/', function () {
     return 0;
 });
 
-Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'GET_ADMIN_DASHBOARD_ROUTE', 'uses' => 'AdminController@getAdminDashboard']);
     //post
     Route::get('/post-new', ['as' => 'GET_POST_NEW_ROUTE', 'uses' => 'PostController@getPostNew']);
+    Route::post('/post-new', ['as' => 'POST_POST_NEW_ROUTE', 'uses' => 'PostController@postPostNew']);
+
     Route::get('/post', ['as' => 'GET_POST_ALL_ROUTE', 'uses' => 'PostController@getPostALL']);
 
     //category
     Route::get('/category', ['as' => 'GET_CATEGORY_ROUTE', 'uses' => 'CategoryController@getCategory']);
     Route::post('/category', ['as' => 'POST_CATEGORY_ROUTE', 'uses' => 'CategoryController@postAddNewCategory']);
 
+    //tag
+    Route::get('/post_tag', ['as' => 'GET_TAG_ROUTE', 'uses' => 'TagController@getTag']);
+    Route::post('/post_tag', ['as' => 'POST_TAG_ROUTE', 'uses' => 'TagController@postAddNewTag']);
+
     //ajax
     Route::get('/check-slug/{slug}', 'AdminAjaxController@checkSlug');
-
+    Route::get('/check-post-name/{post_name}', 'AdminAjaxController@checkPostName');
 });
