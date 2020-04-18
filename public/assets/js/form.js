@@ -43,6 +43,7 @@ function remove_unicode(str) {
 }
 
 let i_slug = 1;
+let i_tag_slug = 1;
 
 function checkSlug(slug) {
     let categorySlug = $('form#category #category-slug');
@@ -75,10 +76,76 @@ function autoSlug() {
     });
 }
 
+function checkSlugTag(slug) {
+    let tagSlug = $('form#tag #tag-slug');
+    let tagName = $('form#tag #tag-name');
+    let name = remove_unicode(tagName.val());
+    let slugFirst = name.replace(/\ /g, "-");
+    $.ajax({
+        url: 'check-slug/' + slug,
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            if (response === false) {
+                tagSlug.val(slug);
+            } else {
+                checkSlugTag(slugFirst + "-" + (i_tag_slug++));
+            }
+        }
+    });
+}
+
+function autoSlugTag() {
+    let tagSlug = $('form#tag #tag-slug');
+    let tagName = $('form#tag #tag-name');
+    tagName.blur(function () {
+        let name = remove_unicode(tagName.val());
+        let slug = name.replace(/\ /g, "-");
+        if (tagSlug.val().length === 0) {
+            checkSlugTag(slug);
+        }
+    });
+}
+
+let i_post_name = 1;
+
+function checkPostName(post_name) {
+    let postName = $('form#post #post-name');
+    let postTitle = $('form#post #post-title');
+    let name = remove_unicode(postTitle.val());
+    let postNameFirst = name.replace(/\ /g, "-");
+    $.ajax({
+        url: 'check-post-name/' + post_name,
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            if (response === false) {
+                postName.val(post_name);
+            } else {
+                checkPostName(postNameFirst + "-" + (i_post_name++));
+            }
+        }
+    });
+}
+
+function autoPostName() {
+    let postName = $('form#post #post-name');
+    let postTitle = $('form#post #post-title');
+    postTitle.blur(function () {
+        let title = remove_unicode(postTitle.val());
+        let pname = title.replace(/\ /g, "-");
+        if (postName.val().length === 0) {
+            checkPostName(pname);
+        }
+    });
+}
+
 jQuery(function ($) {
     try {
         $(document).ready(function () {
             autoSlug();
+            autoSlugTag();
+            autoPostName();
         });
     } catch (e) {
         console.log(e);
