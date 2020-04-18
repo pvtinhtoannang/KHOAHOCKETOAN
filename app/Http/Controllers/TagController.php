@@ -15,7 +15,8 @@ class TagController extends Controller
         $this->taxonomy = 'post_tag';
         $this->term = new Terms();
         $this->term_taxonomy = new TermTaxonomy();
-        tahy doi tag
+        tahy doi tag // chỗ này t sua ben t
+
     }
 
     function getTag()
