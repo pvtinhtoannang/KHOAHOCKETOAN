@@ -15,6 +15,7 @@ class AddTypeColumnOptionsTable extends Migration
     {
         Schema::table('options', function (Blueprint $table) {
             $table->string('option_type');
+            $table->string('option_label');
         });
     }
 
@@ -27,6 +28,7 @@ class AddTypeColumnOptionsTable extends Migration
     {
         Schema::table('options', function (Blueprint $table) {
             $table->dropColumn('option_type');
+            $table->dropColumn('option_label');
         });
     }
 }

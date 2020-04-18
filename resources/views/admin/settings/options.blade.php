@@ -6,26 +6,34 @@
         @csrf
         <div class="kt-portlet__body">
             <div class="form-group form-group-last">
-                <div class="alert alert-secondary" role="alert">
-                    @if ($message = Session::get('messages'))
+                @if ($message = Session::get('messages'))
+                    <div class="alert alert-secondary" role="alert">
                         <div class="alert-icon"><i class="flaticon-chat-2 kt-font-brand"></i></div>
                         <div class="alert-text">
                             {{ $message }}
                         </div>
-                    @endif
+                    </div>
+                @endif
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    @foreach($options as $option)
+                        <div class="form-group">
+                            <label>{{ $option['option_label'] }}</label>
+                            @if($option['option_type']=='text' || $option['option_type']=='url' || $option['option_type']=='email' || $option['option_type']=='number')
+                                <input type="text" name="{{ $option['option_name'] }}" class="form-control"
+                                       aria-describedby="{{ $option['option_name'] }}"
+                                       value="{{ $option['option_value'] }}"
+                                       placeholder="Nhập {{  $option['option_label'] }}">
+                            @elseif ($option['option_type']=='textarea')
+                                <textarea name="{{ $option['option_name'] }}" id="{{ $option['option_name'] }}"
+                                          cols="30" rows="10" class="form-control"></textarea>
+                            @else
+
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Địa chỉ email</label>
-                <input type="email" name="email" class="form-control" aria-describedby="emailHelp"
-                       value="{{ $users_data['email'] }}" placeholder="Nhập địa chỉ email của bạn">
-                <span class="form-text text-muted">Nếu bạn thay đổi email. Bạn sẽ nhận được một email xác nhận!</span>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Mật khẩu</label>
-                <input type="password" name="password" class="form-control" id="InputPassword1"
-                       placeholder="Mật khẩu">
-                <span class="form-text text-muted">Mật khẩu có độ dài lớn hơn 8 ký tự và nên bao gồm in hoa và in thường</span>
             </div>
         </div>
         <div class="kt-portlet__foot">
