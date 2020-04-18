@@ -121,7 +121,7 @@ License: You must have a valid license purchased only from themeforest(the above
 												</g>
 											</svg></span><span class="kt-menu__link-text">Bảng tin</span></a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_POST_NEW_ROUTE') || Request::url() === route('GET_POST_ALL_ROUTE') || @Request::url() === route('GET_CATEGORY_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_POST_NEW_ROUTE') || Request::url() === route('GET_POST_ALL_ROUTE') || @Request::url() === route('GET_CATEGORY_ROUTE') || @Request::url() === route('GET_TAG_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -161,8 +161,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Chuyên mục</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a
-                                            href="layout_subheader_tabbed.html" class="kt-menu__link "><i
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_TAG_ROUTE')) kt-menu__item--active @endif" aria-haspopup="true"><a
+                                            href="{{ route('GET_TAG_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Thẻ</span></a></li>
                                 </ul>
