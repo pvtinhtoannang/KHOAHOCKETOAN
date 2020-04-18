@@ -13,7 +13,7 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('options', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('option_name');
             $table->string('option_value');
