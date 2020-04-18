@@ -20,7 +20,7 @@ class CategoryController extends Controller
     function getCategory()
     {
         $category = $this->term->get_all_term_by_taxonomy($this->taxonomy);
-        return view('admin.category.category', ['categoryData' => $category]);
+        return view('admin.taxonomy.category.category', ['categoryData' => $category]);
     }
 
     function postAddNewCategory(Request $request)
