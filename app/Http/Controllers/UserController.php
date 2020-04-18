@@ -15,13 +15,16 @@ class UserController extends Controller
         $this->user = new User();
     }
 
-    public function getMyProfile()
+    public function getMyProfile(Request $request)
     {
+        $request->user()->authorizeRoles(['administrator']);
         return view('admin.users.my-profile');
     }
 
     public function updateMyProfile(Request $request)
     {
+
+        $request->user()->authorizeRoles(['administrator']);
         $password = $request->password;
         if (!empty($request->email) && !$this->user->checkEmailExists($request->email)) {
             //thay đổi email
