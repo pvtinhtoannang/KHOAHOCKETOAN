@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    protected $table = 'roles';
 
+    protected $fillable = ['name', 'description'];
 
     /**
      * Relattionship to User table
@@ -14,6 +16,6 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany('App\User', 'role_user', 'role_id', 'user_id');
     }
 }

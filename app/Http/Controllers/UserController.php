@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,13 +24,12 @@ class UserController extends Controller
 
     public function updateMyProfile(Request $request)
     {
-
-        $request->user()->authorizeRoles(['administrator']);
         $password = $request->password;
+        $email = Auth::user()->email;
+        $this->user->updateInformation($request->name, Auth::user()->id);
         if (!empty($request->email) && !$this->user->checkEmailExists($request->email)) {
             //thay đổi email
             if (!empty($password)) {
-                $email = Auth::user()->email;
                 $this->user->updatePassword($request->password, 0, $email);
                 return redirect()->back()->with('messages', 'Cập nhật thành công!');
             }
@@ -37,12 +37,11 @@ class UserController extends Controller
             if (strlen($password) < 8) {
                 return redirect()->back()->with('messages', 'Mật khẩu quá ngắn!');
             } else {
-                $email = Auth::user()->email;
                 $this->user->updatePassword($request->password, 0, $email);
                 return redirect()->back()->with('messages', 'Đổi mật khẩu thành công!');
             }
         } else {
-            return redirect()->back()->with('messages', 'Chưa cập nhật thông tin!');
+            return redirect()->back()->with('messages', 'Cập nhật thông tin thành công!');
         }
     }
 }

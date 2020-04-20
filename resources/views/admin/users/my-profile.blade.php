@@ -39,14 +39,20 @@
 
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label>Địa chỉ email</label>
-                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp"
-                                   value="{{ $users_data['email'] }}" placeholder="Nhập địa chỉ email của bạn">
+                            <label for="name">Họ và tên</label>
+                            <input type="text" id="name" name="name" class="form-control" aria-describedby="emailHelp"
+                                   value="{{ $users_data['name'] }}" placeholder="Nhập tên của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Địa chỉ email</label>
+                            <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp"
+                                   value="{{ $users_data['email'] }}" placeholder="Nhập địa chỉ email của bạn"/>
                             <span class="form-text text-muted">Nếu bạn thay đổi email. Bạn sẽ nhận được một email xác nhận!</span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Mật khẩu</label>
+                            <label for="InputPassword1">Mật khẩu</label>
                             <input type="password" name="password" class="form-control" id="InputPassword1"
                                    placeholder="Mật khẩu">
                             <span class="form-text text-muted">Mật khẩu có độ dài lớn hơn 8 ký tự và nên bao gồm in hoa và in thường</span>

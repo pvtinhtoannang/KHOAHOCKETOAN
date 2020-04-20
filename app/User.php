@@ -37,7 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    protected $table = 'users';
 
     /**
      * Relationship to Role Table
@@ -45,11 +45,13 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
     }
 
+
     /**
-     * @param string|array $roles
+     * @param $roles
+     * @return bool
      */
     public function authorizeRoles($roles)
     {
@@ -61,18 +63,22 @@ class User extends Authenticatable
             abort(401, 'Bạn không có quyền truy cập hành động này!');
     }
 
+
     /**
      * Check multiple roles
-     * @param array $roles
+     * @param $roles
+     * @return bool
      */
     public function hasAnyRole($roles)
     {
         return null !== $this->roles()->whereIn('name', $roles)->first();
     }
 
+
     /**
      * Check one role
-     * @param string $role
+     * @param $role
+     * @return bool
      */
     public function hasRole($role)
     {
@@ -130,5 +136,10 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    public function updateInformation($name, $id)
+    {
+        return self::find($id)->update(['name'=>$name]);
     }
 }

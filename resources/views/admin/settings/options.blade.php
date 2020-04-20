@@ -34,11 +34,14 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="col-xs-12 col-md-6">
+
+                </div>
             </div>
         </div>
         <div class="kt-portlet__foot">
             <div class="kt-form__actions">
-                <button type="submit" class="btn btn-primary">Cập nhật hồ sơ</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>

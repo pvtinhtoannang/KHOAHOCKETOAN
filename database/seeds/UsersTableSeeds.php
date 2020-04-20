@@ -13,21 +13,21 @@ class UsersTableSeeds extends Seeder
      */
     public function run()
     {
-        $administrator = Role::where('name', 'administrator')->first();
-        $employee = new User();
-        $employee->name = 'Văn Tính';
-        $employee->email = 'pvtinh.toannang@gmail.com';
-        $employee->password = bcrypt('123456789');
-        $employee->save();
-        $employee->roles()->attach($administrator);
 
+        $user = new User();
+        $user->name = 'Văn Tính';
+        $user->email = 'pvtinh.toannang@gmail.com';
+        $user->password = bcrypt('123456789');
+        $user->save();
+        $administrator = Role::find(1);
+        $user->roles()->attach($administrator);
 
-        $employee = new User();
-        $employee->name = 'Minh Nhựt';
-        $employee->email = 'minhnhut.toannang@gmail.com';
-        $employee->password = bcrypt('123456789');
-        $employee->save();
-        $employee->roles()->attach($administrator);
-
+        $user = new User();
+        $user->name = 'Minh Nhựt';
+        $user->email = 'minhnhut.toannang@gmail.com';
+        $user->password = bcrypt('123456789');
+        $user->save();
+        $administrator = Role::find(1);
+        $user->roles()->attach($administrator);
     }
 }
