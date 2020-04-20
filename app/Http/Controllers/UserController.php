@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function getMyProfile(Request $request)
     {
-        $request->user()->authorizeRoles(['administrator']);
+//        $request->user()->authorizeRoles(['administrator']);
         return view('admin.users.my-profile');
     }
 

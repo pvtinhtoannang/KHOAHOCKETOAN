@@ -12,9 +12,8 @@ Route::put('reset-password/{token}', 'Auth\ResetPasswordController@reset');
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('my-profile', ['as' => 'GET_MY_PROFILE', 'uses' => 'UserController@getMyProfile']);
     Route::post('my-profile', ['as' => 'POST_MY_PROFILE', 'uses' => 'UserController@updateMyProfile']);
-
     Route::get('options-general', ['as' => 'GET_OPTION_GENERAL', 'uses' => 'OptionController@getOptionGeneral']);
-
+    Route::post('options-general', ['as' => 'POST_OPTION_GENERAL', 'uses' => 'OptionController@postUpdateOptionGeneral']);
 });
 
 

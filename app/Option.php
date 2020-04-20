@@ -19,4 +19,10 @@ class Option extends Model
         return self::get();
     }
 
+    public function updateOptionByOptionName($option_name, $option_value)
+    {
+        $option = $this->where('option_name', $option_name)->first()->update(['option_value', $option_value]);
+        return $option;
+    }
+
 }

@@ -2,7 +2,7 @@
 @section('title', 'Cài đặt tổng quan')
 @section('content')
     <h1 class="template-title">Tuỳ chọn tổng quan</h1>
-    <form class="kt-form" method="POST" action="{{route('POST_MY_PROFILE')}}">
+    <form class="kt-form" method="POST" action="{{route('POST_OPTION_GENERAL')}}">
         @csrf
         <div class="kt-portlet__body">
             <div class="form-group form-group-last">
@@ -19,9 +19,10 @@
                 <div class="col-xs-12 col-md-6">
                     @foreach($options as $option)
                         <div class="form-group">
-                            <label>{{ $option['option_label'] }}</label>
+                            <label for="{{ $option['option_name'] }}">{{ $option['option_label'] }}</label>
                             @if($option['option_type']=='text' || $option['option_type']=='url' || $option['option_type']=='email' || $option['option_type']=='number')
-                                <input type="text" name="{{ $option['option_name'] }}" class="form-control"
+                                <input id="{{ $option['option_name'] }}" type="text"
+                                       name="option[][{{ $option['option_name'] }}]" class="form-control"
                                        aria-describedby="{{ $option['option_name'] }}"
                                        value="{{ $option['option_value'] }}"
                                        placeholder="Nhập {{  $option['option_label'] }}">
