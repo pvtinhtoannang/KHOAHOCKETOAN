@@ -9,3 +9,17 @@ table tbody tr:hover .row-actions a {
 table.tnct-table tbody tr td {
     vertical-align: top !important;
 }
+
+.categories {
+    a {
+        &:after {
+            content: ',';
+        }
+
+        &:last-child {
+            &:after {
+                content: none;
+            }
+        }
+    }
+}
