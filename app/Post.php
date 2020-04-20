@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $table = 'posts';
+    protected $primaryKey = 'ID';
     protected $fillable = [
         'ID',
         'post_author',
@@ -17,6 +18,11 @@ class Post extends Model
         'post_name',
         'post_type'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Terms', 'term_relationships', 'object_id', 'term_taxonomy_id');
+    }
 
     function checkPostNameExists($post_name = null)
     {
@@ -39,5 +45,12 @@ class Post extends Model
             return 0;
         }
         return $this->where('post_name', $post_name)->first();
+    }
+
+    function get_posts($post_type = 'post', $post_status = 'trash')
+    {
+        return $this->join('users', 'users.ID', '=', 'posts.post_author')
+            ->where('post_status', '!=', $post_status)
+            ->where('post_type', $post_type)->get();
     }
 }
