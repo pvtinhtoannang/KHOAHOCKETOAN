@@ -23,6 +23,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('/post', ['as' => 'GET_POST_ALL_ROUTE', 'uses' => 'PostController@getPostAll']);
 
+    //page
+    Route::get('/page-new', ['as' => 'GET_PAGE_NEW_ROUTE', 'uses' => 'PageController@getPageNew']);
+    Route::post('/page-new', ['as' => 'POST_PAGE_NEW_ROUTE', 'uses' => 'PageController@postPageNew']);
+
+    Route::get('/page', ['as' => 'GET_PAGE_ALL_ROUTE', 'uses' => 'PageController@getPageAll']);
+
     //category
     Route::get('/category', ['as' => 'GET_CATEGORY_ROUTE', 'uses' => 'CategoryController@getCategory']);
     Route::post('/category', ['as' => 'POST_CATEGORY_ROUTE', 'uses' => 'CategoryController@postAddNewCategory']);
