@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="form-group">
-                    <input type="text" name="post_title" id="post-title" class="form-control" placeholder="Thêm tiêu đề">
+                    <input type="text" name="post_title" id="post-title" class="form-control" placeholder="Thêm tiêu đề" required>
                 </div>
                 <div class="form-group row post-link-row">
                     <label for="example-text-input" class="col-form-label">Đường dẫn tĩnh: </label>
@@ -80,7 +80,7 @@
                                 <div data-repeater-list="">
                                     <div data-repeater-item class="form-group row align-items-center">
                                         <div class="col-md-10">
-                                            <input type="text" name="group[1] [post_tag]" class="form-control"
+                                            <input type="text" name="group[][post_tag]" class="form-control"
                                                    placeholder="Thêm thẻ">
                                         </div>
                                         <div class="col-md-2">
