@@ -30,9 +30,10 @@ class PostController extends Controller
         return view('admin.post.post-new', ['categoryData' => $category]);
     }
 
-    function getPostALL()
+    function getPostAll()
     {
-        return view('admin.post.post-all');
+        $posts = $this->post->get_posts();
+        return view('admin.post.post-all', ['postData' => $posts]);
     }
 
     function autoPostName($post_name)
