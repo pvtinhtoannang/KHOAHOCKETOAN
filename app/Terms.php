@@ -8,12 +8,17 @@ class Terms extends Model
 {
     protected $table = 'terms';
     public $timestamps = false;
+    protected $primaryKey = 'term_id';
     protected $fillable = [
         'term_id',
         'name',
         'slug',
         'term_group'
     ];
+
+    public function posts() {
+        return $this->belongsToMany('App\Post', 'term_relationships', 'object_id', 'term_taxonomy_id');
+    }
 
     function get_all_term_by_taxonomy($taxonomy = null)
     {
