@@ -1,6 +1,7 @@
 @extends('admin.dashboard.dashboard-master')
 @section('title', 'Bài viết')
 @section('content')
+    @inject('term_relationships', 'App\TermRelationships')
     <h1 class="template-title">Bài viết</h1>
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
@@ -34,9 +35,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @for($i = 0; $i <= 10; $i++)
+                @foreach($postData as $post)
                     <tr>
-                        <td class="kt-font-bold">Tiêu đề bài viết
+                        <td class="kt-font-bold"><a href="">{{$post->post_title}}</a>
+                            @if($post->post_status == 'draft')
+                                <span class="post-status"> - Bản nháp</span>
+                            @elseif($post->post_status == 'pending')
+                                <span class="post-status"> - Chờ duyệt</span>
+                            @endif
                             <div class="nowrap row-actions">
                                 <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                                     <i class="la la-eye"></i>
@@ -49,12 +55,25 @@
                                 </a>
                             </div>
                         </td>
-                        <td>Tác giả</td>
-                        <td>Chuyên mục</td>
+                        <td>{{$post->name}}</td>
+                        <td class="categories">
+                            @foreach($term_relationships->get_term($post->ID) as $cat)
+                                <a class="" href="">{{$cat->name}}</a>
+                            @endforeach
+                        </td>
                         <td>Thẻ</td>
-                        <td>2/12/2018</td>
+                        <?php
+                        $created_on = date_create($post->created_on);
+                        ?>
+                        <td>
+                            @if($post->post_status == 'publish')
+                                Đã xuất bản
+                            @endif
+                            <br>
+                            {{date_format($created_on,"d/m/Y")}}
+                        </td>
                     </tr>
-                @endfor
+                @endforeach
                 </tbody>
             </table>
 
