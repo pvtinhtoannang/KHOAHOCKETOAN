@@ -64,13 +64,18 @@
                         <td>Thẻ</td>
                         <?php
                         $created_on = date_create($post->created_on);
+                        $updated_at = date_create($post->updated_at);
                         ?>
                         <td>
                             @if($post->post_status == 'publish')
                                 Đã xuất bản
+                                <br>
+                                {{date_format($created_on,"d/m/Y")}}
+                            @else
+                                Sửa đổi lần cuối
+                                <br>
+                                {{date_format($updated_at,"d/m/Y")}}
                             @endif
-                            <br>
-                            {{date_format($created_on,"d/m/Y")}}
                         </td>
                     </tr>
                 @endforeach
