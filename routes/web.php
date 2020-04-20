@@ -21,7 +21,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/post-new', ['as' => 'GET_POST_NEW_ROUTE', 'uses' => 'PostController@getPostNew']);
     Route::post('/post-new', ['as' => 'POST_POST_NEW_ROUTE', 'uses' => 'PostController@postPostNew']);
 
-    Route::get('/post', ['as' => 'GET_POST_ALL_ROUTE', 'uses' => 'PostController@getPostALL']);
+    Route::get('/post', ['as' => 'GET_POST_ALL_ROUTE', 'uses' => 'PostController@getPostAll']);
 
     //category
     Route::get('/category', ['as' => 'GET_CATEGORY_ROUTE', 'uses' => 'CategoryController@getCategory']);
