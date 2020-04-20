@@ -13,7 +13,7 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{route('GET_PAGE_NEW_ROUTE')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Viết bài mới
                         </a>
