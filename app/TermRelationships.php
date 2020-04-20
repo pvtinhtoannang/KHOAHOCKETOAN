@@ -20,4 +20,13 @@ class TermRelationships extends Model
             $this->insert($termRelationshipsData);
         }
     }
+
+    function get_term($object_id)
+    {
+        return $this
+            ->join('posts', 'posts.ID', '=', 'term_relationships.object_id')
+            ->join('terms', 'terms.term_id', '=', 'term_relationships.term_taxonomy_id')
+            ->where('object_id', $object_id)->get();
+    }
+
 }
