@@ -52,9 +52,45 @@ var CategoriesTable = function () {
 
 }();
 
+var TreeView = function () {
+
+    var category = function () {
+        $('#category-list').jstree({
+            "core": {
+                "themes": {
+                    "responsive": false,
+                    "icons": false
+                }
+            },
+            "plugins": ["types"]
+        });
+
+        // handle link clicks in tree nodes(support target="_blank" as well)
+        $('#category-list').on('select_node.jstree', function (e, data) {
+            var link = $('#' + data.selected).find('a');
+            if (link.attr("href") != "#" && link.attr("href") != "javascript:;" && link.attr("href") != "") {
+                if (link.attr("target") == "_blank") {
+                    link.attr("href").target = "_blank";
+                }
+                document.location.href = link.attr("href");
+                return false;
+            }
+        });
+    }
+
+
+    return {
+        //main function to initiate the module
+        init: function () {
+            category();
+        }
+    };
+}();
+
 jQuery(document).ready(function () {
     PostTable.init();
     CategoriesTable.init();
+    TreeView.init();
 });
 
 function remove_unicode(str) {
