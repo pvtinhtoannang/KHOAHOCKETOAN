@@ -1,12 +1,14 @@
 @extends('admin.dashboard.dashboard-master')
 @section('title', 'Thêm bài viết')
 @section('content')
+    @inject('term_taxonomy', 'App\TermTaxonomy')
     <h1 class="template-title">Thêm bài viết</h1>
     <form class="kt-form" id="post" method="post">
         <div class="row">
             <div class="col-md-9">
                 <div class="form-group">
-                    <input type="text" name="post_title" id="post-title" class="form-control" placeholder="Thêm tiêu đề" required>
+                    <input type="text" name="post_title" id="post-title" class="form-control" placeholder="Thêm tiêu đề"
+                           required>
                 </div>
                 <div class="form-group row post-link-row">
                     <label for="example-text-input" class="col-form-label">Đường dẫn tĩnh: </label>
@@ -50,6 +52,7 @@
                         <button class="btn btn-primary" type="submit">Đăng</button>
                     </div>
                 </div>
+
                 <div class="kt-portlet">
                     <div class="kt-portlet__head kt-bg-primary">
                         <div class="kt-portlet__head-label">
@@ -58,13 +61,18 @@
                     </div>
                     <div class="kt-portlet__body">
                         <div class="kt-checkbox-list">
-                            @foreach($categoryData as $categoryValue)
-                                <label class="kt-checkbox">
-                                    <input name="post_category[]" type="checkbox"
-                                           value="{{$categoryValue['term_id']}}"> {{$categoryValue['name']}}
-                                    <span></span>
-                                </label>
-                            @endforeach
+                            <ul class="categorychecklist">
+                                @foreach($term_taxonomy->get_term_by_parent(0, 'category') as $categoryValue)
+                                    <li>
+                                        <label class="kt-checkbox">
+                                            <input name="post_category[]" type="checkbox"
+                                                   value="{{$categoryValue['term_id']}}"> {{$categoryValue['name']}}
+                                            <span></span>
+                                        </label>
+                                        @include('admin.components.category-children', ['parent' => $categoryValue['term_id']])
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
