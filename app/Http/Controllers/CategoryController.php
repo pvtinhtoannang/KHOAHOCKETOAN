@@ -17,10 +17,29 @@ class CategoryController extends Controller
         $this->term_taxonomy = new TermTaxonomy();
     }
 
+    function fetchCategoryTree($parent = 0, $spacing = '', $user_tree_array = '')
+    {
+        $get_term = $this->term_taxonomy->get_term_by_parent($parent, $this->taxonomy);
+        if (!is_array($user_tree_array))
+            $user_tree_array = array();
+        if (!empty($get_term)) {
+            foreach ($get_term as $term) {
+                $user_tree_array[] = array(
+                    "term_taxonomy_id" => $term->term_taxonomy_id,
+                    "term_id" => $term->term_id,
+                    "name" => $spacing . $term->name,
+                    "slug" => $term->slug,
+                    "description" => $term->description
+                );
+                $user_tree_array = $this->fetchCategoryTree($term->term_id, $spacing . '— ', $user_tree_array);
+            }
+        }
+        return $user_tree_array;
+    }
+
     function getCategory()
     {
-        $category = $this->term->get_all_term_by_taxonomy($this->taxonomy);
-        return view('admin.taxonomy.category.category', ['categoryData' => $category]);
+        return view('admin.taxonomy.category.category', ['categoryData' => $this->fetchCategoryTree()]);
     }
 
     function postAddNewCategory(Request $request)
@@ -36,15 +55,15 @@ class CategoryController extends Controller
                         $category_description = $request->category_description;
                     }
                     $this->term_taxonomy->add_new_term_taxonomy($term_id, $this->taxonomy, $category_description, $request->category_parent);
-                    return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'success');
+                    return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'success')->withInput();
                 } else {
-                    return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error');
+                    return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error')->withInput();
                 }
             } else {
-                return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error');
+                return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error')->withInput();
             }
         } else {
-            return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error');
+            return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error')->withInput();
         }
     }
 }
