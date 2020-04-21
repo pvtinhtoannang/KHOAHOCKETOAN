@@ -25,9 +25,7 @@ class PostController extends Controller
 
     function getPostNew()
     {
-        $category = $this->term->get_all_term_by_taxonomy('category');
-        $tag = $this->term->get_all_term_by_taxonomy('tag');
-        return view('admin.post.post-new', ['categoryData' => $category]);
+        return view('admin.post.post-new');
     }
 
     function getPostAll()
