@@ -21,4 +21,14 @@ class PostMeta extends Model
             $this->insert($postMeta);
         }
     }
+
+    function get_postmeta($post_id = null)
+    {
+        return $this->where('post_id', $post_id)->get();
+    }
+
+    function get_postmeta_by_meta_key($post_id = null, $meta_key = '')
+    {
+        return $this->where('post_id', $post_id)->where('meta_key', $meta_key)->first();
+    }
 }
