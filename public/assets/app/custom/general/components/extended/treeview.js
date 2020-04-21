@@ -7,7 +7,7 @@ var KTTreeview = function () {
             "core" : {
                 "themes" : {
                     "responsive": false
-                }            
+                }
             },
             "types" : {
                 "default" : {
@@ -26,7 +26,7 @@ var KTTreeview = function () {
             "core" : {
                 "themes" : {
                     "responsive": false
-                }            
+                }
             },
             "types" : {
                 "default" : {
@@ -40,7 +40,7 @@ var KTTreeview = function () {
         });
 
         // handle link clicks in tree nodes(support target="_blank" as well)
-        $('#kt_tree_2').on('select_node.jstree', function(e,data) { 
+        $('#kt_tree_2').on('select_node.jstree', function(e,data) {
             var link = $('#' + data.selected).find('a');
             if (link.attr("href") != "#" && link.attr("href") != "javascript:;" && link.attr("href") != "") {
                 if (link.attr("target") == "_blank") {
@@ -58,7 +58,7 @@ var KTTreeview = function () {
             'core': {
                 "themes" : {
                     "responsive": false
-                },    
+                },
                 'data': [{
                         "text": "Same but with checkboxes",
                         "children": [{
@@ -106,7 +106,7 @@ var KTTreeview = function () {
             "core" : {
                 "themes" : {
                     "responsive": false
-                }, 
+                },
                 // so that create works
                 "check_callback" : true,
                 'data': [{
@@ -162,7 +162,7 @@ var KTTreeview = function () {
             },
             "state" : { "key" : "demo2" },
             "plugins" : [ "contextmenu", "state", "types" ]
-        });    
+        });
     }
 
     var demo5 = function() {
@@ -170,7 +170,7 @@ var KTTreeview = function () {
             "core" : {
                 "themes" : {
                     "responsive": false
-                }, 
+                },
                 // so that create works
                 "check_callback" : true,
                 'data': [{
@@ -226,7 +226,7 @@ var KTTreeview = function () {
             },
             "state" : { "key" : "demo2" },
             "plugins" : [ "dnd", "state", "types" ]
-        });    
+        });
     }
 
     var demo6 = function() {
@@ -234,7 +234,7 @@ var KTTreeview = function () {
             "core" : {
                 "themes" : {
                     "responsive": false
-                }, 
+                },
                 // so that create works
                 "check_callback" : true,
                 'data' : {
@@ -272,6 +272,6 @@ var KTTreeview = function () {
     };
 }();
 
-jQuery(document).ready(function() {    
+jQuery(document).ready(function() {
     KTTreeview.init();
 });
