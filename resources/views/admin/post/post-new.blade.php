@@ -61,18 +61,20 @@
                     </div>
                     <div class="kt-portlet__body">
                         <div class="kt-checkbox-list">
-                            <ul class="categorychecklist">
-                                @foreach($term_taxonomy->get_term_by_parent(0, 'category') as $categoryValue)
-                                    <li>
-                                        <label class="kt-checkbox">
-                                            <input name="post_category[]" type="checkbox"
-                                                   value="{{$categoryValue['term_id']}}"> {{$categoryValue['name']}}
-                                            <span></span>
-                                        </label>
-                                        @include('admin.components.category-children', ['parent' => $categoryValue['term_id']])
-                                    </li>
-                                @endforeach
-                            </ul>
+                            <div id="category-list">
+                                <ul class="categorychecklist">
+                                    @foreach($term_taxonomy->get_term_by_parent(0, 'category') as $categoryValue)
+                                        <li data-jstree='{ "opened" : true }'>
+                                            <label class="kt-checkbox">
+                                                <input name="post_category[]" type="checkbox"
+                                                       value="{{$categoryValue['term_id']}}"> {{$categoryValue['name']}}
+                                                <span></span>
+                                            </label>
+                                            @include('admin.components.category-children', ['parent' => $categoryValue['term_id']])
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
