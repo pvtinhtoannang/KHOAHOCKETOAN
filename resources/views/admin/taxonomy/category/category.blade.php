@@ -21,9 +21,10 @@
                         <div class="form-group">
                             <label for="category-parent">Chuyên mục hiện tại</label>
                             <select class="form-control" id="category-parent" name="category_parent">
-                                <option value="0" selected>Trống</option>
+                                <option value="0">Trống</option>
                                 @foreach($categoryData as $categoryValue)
-                                    <option value="{{$categoryValue['term_id']}}">{{$categoryValue['name']}}</option>
+                                    <option value="{{$categoryValue['term_id']}}"
+                                            @if(old('category_parent') == $categoryValue['term_id']) selected @endif>{{$categoryValue['name']}}</option>
                                 @endforeach
                             </select>
                             <span class="form-text text-muted">Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên mục. Ví dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.</span>
@@ -45,7 +46,7 @@
             <div class="kt-portlet kt-portlet--mobile">
                 <div class="kt-portlet__body">
                     <!--begin: Datatable -->
-                    <table class="table table-striped table-hover tnct-table" id="posts">
+                    <table class="table table-striped table-hover tnct-table" id="categories">
                         <thead>
                         <tr>
                             <th>Tên</th>
