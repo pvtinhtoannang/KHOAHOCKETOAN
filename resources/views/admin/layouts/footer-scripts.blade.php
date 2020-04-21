@@ -123,7 +123,7 @@
 <!--end::Global App Bundle -->
 
 <script src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
-<script src="/assets/js/form.js" type="text/javascript"></script>
+<script src="/assets/js/my-script.js" type="text/javascript"></script>
 <script src="/assets/app/custom/general/crud/forms/widgets/summernote.js" type="text/javascript"></script>
 <script src="/assets/app/custom/general/crud/forms/widgets/form-repeater.js" type="text/javascript"></script>
 
