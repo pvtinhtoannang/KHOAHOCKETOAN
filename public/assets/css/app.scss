@@ -40,3 +40,17 @@ span.post-link {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+
+.categorychecklist {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .children {
+        list-style-type: none;
+        padding-left: 18px;
+    }
+}

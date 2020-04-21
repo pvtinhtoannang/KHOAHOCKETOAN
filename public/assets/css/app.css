@@ -61,4 +61,16 @@ span.post-link {
   margin-right: 0 !important;
 }
 
+.categorychecklist {
+  list-style-type: none;
+  padding-left: 0;
+}
+.categorychecklist li {
+  margin-bottom: 10px;
+}
+.categorychecklist .children {
+  list-style-type: none;
+  padding-left: 18px;
+}
+
 /*# sourceMappingURL=app.css.map */
