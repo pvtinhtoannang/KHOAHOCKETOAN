@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/page', ['as' => 'GET_PAGE_ALL_ROUTE', 'uses' => 'PageController@getPageAll']);
 
     //upload
+    Route::get('/upload', ['as' => 'GET_UPLOAD_ROUTE', 'uses' => 'UploadController@getUpload']);
     Route::get('/upload-new', ['as' => 'GET_UPLOAD_NEW_ROUTE', 'uses' => 'UploadController@getUploadNew']);
     Route::post('/upload-new', ['as' => 'POST_UPLOAD_NEW_ROUTE', 'uses' => 'UploadController@postUploadNew']);
 
