@@ -73,4 +73,35 @@ span.post-link {
   padding-left: 18px;
 }
 
+.attachments {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding-left: 0;
+}
+.attachments li {
+  -webkit-flex-basis: 10%;
+  -moz-flex-basis: 10%;
+  -ms-flex-basis: 10%;
+  flex-basis: 10%;
+}
+.attachments li .attachment-preview {
+  padding: 8px;
+}
+.attachments li .attachment-preview .thumbnail {
+  height: 145.5px;
+}
+.attachments li .attachment-preview .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /*# sourceMappingURL=app.css.map */
