@@ -22,6 +22,12 @@ class UploadController extends Controller
         $this->post_meta = new PostMeta();
     }
 
+    function getUpload()
+    {
+        $attachment = $this->post->get_posts($this->post_type);
+        return view('admin.uploads.upload', ['attachment' => $attachment]);
+    }
+
     function getUploadNew()
     {
         return view('admin.uploads.upload-new');
