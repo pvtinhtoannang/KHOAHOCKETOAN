@@ -30,6 +30,27 @@ class PostController extends Controller
         return view('admin.post.post-new');
     }
 
+    function getPostEdit()
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+
+        if (isset($_GET['post'])) {
+            $post_id = $_GET['post'];
+            $get_post = $this->post->checkPostExists($post_id, $this->post_type);
+            if ($get_post) {
+                return view('admin.post.post-edit', ['postData' => $get_post]);
+            } else {
+                return view('admin.errors.admin-error', ['error_responses' => $responses]);
+            }
+        } else {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        }
+    }
+
     function getPostAll()
     {
         $posts = $this->post->get_posts();
@@ -49,15 +70,15 @@ class PostController extends Controller
     function postPostNew(Request $request)
     {
         if (!empty($request->post_content) || $request->post_content === null) {
-            $post_content = '';
-        } else {
             $post_content = $request->post_content;
+        } else {
+            $post_content = '';
         }
 
         if (!empty($request->excerpt) || $request->excerpt === null) {
-            $excerpt = '';
+            $excerpt = $request->excerpt;
         } else {
-            $excerpt = $request->post_content;
+            $excerpt = '';
         }
 
         if (empty($request->post_category)) {
