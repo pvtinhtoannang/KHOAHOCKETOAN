@@ -29,6 +29,16 @@ class Post extends Model
         }
     }
 
+    function checkPostExists($post_id = null, $post_type = null)
+    {
+        $check = $this->where('ID', '=', $post_id)->where('post_type', '=', $post_type)->first();
+        if (is_null($check)) {
+            return false;
+        } else {
+            return $check;
+        }
+    }
+
     function createNewPost($post_author = null, $post_content = null, $post_title = null, $post_excerpt = null, $post_status = null, $post_name = null, $post_type = null)
     {
         return $this->create(['post_author' => $post_author, 'post_content' => $post_content, 'post_title' => $post_title, 'post_excerpt' => $post_excerpt, 'post_status' => $post_status, 'post_name' => $post_name, 'post_type' => $post_type]);

@@ -44,13 +44,14 @@
                                 <span class="post-status"> - Chờ duyệt</span>
                             @endif
                             <div class="nowrap row-actions">
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xem">
                                     <i class="la la-eye"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a href="{{route('GET_POST_EDIT_ROUTE').'?post='.$post->ID}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Chỉnh sửa">
                                     <i class="la la-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
                                     <i class="la la-trash"></i>
                                 </a>
                             </div>
