@@ -24,7 +24,8 @@ class OptionController extends Controller
     {
         foreach ($request->option as $value) {
             foreach ($value as $option_name => $option_value) {
-                $this->option->updateOptionByOptionName($option_name, $option_value);
+                \App\Option::where('option_name', $option_name)
+                    ->update(['option_value' => $option_value]);
             }
         }
         return redirect()->back()->with('messages', 'Cập nhật thành công!');
