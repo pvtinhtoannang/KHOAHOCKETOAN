@@ -52,9 +52,9 @@ var CategoriesTable = function () {
 
 }();
 
-var TreeView = function () {
+let TreeView = function () {
 
-    var category = function () {
+    let category = function () {
         $('#category-list').jstree({
             "core": {
                 "themes": {
@@ -64,19 +64,7 @@ var TreeView = function () {
             },
             "plugins": ["types"]
         });
-
-        // handle link clicks in tree nodes(support target="_blank" as well)
-        $('#category-list').on('select_node.jstree', function (e, data) {
-            var link = $('#' + data.selected).find('a');
-            if (link.attr("href") != "#" && link.attr("href") != "javascript:;" && link.attr("href") != "") {
-                if (link.attr("target") == "_blank") {
-                    link.attr("href").target = "_blank";
-                }
-                document.location.href = link.attr("href");
-                return false;
-            }
-        });
-    }
+    };
 
 
     return {
@@ -90,7 +78,7 @@ var TreeView = function () {
 jQuery(document).ready(function () {
     PostTable.init();
     CategoriesTable.init();
-    TreeView.init();
+    // TreeView.init();
 });
 
 function remove_unicode(str) {
@@ -258,6 +246,13 @@ function featured_image_select() {
     });
 }
 
+function category_checkbox() {
+    let category_label = $('label.category-item');
+    category_label.click(function () {
+        $(this).children('input[type="checkbox"]').attr("checked", "checked");
+    });
+}
+
 jQuery(function ($) {
     try {
         $(document).ready(function () {
@@ -265,6 +260,7 @@ jQuery(function ($) {
             autoSlugTag();
             autoPostName();
             featured_image_select();
+            // category_checkbox();
         });
     } catch (e) {
         console.log(e);
