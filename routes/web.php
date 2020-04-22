@@ -45,4 +45,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //ajax
     Route::get('/check-slug/{slug}', 'AdminAjaxController@checkSlug');
     Route::get('/check-post-name/{post_name}', 'AdminAjaxController@checkPostName');
+    Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
 });
