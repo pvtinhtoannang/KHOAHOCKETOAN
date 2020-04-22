@@ -1,22 +1,22 @@
 @extends('admin.dashboard.dashboard-master')
-@section('title', 'Cài đặt tổng quan')
+@section('title', 'Quản lý truy cập')
 @section('content')
 
     <ul class="nav nav-tabs  nav-tabs-line nav-tabs-line-brand" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#kt_tabs_9_1" role="tab"><i
                     class="flaticon-cogwheel-1"></i>
-                Cài đặt tổng quan</a>
+                Quản lý truy cập</a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#kt_tabs_9_3" role="tab"><i class="flaticon-layers"></i>
-                Quản lý tuỳ chọn</a>
+                Quyền truy cập</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="kt_tabs_9_1" role="tabpanel">
-            <h1 class="template-title">Tuỳ chọn tổng quan</h1>
+            <h1 class="template-title">Quản lý truy cập</h1>
 
             <form class="kt-form" method="POST" action="{{route('POST_OPTION_GENERAL')}}">
                 @csrf
@@ -33,23 +33,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            @foreach($options as $option)
-                                <div class="form-group">
-                                    <label for="{{ $option['option_name'] }}">{{ $option['option_label'] }}</label>
-                                    @if($option['option_type']=='text' || $option['option_type']=='url' || $option['option_type']=='email' || $option['option_type']=='number')
-                                        <input id="{{ $option['option_name'] }}" type="text"
-                                               name="option[][{{ $option['option_name'] }}]" class="form-control"
-                                               aria-describedby="{{ $option['option_name'] }}"
-                                               value="{{ $option['option_value'] }}"
-                                               placeholder="Nhập {{  $option['option_label'] }}">
-                                    @elseif ($option['option_type']=='textarea')
-                                        <textarea name="{{ $option['option_name'] }}" id="{{ $option['option_name'] }}"
-                                                  cols="30" rows="10" class="form-control"></textarea>
-                                    @else
 
-                                    @endif
-                                </div>
-                            @endforeach
                         </div>
                         <div class="col-xs-12 col-md-6">
 
@@ -67,7 +51,7 @@
         <div class="tab-pane" id="kt_tabs_9_3" role="tabpanel">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <h2 class="template-title">Thêm tuỳ chọn mới</h2>
+                    <h2 class="template-title">Thêm quyền truy cập mới</h2>
                     <form class="kt-form" method="POST" action="{{route('ADD_OPTION_GENERAL')}}">
                         @csrf
                         <div class="kt-portlet__body">
@@ -82,44 +66,25 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="option_label">Tiêu đề</label>
-                                <input id="option_label" type="text"
-                                       name="option_label" class="form-control"
-                                       aria-describedby="option_label"
-                                       value="{{ old('option_label') }}"
-                                       placeholder="Nhập tiêu đề, ex: Tên website">
+                                <label for="name">Tên quyền truy cập</label>
+                                <input id="name" type="text"
+                                       name="name" class="form-control"
+                                       aria-describedby="name"
+                                       value="{{ old('name') }}"
+                                       placeholder="Nhập tên, ex: add_post">
                             </div>
                             <div class="form-group">
-                                <label for="option_value">Nội dung option</label>
-                                <input id="option_value" type="text"
-                                       name="option_value" class="form-control"
-                                       aria-describedby="option_value"
-                                       value="{{ old('option_value') }}"
-                                       placeholder="Nhập tiêu đề, ex: Công Ty TNHH DỊCH VỤ CÔNG NGHỆ TOÀN NĂNG - CHI NHÁNH CẦN THƠ">
+                                <label for="display_name">Tên hiển thị hoặc mô tả</label>
+                                <input id="display_name" type="text"
+                                       name="display_name" class="form-control"
+                                       aria-describedby="display_name"
+                                       value="{{ old('display_name') }}"
+                                       placeholder="Nhập tên hiển thị, ex: Thêm mới bài viết">
                             </div>
-                            <div class="form-group">
-                                <label for="option_name">Slug</label>
-                                <input id="option_name" type="text"
-                                       name="option_name" class="form-control"
-                                       aria-describedby="option_name"
-                                       value="{{ old('option_name') }}"
-                                       placeholder="Slug viết không dấu và có dấu _ ở dưới, ex: tieu_de">
-                            </div>
-                            <div class="form-group">
-                                <label for="option_type">Loại option</label>
-                                <select class="form-control" name="option_type" id="option_type">
-                                    <option value="text">Text</option>
-                                    <option value="url">Đường dẫn</option>
-                                    <option value="email">Email</option>
-                                    <option value="number">Số</option>
-                                    <option value="textarea">Textarea</option>
-                                </select>
-                            </div>
-
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
-                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
                             </div>
                         </div>
                     </form>
@@ -131,10 +96,9 @@
                         <div class="alert alert-light alert-elevate" role="alert">
                             <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
                             <div class="alert-text">
-                                The Metronic Datatable component supports local or remote data source. For the local data you can pass javascript array as data source. In this example the grid fetches its
-                                data from a javascript array data source. It also defines
-                                the schema model of the data source. In addition to the visualization, the Datatable provides built-in support for operations over data such as sorting, filtering and
-                                paging performed in user browser(frontend).
+                                Ghi chú: Dưới đây là danh sách các quyền truy cập, xin lưu ý mọi thao tác dưới đây phải
+                                được sự cho phép hoặc được thao tác bởi kỹ thuật viên. Mọi phát sinh lỗi nếu truy cập
+                                trái phép vào phần này Toàn Năng Cần Thơ không chịu trách nhiệm! Dev Team.
                             </div>
                         </div>
                         <div class="kt-portlet kt-portlet--mobile">
@@ -144,72 +108,16 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                                     <h3 class="kt-portlet__head-title">
-                                        Local Datasource
+                                        Danh sách các quyền truy cập
                                     </h3>
                                 </div>
                                 <div class="kt-portlet__head-toolbar">
                                     <div class="kt-portlet__head-wrapper">
-                                        <a href="#" class="btn btn-clean btn-icon-sm">
+                                        <a href="javascript:history.go(-1)" class="btn btn-clean btn-icon-sm">
                                             <i class="la la-long-arrow-left"></i>
-                                            Back
+                                            Trở lại trang trước
                                         </a>
-                                        &nbsp;
-                                        <div class="dropdown dropdown-inline">
-                                            <button type="button" class="btn btn-brand btn-icon-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="flaticon2-plus"></i> Add New
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <ul class="kt-nav">
-                                                    <li class="kt-nav__section kt-nav__section--first">
-                                                        <span class="kt-nav__section-text">Choose an action:</span>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-open-text-book"></i>
-                                                            <span class="kt-nav__link-text">Reservations</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                            <span class="kt-nav__link-text">Appointments</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-bell-alarm-symbol"></i>
-                                                            <span class="kt-nav__link-text">Reminders</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-contract"></i>
-                                                            <span class="kt-nav__link-text">Announcements</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-shopping-cart-1"></i>
-                                                            <span class="kt-nav__link-text">Orders</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__separator kt-nav__separator--fit">
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-rocket-1"></i>
-                                                            <span class="kt-nav__link-text">Projects</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="kt-nav__item">
-                                                        <a href="#" class="kt-nav__link">
-                                                            <i class="kt-nav__link-icon flaticon2-chat-1"></i>
-                                                            <span class="kt-nav__link-text">User Feedbacks</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -222,43 +130,12 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                                     <div class="kt-input-icon kt-input-icon--left">
-                                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Tìm kiếm..."
+                                                               id="generalSearch">
                                                         <span class="kt-input-icon__icon kt-input-icon__icon--left">
 																<span><i class="la la-search"></i></span>
 															</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                                    <div class="kt-form__group kt-form__group--inline">
-                                                        <div class="kt-form__label">
-                                                            <label>Status:</label>
-                                                        </div>
-                                                        <div class="kt-form__control">
-                                                            <select class="form-control bootstrap-select" id="kt_form_status">
-                                                                <option value="">All</option>
-                                                                <option value="1">Pending</option>
-                                                                <option value="2">Delivered</option>
-                                                                <option value="3">Canceled</option>
-                                                                <option value="4">Success</option>
-                                                                <option value="5">Info</option>
-                                                                <option value="6">Danger</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                                    <div class="kt-form__group kt-form__group--inline">
-                                                        <div class="kt-form__label">
-                                                            <label>Type:</label>
-                                                        </div>
-                                                        <div class="kt-form__control">
-                                                            <select class="form-control bootstrap-select" id="kt_form_type">
-                                                                <option value="">All</option>
-                                                                <option value="1">Online</option>
-                                                                <option value="2">Retail</option>
-                                                                <option value="3">Direct</option>
-                                                            </select>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,20 +144,56 @@
                                             <a href="#" class="btn btn-default kt-hidden">
                                                 <i class="la la-cart-plus"></i> New Order
                                             </a>
-                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
+                                            <div
+                                                class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!--end: Search Form -->
-                            </div>
-                            <div class="kt-portlet__body kt-portlet__body--fit">
 
+                                <!--begin::Section-->
                                 <!--begin: Datatable -->
-                                <div class="kt-datatable" id="local_data"></div>
+
+                                <table class="table table-striped table-hover tnct-table" id="permission">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên</th>
+                                        <th>Mô tả</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($getAllPermissionWithPaginate as $key => $value)
+                                        <tr>
+                                            <td>{{$value->id}}</td>
+                                            <td class="kt-font-bold">{{$value->name}}
+                                                <div class="nowrap row-actions">
+                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="View">
+                                                        <i class="la la-eye"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="View">
+                                                        <i class="la la-edit"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="View">
+                                                        <i class="la la-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{$value->display_name}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
 
                                 <!--end: Datatable -->
+                                <!--end::Section-->
                             </div>
+
                         </div>
                     </div>
 

@@ -16,7 +16,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('options-general', ['as' => 'POST_OPTION_GENERAL', 'uses' => 'OptionController@postUpdateOptionGeneral']);
     Route::post('add-options-general', ['as' => 'ADD_OPTION_GENERAL', 'uses' => 'OptionController@postAddOptionGeneral']);
     Route::get('permissions-settings', ['as' => 'GET_PERMISSION_SETTINGS', 'uses' => 'PermissionController@getPermission']);
-    Route::get('ajax-get-permission-list', ['as'=> 'AJAX_GET_PERMISSION_LIST', 'uses'=>'AdminAjaxController@getPermissionAll']);
 
 });
 
