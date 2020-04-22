@@ -1,21 +1,20 @@
 @extends('admin.dashboard.dashboard-master')
 @section('title', 'Quản lý truy cập')
 @section('content')
-
     <ul class="nav nav-tabs  nav-tabs-line nav-tabs-line-brand" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#kt_tabs_9_1" role="tab"><i
+            <a class="nav-link active" data-toggle="tab" href="#tb_tab1" role="tab"><i
                     class="flaticon-cogwheel-1"></i>
                 Quản lý truy cập</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#kt_tabs_9_3" role="tab"><i class="flaticon-layers"></i>
+            <a class="nav-link" data-toggle="tab" href="#tb_tab2" role="tab"><i class="flaticon-layers"></i>
                 Quyền truy cập</a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="kt_tabs_9_1" role="tabpanel">
+        <div class="tab-pane active" id="tb_tab1" role="tabpanel">
             <h1 class="template-title">Quản lý truy cập</h1>
 
             <form class="kt-form" method="POST" action="{{route('POST_OPTION_GENERAL')}}">
@@ -33,7 +32,24 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="role">Chọn loại tài khoản</label>
+                                <select name="role" id="role" class="form-control">
+                                    @foreach($getAllRole as $key=>$value)
+                                        <option value="{{$value->name }}">{{$value->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="admin_settings_tp_permissions">Thêm quyền mới</label>
+                                <select class="form-control m-select2 " id="admin_settings_tp_permissions" name="param" multiple="multiple">
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-md-6">
 
@@ -47,13 +63,13 @@
                 </div>
             </form>
         </div>
-
-        <div class="tab-pane" id="kt_tabs_9_3" role="tabpanel">
+        <div class="tab-pane" id="tb_tab2" role="tabpanel">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Thêm quyền truy cập mới</h2>
                     <form class="kt-form" method="POST" action="{{route('ADD_OPTION_GENERAL')}}">
                         @csrf
+                        <div class="hidden"></div>
                         <div class="kt-portlet__body">
                             <div class="form-group form-group-last">
                                 @if ($message = Session::get('messages'))
