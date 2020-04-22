@@ -17,6 +17,7 @@ class CreatePermissionTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('display_name');
+            $table->bigInteger('group_id')->unsigned();
             $table->timestamps();
         });
     }

@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="admin_settings_tp_permissions">Thêm quyền mới</label>
                                 <select class="form-control m-select2 " id="admin_settings_tp_permissions" name="param" multiple="multiple">
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                    <optgroup label="A6 laskan/Hawaiian Time Zone">
                                         <option value="AK">Alaska</option>
                                         <option value="HI">Hawaii</option>
                                     </optgroup>
