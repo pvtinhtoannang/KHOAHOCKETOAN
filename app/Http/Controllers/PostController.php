@@ -69,16 +69,14 @@ class PostController extends Controller
 
     function postPostNew(Request $request)
     {
-        if (!empty($request->post_content) || $request->post_content === null) {
+        $post_content = '';
+        $excerpt = '';
+        if (isset($request->post_content)) {
             $post_content = $request->post_content;
-        } else {
-            $post_content = '';
         }
 
-        if (!empty($request->excerpt) || $request->excerpt === null) {
+        if (isset($request->excerpt)) {
             $excerpt = $request->excerpt;
-        } else {
-            $excerpt = '';
         }
 
         if (empty($request->post_category)) {
