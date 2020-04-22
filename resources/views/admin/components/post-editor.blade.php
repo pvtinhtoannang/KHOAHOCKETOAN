@@ -84,7 +84,13 @@ $thumbnail_id = '';
                     </div>
                 </div>
                 <div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right">
-                    <button class="btn btn-primary" type="submit">Đăng</button>
+                    <button class="btn btn-primary" type="submit">
+                        @if(!isset($postData))
+                            Đăng
+                        @else
+                            Cập nhật
+                        @endif
+                    </button>
                 </div>
             </div>
 

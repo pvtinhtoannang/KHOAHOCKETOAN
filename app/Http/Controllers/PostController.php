@@ -112,5 +112,6 @@ class PostController extends Controller
             ];
             $this->post_meta->addPostMeta($metaData);
         }
+        return redirect()->route('GET_POST_EDIT_ROUTE', 'post=' . $post_id);
     }
 }
