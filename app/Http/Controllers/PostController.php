@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\PostMeta;
 use App\TermRelationships;
 use App\Terms;
 use App\TermTaxonomy;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private $term, $term_taxonomy, $post_type, $post, $term_relationships, $post_name_num;
+    private $term, $term_taxonomy, $post_type, $post, $post_meta, $term_relationships, $post_name_num;
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ class PostController extends Controller
         $this->post = new Post();
         $this->term_relationships = new TermRelationships();
         $this->post_name_num = 1;
+        $this->post_meta = new PostMeta();
     }
 
     function getPostNew()
@@ -83,5 +85,11 @@ class PostController extends Controller
             $termRelationshipsData[$key]['term_order'] = 0;
         }
         $this->term_relationships->addTermRelationships($termRelationshipsData);
+        if (!is_null($request->thumbnail_id)) {
+            $metaData = [
+                ['post_id' => $post_id, 'meta_key' => 'thumbnail_id', 'meta_value' => $request->thumbnail_id]
+            ];
+            $this->post_meta->addPostMeta($metaData);
+        }
     }
 }

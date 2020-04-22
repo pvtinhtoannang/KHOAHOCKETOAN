@@ -101,7 +101,7 @@ class UploadController extends Controller
             $get_post = $this->post->get_post_by_post_name($post_name);
             $post_id = $get_post['ID'];
             $metaData = [
-                ['post_id' => $post_id, 'meta_key' => '_attached_file', 'meta_value' => $this->year . '/' . $this->month . '/' . $file_name_generator]
+                ['post_id' => $post_id, 'meta_key' => 'attached_file', 'meta_value' => $this->year . '/' . $this->month . '/' . $file_name_generator]
             ];
             $this->post_meta->addPostMeta($metaData);
         }
