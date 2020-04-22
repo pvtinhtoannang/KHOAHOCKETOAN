@@ -122,18 +122,21 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <a href="#" class="btn btn-outline-light btn-sm btn-icon btn-icon-md">
+                                <a href="#" data-toggle="modal" data-target="#featured-image-modal"
+                                        class="btn btn-outline-light btn-sm btn-icon btn-icon-md">
                                     <i class="flaticon2-add-1"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="kt-portlet__body">
-
+                        <div class="featured-image"></div>
+                        <input type="hidden" id="thumbnail_id" name="thumbnail_id">
                     </div>
                 </div>
             </div>
         </div>
         {{ csrf_field() }}
     </form>
+    @include('admin.components.featured-image-modal')
 @endsection
