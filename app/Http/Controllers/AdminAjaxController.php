@@ -37,7 +37,7 @@ class AdminAjaxController extends Controller
 
     function getAttachedFile(Request $request)
     {
-        $attached_meta = $this->post_meta->get_postmeta_by_meta_key($request->id, '_attached_file');
+        $attached_meta = $this->post_meta->get_postmeta_by_meta_key($request->id, 'attached_file');
         $uploads_url = url('/contents/uploads');
         $file_url = $uploads_url . '/' . $attached_meta['meta_value'];
         echo json_encode($file_url);
