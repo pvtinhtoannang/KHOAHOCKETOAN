@@ -7,7 +7,7 @@
         @if(!empty($attachment))
             @foreach($attachment as $file)
                 <?php
-                $attachment_meta = $post_meta->get_postmeta_by_meta_key($file->ID, '_attached_file');
+                $attachment_meta = $post_meta->get_postmeta_by_meta_key($file->ID, 'attached_file');
                 $uploads_url = url('/contents/uploads');
                 $file_url = $uploads_url . '/' . $attachment_meta['meta_value'];
                 ?>
