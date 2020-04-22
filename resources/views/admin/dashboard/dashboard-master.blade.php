@@ -274,9 +274,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                             href="{{ route('GET_OPTION_GENERAL') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Cài đặt tổng quan</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_POST_ALL_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_PERMISSION_SETTINGS')) kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
-                                            href="{{ route('GET_POST_ALL_ROUTE') }}" class="kt-menu__link "><i
+                                            href="{{ route('GET_PERMISSION_SETTINGS') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Quản lý truy cập</span></a></li>
 
