@@ -206,12 +206,65 @@ function autoPostName() {
     });
 }
 
+function set_featured_image(attachment_id) {
+    let featured_image = $('.featured-image');
+    $.ajax({
+        url: 'get-attached-file/' + attachment_id,
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            featured_image.empty();
+            featured_image.append('<img src="' + response + '" />');
+        }
+    });
+}
+
+function featured_image_select() {
+    let attachment = $('li.attachment');
+    let thumbnail = $('#thumbnail_id');
+    let media_button_select = $('#media-button-select');
+    let featured_image_modal = $('#featured-image-modal');
+    attachment.click(function () {
+        //reset status
+        attachment.removeClass('selected');
+        attachment.attr('aria-checked', 'false');
+
+        $(this).addClass('selected');
+        if (attachment.hasClass('selected')) {
+            $(this).attr('aria-checked', 'true');
+            media_button_select.removeAttr('disabled');
+        } else {
+            $(this).attr('aria-checked', 'false');
+            media_button_select.attr('disabled', 'disabled');
+        }
+    });
+
+    attachment.dblclick(function () {
+        if ($(this).hasClass('selected')) {
+            thumbnail.attr('value', $(this).attr('data-id'));
+            featured_image_modal.modal('hide');
+            set_featured_image($(this).attr('data-id'));
+        }
+    });
+
+    media_button_select.click(function () {
+        attachment.each(function (index, value) {
+            if ($(this).hasClass('selected')) {
+                thumbnail.attr('value', $(this).attr('data-id'));
+                featured_image_modal.modal('hide');
+                set_featured_image($(this).attr('data-id'));
+            }
+        });
+    });
+}
+
 jQuery(function ($) {
     try {
         $(document).ready(function () {
             autoSlug();
             autoSlugTag();
             autoPostName();
+            featured_image_select();
         });
     } catch (e) {
         console.log(e);
