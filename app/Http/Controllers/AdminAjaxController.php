@@ -45,10 +45,4 @@ class AdminAjaxController extends Controller
         echo json_encode($file_url);
         exit;
     }
-
-    function getPermissionAll(Request $request)
-    {
-        echo json_encode($this->permission->getAllPermission());
-        exit;
-    }
 }
