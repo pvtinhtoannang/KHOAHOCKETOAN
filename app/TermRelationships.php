@@ -29,9 +29,4 @@ class TermRelationships extends Model
             ->where('object_id', $object_id)->get();
     }
 
-    function get_term_id_by_object_id($object_id)
-    {
-        return $this->where('object_id', $object_id)->get();
-    }
-
 }

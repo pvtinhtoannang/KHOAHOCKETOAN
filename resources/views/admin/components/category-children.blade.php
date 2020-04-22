@@ -3,7 +3,7 @@
         <li>
             <label class="kt-checkbox">
                 <input name="post_category[]" type="checkbox"
-                       value="{{$childCategory['term_id']}}" @if(in_array($childCategory['term_id'], $cats)) {{'checked'}} @endif> {{$childCategory['name']}}
+                       value="{{$childCategory['term_id']}}"> {{$childCategory['name']}}
                 <span></span>
             </label>
             @if($childCategory['parent'] != 0)
