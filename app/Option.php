@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
+
     protected $fillable = [
         'option_name',
         'option_value',
@@ -24,9 +25,4 @@ class Option extends Model
         return $option;
     }
 
-
-    public function addNewOption($option_name = '', $option_value = '', $option_type = '', $option_label = '')
-    {
-        return $this->create(['option_name'=>$option_name, 'option_value'=>$option_value, 'option_type'=>$option_type, 'option_label'=>$option_label]);
-    }
 }

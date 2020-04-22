@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\OptionGeneralRequest;
+
 use Illuminate\Http\Request;
 use App\Option;
 
@@ -22,19 +22,11 @@ class OptionController extends Controller
 
     public function postUpdateOptionGeneral(Request $request)
     {
-        foreach ($request->option as $key => $value) {
+        foreach ($request->option as $value) {
             foreach ($value as $option_name => $option_value) {
-                \App\Option::where('option_name', $option_name)
-                    ->update(['option_value' => $option_value]);
-                //function updateOptionByOptionName not working
-//                $this->option->updateOptionByOptionName();
+                $this->option->updateOptionByOptionName($option_name, $option_value);
             }
         }
         return redirect()->back()->with('messages', 'Cập nhật thành công!');
-    }
-
-    public function postAddOptionGeneral(OptionGeneralRequest $request)
-    {
-
     }
 }
