@@ -49,5 +49,14 @@ class Post extends Model
             ->where('post_type', $post_type)->get();
     }
 
+    function get_post($post_type = 'post', $post_id = null)
+    {
+        return $this->join('users', 'users.ID', '=', 'posts.post_author')
+            ->where('post_status', '!=', 'trash')
+            ->where('post_type', $post_type)
+            ->where('posts.ID', $post_id)
+            ->first();
+    }
+
 
 }
