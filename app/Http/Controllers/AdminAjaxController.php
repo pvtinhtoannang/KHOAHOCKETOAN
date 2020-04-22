@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Terms;
 use App\PostMeta;
-use App\Permission;
 use Illuminate\Http\Request;
 
 class AdminAjaxController extends Controller
@@ -17,7 +16,6 @@ class AdminAjaxController extends Controller
         $this->term = new Terms();
         $this->post = new Post();
         $this->post_meta = new PostMeta();
-        $this->permission = new Permission();
     }
 
     public function index()
