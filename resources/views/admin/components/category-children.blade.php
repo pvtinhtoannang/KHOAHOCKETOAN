@@ -1,13 +1,13 @@
-@foreach ($term_taxonomy->get_term_by_parent($parent, 'category') as $childCategory)
+@foreach ($term_taxonomy->parent_id($parent)->category()->get() as $childTerm)
     <ul class="children">
         <li>
             <label class="kt-checkbox">
                 <input name="post_category[]" type="checkbox"
-                       value="{{$childCategory['term_id']}}" @if(in_array($childCategory['term_id'], $cats)) {{'checked'}} @endif> {{$childCategory['name']}}
+                       value="{{$childTerm->term_id}}" @if(in_array($childTerm->term_id, $cats)) {{'checked'}} @endif> {{$childTerm->term->name}}
                 <span></span>
             </label>
-            @if($childCategory['parent'] != 0)
-                @include('admin.components.category-children', ['parent' => $childCategory['term_id']])
+            @if($childTerm->term_id != 0)
+                @include('admin.components.category-children', ['parent' => $childTerm->term_id])
             @endif
         </li>
     </ul>

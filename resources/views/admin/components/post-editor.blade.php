@@ -104,14 +104,14 @@ $thumbnail_id = '';
                     <div class="kt-checkbox-list">
                         <div id="category-list">
                             <ul class="categorychecklist">
-                                @foreach($term_taxonomy->get_term_by_parent(0, 'category') as $categoryValue)
+                                @foreach($term_taxonomy->parent_id(0)->category()->get() as $term)
                                     <li>
                                         <label class="kt-checkbox">
                                             <input name="post_category[]" type="checkbox"
-                                                   value="{{$categoryValue['term_id']}}" @if(in_array($categoryValue['term_id'], $cats)) {{'checked'}} @endif> {{$categoryValue['name']}}
+                                                   value="{{$term->term_id}}" @if(in_array($term->term_id, $cats)) {{'checked'}} @endif> {{$term->term->name}}
                                             <span></span>
                                         </label>
-                                        @include('admin.components.category-children', ['parent' => $categoryValue['term_id']])
+                                        @include('admin.components.category-children', ['parent' => $term->term_id])
                                     </li>
                                 @endforeach
                             </ul>
