@@ -19,7 +19,24 @@ class Role extends Model
         return $this->belongsToMany('App\User', 'role_user', 'role_id', 'user_id');
     }
 
-    public function getAllRole(){
+    public function permission()
+    {
+        return $this->belongsToMany('App\Permission', 'role_permission', 'role_id', 'permission_id');
+    }
+
+    public function getAllRole()
+    {
         return self::get();
     }
+
+    public function getPermissionByRole($id)
+    {
+        return self::find($id)->permission;
+    }
+
+    public function updatePermissionForRole($idRole, $idPermission = [])
+    {
+        return self::find($idRole)->permission()->attach($idPermission);
+    }
+
 }

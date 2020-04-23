@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
     }
 
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Permission', 'permission_user', 'user_id', 'permission_id');
+    }
+
 
     /**
      * @param $roles
@@ -140,11 +145,12 @@ class User extends Authenticatable
 
     public function updateInformation($name, $id)
     {
-        return self::find($id)->update(['name'=>$name]);
+        return self::find($id)->update(['name' => $name]);
     }
 
 
-    public function getAllUser(){
+    public function getAllUser()
+    {
         return self::orderBy('name', 'ASC')->get();
     }
 }

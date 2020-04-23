@@ -23,7 +23,7 @@
         <div class="tab-pane active" id="tb_tab1" role="tabpanel">
             <h1 class="template-title">Quản lý truy cập</h1>
 
-            <form class="kt-form" method="POST" action="{{route('POST_OPTION_GENERAL')}}">
+            <form class="kt-form" id="update_permission_for_role" method="POST" action="{{route('UPDATE_PERMISSION_FOR_ROLE')}}">
                 @csrf
                 <div class="kt-portlet__body">
                     <div class="form-group form-group-last">
@@ -42,7 +42,7 @@
                                 <label for="role">Chọn loại tài khoản</label>
                                 <select name="role" id="role" class="form-control">
                                     @foreach($getAllRole as $key=>$value)
-                                        <option value="{{$value->name }}">{{$value->description }}</option>
+                                        <option value="{{$value->id }}">{{$value->description }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -50,12 +50,12 @@
                             <div class="form-group">
                                 <label for="admin_settings_tp_permissions">Thêm quyền mới</label>
                                 <select class="form-control m-select2 admin_settings_tp_permissions"
-                                        id="admin_settings_tp_permissions" name="param"
+                                        id="admin_settings_tp_permissions" name="permission_for_role"
                                         multiple="multiple">
                                     @foreach($getAllGroup as $value)
-                                        <optgroup label="{{ $value->name  }}">
+                                        <optgroup label="{{ $value->name }}">
                                             @foreach($value->permission as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->display_name }}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach
@@ -176,12 +176,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!--end: Search Form -->
-
-                                <!--begin::Section-->
-                                <!--begin: Datatable -->
-
                                 <table class="table table-striped table-hover tnct-table" id="permission">
                                     <thead>
                                     <tr>
@@ -213,17 +207,11 @@
                                             <td>{{$value->display_name}}</td>
                                         </tr>
                                     @endforeach
-
                                     </tbody>
                                 </table>
-
-                                <!--end: Datatable -->
-                                <!--end::Section-->
                             </div>
-
                         </div>
                     </div>
-
                     <!-- end:: Content -->
                 </div>
             </div>
@@ -262,7 +250,7 @@
                                     @foreach($getAllGroup as $value)
                                         <optgroup label="{{ $value->name  }}">
                                             @foreach($value->permission as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                                <option selected value="{{ $item->name }}">{{ $item->display_name }}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach
