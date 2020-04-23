@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Terms;
+use App\Term;
 use App\Taxonomy;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->taxonomy = 'category';
-        $this->term = new Terms();
+        $this->term = new Term();
         $this->term_taxonomy = new Taxonomy();
     }
 

@@ -1,7 +1,6 @@
 @extends('admin.dashboard.dashboard-master')
 @section('title', 'Bài viết')
 @section('content')
-    @inject('term_relationships', 'App\TermRelationships')
     <h1 class="template-title">Bài viết</h1>
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
@@ -56,10 +55,10 @@
                                 </a>
                             </div>
                         </td>
-                        <td>{{$post->name}}</td>
+                        <td>{{$post->author->name}}</td>
                         <td class="categories">
-                            @foreach($term_relationships->get_term($post->ID) as $cat)
-                                <a class="" href="">{{$cat->name}}</a>
+                            @foreach($post->taxonomies as $cat)
+                                <a class="" href="">{{$cat->term->name}}</a>
                             @endforeach
                         </td>
                         <td>Thẻ</td>

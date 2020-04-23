@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'posts';
+
+    /**
+     * @var string
+     */
     protected $primaryKey = 'ID';
+
+    /**
+     * @var array
+     */
     protected $fillable = [
-        'ID',
         'post_author',
         'post_content',
         'post_title',
@@ -19,6 +29,52 @@ class Post extends Model
         'post_type'
     ];
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function taxonomies()
+    {
+        return $this->belongsToMany(Taxonomy::class, 'term_relationships', 'object_id', 'term_taxonomy_id'
+        );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'post_author');
+    }
+
+    /**
+     * @param $type
+     * @return mixed
+     */
+    public function type($type)
+    {
+        return $this->where('post_type', $type);
+    }
+
+    /**
+     * @param array $types
+     * @return mixed
+     */
+    public function typeIn(array $types)
+    {
+        return $this->whereIn('post_type', $types);
+    }
+
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public function slug($slug)
+    {
+        return $this->where('post_name', $slug);
+    }
+
+    //old version
     function checkPostNameExists($post_name = null)
     {
         $check = $this->where('post_name', '=', $post_name)->first();

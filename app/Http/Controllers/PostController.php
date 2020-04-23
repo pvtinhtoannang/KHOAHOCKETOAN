@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\PostMeta;
 use App\TermRelationships;
-use App\Terms;
+use App\Term;
 use App\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class PostController extends Controller
     public function __construct()
     {
         $this->post_type = 'post';
-        $this->term = new Terms();
+        $this->term = new Term();
         $this->term_taxonomy = new Taxonomy();
         $this->post = new Post();
         $this->term_relationships = new TermRelationships();
@@ -53,7 +53,7 @@ class PostController extends Controller
 
     function getPostAll()
     {
-        $posts = $this->post->get_posts();
+        $posts = $this->post->type($this->post_type)->get();
         return view('admin.post.post-all', ['postData' => $posts]);
     }
 

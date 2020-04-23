@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Terms;
+use App\Term;
 use App\PostMeta;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class AdminAjaxController extends Controller
 
     public function __construct()
     {
-        $this->term = new Terms();
+        $this->term = new Term();
         $this->post = new Post();
         $this->post_meta = new PostMeta();
     }
