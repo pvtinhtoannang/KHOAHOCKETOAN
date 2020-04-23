@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TermTaxonomy extends Model
+class Taxonomy extends Model
 {
     protected $table = 'term_taxonomy';
     public $timestamps = false;

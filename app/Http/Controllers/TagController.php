@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Terms;
-use App\TermTaxonomy;
+use App\Taxonomy;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -14,7 +14,7 @@ class TagController extends Controller
     {
         $this->taxonomy = 'post_tag';
         $this->term = new Terms();
-        $this->term_taxonomy = new TermTaxonomy();
+        $this->term_taxonomy = new Taxonomy();
     }
 
     function getTag()

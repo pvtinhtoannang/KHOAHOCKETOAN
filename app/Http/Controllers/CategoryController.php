@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Terms;
-use App\TermTaxonomy;
+use App\Taxonomy;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
         $this->taxonomy = 'category';
         $this->term = new Terms();
-        $this->term_taxonomy = new TermTaxonomy();
+        $this->term_taxonomy = new Taxonomy();
     }
 
     function fetchCategoryTree($parent = 0, $spacing = '', $user_tree_array = '')

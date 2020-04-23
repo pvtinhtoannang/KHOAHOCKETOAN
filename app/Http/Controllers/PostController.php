@@ -6,7 +6,7 @@ use App\Post;
 use App\PostMeta;
 use App\TermRelationships;
 use App\Terms;
-use App\TermTaxonomy;
+use App\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $this->post_type = 'post';
         $this->term = new Terms();
-        $this->term_taxonomy = new TermTaxonomy();
+        $this->term_taxonomy = new Taxonomy();
         $this->post = new Post();
         $this->term_relationships = new TermRelationships();
         $this->post_name_num = 1;
