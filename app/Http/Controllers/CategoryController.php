@@ -8,28 +8,28 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    private $term, $taxonomy, $term_taxonomy;
+    private $term, $tax, $taxonomy;
 
     public function __construct()
     {
-        $this->taxonomy = 'category';
+        $this->tax = 'category';
         $this->term = new Term();
-        $this->term_taxonomy = new Taxonomy();
+        $this->taxonomy = new Taxonomy();
     }
 
     function fetchCategoryTree($parent = 0, $spacing = '', $user_tree_array = '')
     {
-        $get_term = $this->term_taxonomy->get_term_by_parent($parent, $this->taxonomy);
+        $get_term = $this->taxonomy->parent_id($parent)->category()->get();
         if (!is_array($user_tree_array))
             $user_tree_array = array();
         if (!empty($get_term)) {
             foreach ($get_term as $term) {
                 $user_tree_array[] = array(
-                    "term_taxonomy_id" => $term->term_taxonomy_id,
-                    "term_id" => $term->term_id,
-                    "name" => $spacing . $term->name,
-                    "slug" => $term->slug,
-                    "description" => $term->description
+                    "term_taxonomy_id" => $term->term->term_taxonomy_id,
+                    "term_id" => $term->term->term_id,
+                    "name" => $spacing . $term->term->name,
+                    "slug" => $term->term->slug,
+                    "description" => $term->term->description
                 );
                 $user_tree_array = $this->fetchCategoryTree($term->term_id, $spacing . '— ', $user_tree_array);
             }
@@ -54,7 +54,7 @@ class CategoryController extends Controller
                     } else {
                         $category_description = $request->category_description;
                     }
-                    $this->term_taxonomy->add_new_term_taxonomy($term_id, $this->taxonomy, $category_description, $request->category_parent);
+                    $this->taxonomy->add_new_term_taxonomy($term_id, $this->tax, $category_description, $request->category_parent);
                     return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'success')->withInput();
                 } else {
                     return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error')->withInput();

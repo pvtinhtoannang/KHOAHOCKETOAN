@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Builder\PostBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -15,6 +16,11 @@ class Post extends Model
      * @var string
      */
     protected $primaryKey = 'ID';
+
+    /**
+     * @var array
+     */
+    protected static $postTypes = [];
 
     /**
      * @var array
@@ -72,6 +78,20 @@ class Post extends Model
     public function slug($slug)
     {
         return $this->where('post_name', $slug);
+    }
+
+
+    public function newEloquentBuilder($query)
+    {
+        return new PostBuilder($query);
+    }
+
+
+    public function newQuery()
+    {
+        return $this->postType ?
+            parent::newQuery()->type($this->postType) :
+            parent::newQuery();
     }
 
     //old version
