@@ -142,4 +142,9 @@ class User extends Authenticatable
     {
         return self::find($id)->update(['name'=>$name]);
     }
+
+
+    public function getAllUser(){
+        return self::orderBy('name', 'ASC')->get();
+    }
 }

@@ -22,10 +22,12 @@ var KTSelect2Permission = function() {
     // Private functions
     var permission = function() {
         // multi select
-        $('#admin_settings_tp_permissions').select2({
+        $('.admin_settings_tp_permissions').select2({
             placeholder: "  __Chọn nhóm quyền truy cập - Bạn có thể chọn nhiều option",
         });
     }
+
+
     return {
         init: function () {
             permission();

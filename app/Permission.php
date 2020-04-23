@@ -16,15 +16,21 @@ class Permission extends Model
         return $this->belongsToMany('App\Role', 'role_permission', 'permission_id', 'role_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function getAllPermissionWithPaginate($paginate = 15)
-    {
-        return self::paginate($paginate);
+
+    public function groups(){
+        return $this->belongsToMany('App\Group');
     }
 
-    public function getAllPermission(){
+        /**
+         * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+         */
+    public function getAllPermissionWithPaginate($paginate = 15)
+{
+    return self::paginate($paginate);
+}
+
+    public function getAllPermission()
+    {
         return self::get();
     }
 }

@@ -12,6 +12,12 @@
             <a class="nav-link" data-toggle="tab" href="#tb_tab2" role="tab"><i class="flaticon-layers"></i>
                 Quyền truy cập</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tb_tab3" role="tab"><i class="flaticon-user-settings"></i>
+                Phân quyền tài khoản</a>
+        </li>
+
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tb_tab1" role="tabpanel">
@@ -31,7 +37,7 @@
                         @endif
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-xs-12 col-md-4">
                             <div class="form-group">
                                 <label for="role">Chọn loại tài khoản</label>
                                 <select name="role" id="role" class="form-control">
@@ -43,15 +49,20 @@
 
                             <div class="form-group">
                                 <label for="admin_settings_tp_permissions">Thêm quyền mới</label>
-                                <select class="form-control m-select2 " id="admin_settings_tp_permissions" name="param" multiple="multiple">
-                                    <optgroup label="A6 laskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <select class="form-control m-select2 admin_settings_tp_permissions"
+                                        id="admin_settings_tp_permissions" name="param"
+                                        multiple="multiple">
+                                    @foreach($getAllGroup as $value)
+                                        <optgroup label="{{ $value->name  }}">
+                                            @foreach($value->permission as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-xs-12 col-md-8">
 
                         </div>
                     </div>
@@ -214,6 +225,56 @@
                     </div>
 
                     <!-- end:: Content -->
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tb_tab3" role="tabpanel">
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <h2 class="template-title">Phân quyền tài khoản</h2>
+                    <form class="kt-form" method="POST" action="{{route('ADD_OPTION_GENERAL')}}">
+                        @csrf
+                        <div class="hidden"></div>
+                        <div class="kt-portlet__body">
+                            <div class="form-group form-group-last">
+                                @if ($message = Session::get('messages'))
+                                    <div class="alert alert-secondary" role="alert">
+                                        <div class="alert-icon"><i class="flaticon-chat-2 kt-font-brand"></i></div>
+                                        <div class="alert-text">
+                                            {{ $message }}
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="user">Chọn người dùng</label>
+                                <select class="form-control " id="user" name="user">
+                                    @foreach($getAllUser as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block" for="admin_add_user_permission">Thêm quyền khác</label>
+                                <select style="width: 100%" class="form-controlm-select2 admin_settings_tp_permissions"
+                                        id="admin_add_user_permission"  name="admin_add_user_permission"
+                                        multiple="multiple">
+                                    @foreach($getAllGroup as $value)
+                                        <optgroup label="{{ $value->name  }}">
+                                            @foreach($value->permission as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot">
+                            <div class="kt-form__actions">
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
