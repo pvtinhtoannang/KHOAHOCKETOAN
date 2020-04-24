@@ -39,17 +39,19 @@ $thumbnail_id = '';
     <div class="row">
         <div class="col-md-9">
             <div class="form-group">
+                <label for="post_title" hidden>Đường dẫn tĩnh: </label>
                 <input type="text" name="post_title" id="post-title" class="form-control" placeholder="Thêm tiêu đề"
                        required value="{{$post_title}}">
             </div>
             <div class="form-group row post-link-row">
-                <label for="example-text-input" class="col-form-label">Đường dẫn tĩnh: </label>
+                <label for="post-name" class="col-form-label">Đường dẫn tĩnh: </label>
                 <span class="post-link">{{url('/')}}/</span>
                 <div class="col-6">
                     <input class="form-control" type="text" id="post-name" name="post_name" value="{{$post_name}}">
                 </div>
             </div>
             <div class="form-group">
+                <label for="post_content" hidden>Nội dung</label>
                 <textarea class="summernote-post-content" id="post_content"
                           name="post_content">{{$post_content}}</textarea>
             </div>
@@ -60,6 +62,7 @@ $thumbnail_id = '';
                     </div>
                 </div>
                 <div class="kt-portlet__body">
+                    <label for="excerpt" hidden>Mô tả ngắn</label>
                     <textarea class="form-control" id="excerpt" name="excerpt" rows="4">{{$excerpt}}</textarea>
                 </div>
             </div>
@@ -126,34 +129,27 @@ $thumbnail_id = '';
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <div id="post-tag-repeater">
-                        <div class="form-group">
-                            <div data-repeater-list="">
-                                <div data-repeater-item class="form-group row align-items-center">
-                                    <div class="col-md-10">
-                                        <input type="text" name="post_tag[]" class="form-control"
-                                               placeholder="Thêm thẻ">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div data-repeater-delete=""
-                                             class="btn btn-danger btn-elevate btn-circle btn-icon">
-																	<span>
-																		<i class="la la-trash-o"></i>
-																	</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="form-group row align-items-center">
+                        <div class="col-md-10">
+                            <label for="post-tags" hidden>Thêm thẻ</label>
+                            <input type="text" id="post-tag" class="form-control" placeholder="Thêm thẻ">
                         </div>
-                        <div class="form-group">
-                            <div data-repeater-create="" class="btn btn btn-sm btn-brand btn-pill">
-															<span>
-																<i class="la la-plus"></i>
-																<span>Thêm</span>
-															</span>
+                        <div class="col-md-2">
+                            <div class="btn btn-primary btn-elevate btn-circle btn-icon" id="complete-btn">
+                                    <span>
+                                        <i class="la la-check"></i>
+                                    </span>
                             </div>
                         </div>
                     </div>
+                    <ul class="tag-list">
+{{--                        <li>--}}
+{{--                            <span class="remove-tag-icon kt-bg-success">--}}
+{{--                                <i class="la la-remove"></i>--}}
+{{--                            </span>--}}
+{{--                            tag 1--}}
+{{--                        </li>--}}
+                    </ul>
                 </div>
             </div>
             <div class="kt-portlet">

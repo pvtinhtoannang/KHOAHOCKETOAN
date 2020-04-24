@@ -176,12 +176,37 @@ function featured_image_select() {
     });
 }
 
+function postTagGenerator() {
+    let tagInput = $('#post-tag');
+    let btn = $('#complete-btn');
+    let tag_list = $('.tag-list');
+    let tags;
+    btn.click(function () {
+        tagInput.focus();
+        if (tagInput.val() !== '') {
+            tags = tagInput.val().split(/[\s,]+/);
+            tagInput.val('');
+            for (let i = 0; i < tags.length; i++) {
+                tag_list.append(
+                    '<li id="tag-' + i + '">' +
+                    '<span class="remove-tag-icon kt-bg-success">' +
+                    '<i class="la la-remove"></i>' +
+                    '</span>' +
+                    tags[i] +
+                    '</li>'
+                );
+            }
+        }
+    });
+}
+
 jQuery(function ($) {
     try {
         $(document).ready(function () {
             slugGenerator();
             postNameGenerator();
             featured_image_select();
+            postTagGenerator();
         });
     } catch (e) {
         console.log(e);
