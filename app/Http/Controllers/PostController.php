@@ -69,6 +69,7 @@ class PostController extends Controller
 
     function createPost(Request $request)
     {
+
         $post_content = '';
         $excerpt = '';
         if (isset($request->post_content)) {
@@ -98,11 +99,11 @@ class PostController extends Controller
         );
 
         $post = $this->post->create($postRequest);
-        $termRelationshipsData = array();
-        foreach ($cats as $key => $term_id) {
-            $termRelationshipsData[$key]['term_taxonomy_id'] = $term_id;
-        }
-        $post->taxonomies()->attach($termRelationshipsData);
+//        $termRelationshipsData = array();
+//        foreach ($cats as $key => $term_id) {
+//            $termRelationshipsData[$key]['term_taxonomy_id'] = $term_id;
+//        }
+//        $post->taxonomies()->attach($termRelationshipsData);
 
 //        $this->term_relationships->addTermRelationships($termRelationshipsData);
 //        if (!is_null($request->thumbnail_id)) {

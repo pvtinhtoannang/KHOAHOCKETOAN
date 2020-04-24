@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Builder\PostBuilder;
+use App\Meta\PostMeta;
+use App\Meta\ThumbnailMeta;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -22,6 +24,14 @@ class Post extends Model
      */
     protected static $postTypes = [];
 
+    /**
+     * @var array
+     */
+    protected $with = ['meta'];
+
+    /**
+     * @var integer
+     */
     protected $slugAlias = 1;
 
     /**
@@ -53,6 +63,20 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'post_author');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function thumbnail()
+    {
+        return $this->hasOne(ThumbnailMeta::class, 'post_id')
+            ->where('meta_key', 'thumbnail_id');
+    }
+
+    public function meta()
+    {
+        return $this->hasOne(PostMeta::class, 'post_id');
     }
 
     /**
@@ -106,35 +130,16 @@ class Post extends Model
         }
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachment()
+    {
+        return $this->hasMany(Post::class, 'post_parent')
+            ->where('post_type', 'attachment');
+    }
+
     //old version
-    function checkPostNameExists($post_name = null)
-    {
-        $check = $this->where('post_name', '=', $post_name)->first();
-        if (is_null($check)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function checkPostExists($post_id = null, $post_type = null)
-    {
-        $check = $this->where('ID', '=', $post_id)->where('post_type', '=', $post_type)->first();
-        if (is_null($check)) {
-            return false;
-        } else {
-            return $check;
-        }
-    }
-
-    function get_post_by_post_name($post_name = null)
-    {
-        if ($post_name == '') {
-            return 0;
-        }
-        return $this->where('post_name', $post_name)->first();
-    }
-
     function get_posts($post_type = 'post')
     {
         return $this->join('users', 'users.ID', '=', 'posts.post_author')
