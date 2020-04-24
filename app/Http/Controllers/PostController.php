@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private $term, $term_taxonomy, $post_type, $post, $post_meta, $term_relationships, $post_name_num;
+    private $term, $term_taxonomy, $post_type, $post, $term_relationships, $post_name_num;
 
     public function __construct()
     {
@@ -43,16 +43,6 @@ class PostController extends Controller
         );
     }
 
-    function autoPostName($post_name)
-    {
-        if ($this->post->checkPostNameExists($post_name) === false || $this->post->checkPostNameExists($post_name) === null) {
-            return $postName = $post_name;
-        } else {
-            $newPostName = $post_name . '-' . $this->post_name_num++;
-            return $this->autoPostName($newPostName);
-        }
-    }
-
     function createPost(Request $request)
     {
         $post_content = '';
@@ -71,8 +61,7 @@ class PostController extends Controller
             $cats = $request->post_category;
         }
         $user_id = Auth::user()->id;
-        $post_name = $this->autoPostName($request->post_name);
-
+        $post_name = $this->post->slugGenerator($request->post_name);
         $postRequest = array(
             'post_author' => $user_id,
             'post_content' => $post_content,
@@ -82,8 +71,13 @@ class PostController extends Controller
             'post_name' => $post_name,
             'post_type' => $this->post_type
         );
-
+        $metaRequest = array(
+            'meta_key' => 'thumbnail_id',
+            'meta_value' => $request->thumbnail_id,
+        );
         $post = $this->post->create($postRequest);
+        $post->meta()->create($metaRequest);
+
 //        $termRelationshipsData = array();
 //        foreach ($cats as $key => $term_id) {
 //            $termRelationshipsData[$key]['term_taxonomy_id'] = $term_id;

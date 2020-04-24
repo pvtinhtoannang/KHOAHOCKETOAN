@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/post_tag', ['as' => 'POST_TAG_ROUTE', 'uses' => 'TagController@addTag']);
 
     //ajax
-    Route::get('/check-slug/{slug}', 'AdminAjaxController@checkSlug');
-    Route::get('/check-post-name/{post_name}', 'AdminAjaxController@checkPostName');
+    Route::get('/slug-generator/{slug}', 'AdminAjaxController@slugGenerator');
+    Route::get('/post-name-generator/{post_name}', 'AdminAjaxController@postNameGenerator');
     Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
 });

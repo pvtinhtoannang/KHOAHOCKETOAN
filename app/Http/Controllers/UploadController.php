@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Attachment;
 use App\Post;
-use App\PostMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
-
 
 class UploadController extends Controller
 {
-    private $uploads_path, $post, $post_type, $post_name_num, $month, $year, $attachment;
+    private $uploads_path, $post_type, $post_name_num, $month, $year, $attachment;
 
     public function __construct()
     {
-        $this->post = new Post();
         $this->attachment = new Attachment();
         $this->post_type = 'attachment';
         $this->post_name_num = 1;
@@ -78,13 +74,12 @@ class UploadController extends Controller
                 'post_name' => $post_name,
                 'post_type' => $this->post_type
             );
-            $post = $this->post->create($postRequest);
-
+            $attachment = $this->attachment->create($postRequest);
             $metaRequest = array(
                 'meta_key' => 'attached_file',
                 'meta_value' => $this->year . '/' . $this->month . '/' . $file_name_generator,
             );
-            $post->thumbnail()->create($metaRequest);
+            $attachment->meta()->create($metaRequest);
         }
     }
 }

@@ -9,13 +9,13 @@
                     <h2 class="template-sub-title">Thêm thẻ</h2>
                     <form class="kt-form" id="tag" method="post">
                         <div class="form-group">
-                            <label for="tag-name">Tên</label>
-                            <input type="text" class="form-control" id="tag-name" name="tag_name" required>
+                            <label for="term-name">Tên</label>
+                            <input type="text" class="form-control" id="term-name" name="tag_name" required>
                             <span class="form-text text-muted">Tên riêng sẽ hiển thị trên trang mạng của bạn.</span>
                         </div>
                         <div class="form-group">
-                            <label for="tag-slug">Chuỗi cho đường dẫn tĩnh</label>
-                            <input type="text" class="form-control" id="tag-slug" name="tag_slug" required>
+                            <label for="term-slug">Chuỗi cho đường dẫn tĩnh</label>
+                            <input type="text" class="form-control" id="term-slug" name="tag_slug" required>
                             <span class="form-text text-muted">Chuỗi cho đường dẫn tĩnh là phiên bản của tên hợp chuẩn với Đường dẫn (URL). Chuỗi này bao gồm chữ cái thường, số và dấu gạch ngang (-).</span>
                         </div>
                         <div class="form-group">

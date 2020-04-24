@@ -10,7 +10,7 @@
                 $file_path = $uploads_path . '/' . $file->meta['meta_value'];
                 ?>
                 @if(file_exists($file_path))
-                    <li>
+                    <li class="attachment" data-id="{{$file->ID}}" data-src="{{$file_url}}">
                         <div class="attachment-preview">
                             <div class="thumbnail">
                                 <img

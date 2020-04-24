@@ -31,6 +31,11 @@ class Term extends Model
     ];
 
     /**
+     * @var integer
+     */
+    protected $slugAlias = 1;
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function taxonomy()
@@ -41,6 +46,16 @@ class Term extends Model
     public function slug($slug)
     {
         return $this->where('slug', $slug);
+    }
+
+    public function slugGenerator($slug = null)
+    {
+        if ($this->slug($slug)->first() == null) {
+            return $slug;
+        } else {
+            $newSlug = $slug . '-' . $this->slugAlias++;
+            return $this->slugGenerator($newSlug);
+        }
     }
 
     //old version
