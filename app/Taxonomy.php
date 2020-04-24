@@ -31,6 +31,7 @@ class Taxonomy extends Model
      * @var array
      */
     protected $fillable = [
+        'term_id',
         'taxonomy',
         'description',
         'parent',
@@ -44,6 +45,14 @@ class Taxonomy extends Model
     {
         return $this->belongsTo(Term::class, 'term_id');
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(
+            Post::class, 'term_relationships', 'term_taxonomy_id', 'object_id'
+        );
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

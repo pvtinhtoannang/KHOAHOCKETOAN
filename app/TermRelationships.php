@@ -6,21 +6,48 @@ use Illuminate\Database\Eloquent\Model;
 
 class TermRelationships extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'term_relationships';
-    public $timestamps = false;
-    protected $fillable = [
+
+    /**
+     * @var array
+     */
+    protected $primaryKey = [
         'object_id',
-        'term_taxonomy_id',
-        'term_order'
+        'term_taxonomy_id'
     ];
 
-    function addTermRelationships($termRelationshipsData = null)
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function post()
     {
-        if (!empty($termRelationshipsData)) {
-            $this->insert($termRelationshipsData);
-        }
+        return $this->belongsTo(Post::class, 'object_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function taxonomy()
+    {
+        return $this->belongsTo(Taxonomy::class, 'term_taxonomy_id');
+    }
+
+
+    //remove
     function get_term($object_id)
     {
         return $this

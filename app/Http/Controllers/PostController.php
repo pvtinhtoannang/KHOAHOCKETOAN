@@ -25,7 +25,13 @@ class PostController extends Controller
         $this->post_meta = new PostMeta();
     }
 
-    function getPostNew()
+    function index()
+    {
+        $posts = $this->post->type($this->post_type)->get();
+        return view('admin.post.post-all', ['postData' => $posts]);
+    }
+
+    function getPostEditor()
     {
         return view('admin.post.post-new');
     }
@@ -51,12 +57,6 @@ class PostController extends Controller
         }
     }
 
-    function getPostAll()
-    {
-        $posts = $this->post->type($this->post_type)->get();
-        return view('admin.post.post-all', ['postData' => $posts]);
-    }
-
     function autoPostName($post_name)
     {
         if ($this->post->checkPostNameExists($post_name) === false || $this->post->checkPostNameExists($post_name) === null) {
@@ -67,7 +67,7 @@ class PostController extends Controller
         }
     }
 
-    function postPostNew(Request $request)
+    function createPost(Request $request)
     {
         $post_content = '';
         $excerpt = '';
@@ -86,30 +86,31 @@ class PostController extends Controller
         }
         $user_id = Auth::user()->id;
         $post_name = $this->autoPostName($request->post_name);
-        $this->post->createNewPost(
-            $user_id,
-            $post_content,
-            $request->post_title,
-            $excerpt,
-            $request->post_status,
-            $post_name,
-            $this->post_type
+
+        $postRequest = array(
+            'post_author' => $user_id,
+            'post_content' => $post_content,
+            'post_title' => $request->post_title,
+            'post_excerpt' => $excerpt,
+            'post_status' => $request->post_status,
+            'post_name' => $post_name,
+            'post_type' => $this->post_type
         );
-        $get_post = $this->post->get_post_by_post_name($post_name);
-        $post_id = $get_post['ID'];
+
+        $post = $this->post->create($postRequest);
         $termRelationshipsData = array();
         foreach ($cats as $key => $term_id) {
-            $termRelationshipsData[$key]['object_id'] = $post_id;
             $termRelationshipsData[$key]['term_taxonomy_id'] = $term_id;
-            $termRelationshipsData[$key]['term_order'] = 0;
         }
-        $this->term_relationships->addTermRelationships($termRelationshipsData);
-        if (!is_null($request->thumbnail_id)) {
-            $metaData = [
-                ['post_id' => $post_id, 'meta_key' => 'thumbnail_id', 'meta_value' => $request->thumbnail_id]
-            ];
-            $this->post_meta->addPostMeta($metaData);
-        }
-        return redirect()->route('GET_POST_EDIT_ROUTE', 'post=' . $post_id);
+        $post->taxonomies()->attach($termRelationshipsData);
+
+//        $this->term_relationships->addTermRelationships($termRelationshipsData);
+//        if (!is_null($request->thumbnail_id)) {
+//            $metaData = [
+//                ['post_id' => $post_id, 'meta_key' => 'thumbnail_id', 'meta_value' => $request->thumbnail_id]
+//            ];
+//            $this->post_meta->addPostMeta($metaData);
+//        }
+//        return redirect()->route('GET_POST_EDIT_ROUTE', 'post=' . $post_id);
     }
 }
