@@ -25,11 +25,11 @@ class CategoryController extends Controller
         if (!empty($get_term)) {
             foreach ($get_term as $term) {
                 $user_tree_array[] = array(
-                    "term_taxonomy_id" => $term->term->term_taxonomy_id,
-                    "term_id" => $term->term->term_id,
+                    "term_taxonomy_id" => $term->term_taxonomy_id,
+                    "term_id" => $term->term_id,
                     "name" => $spacing . $term->term->name,
                     "slug" => $term->term->slug,
-                    "description" => $term->term->description
+                    "description" => $term->description
                 );
                 $user_tree_array = $this->fetchCategoryTree($term->term_id, $spacing . '— ', $user_tree_array);
             }
@@ -39,22 +39,32 @@ class CategoryController extends Controller
 
     function getCategory()
     {
-        return view('admin.taxonomy.category.category', ['categoryData' => $this->fetchCategoryTree()]);
+        return view('admin.taxonomy.category.category', ['categories' => $this->fetchCategoryTree()]);
     }
 
-    function postAddNewCategory(Request $request)
+    function addCategory(Request $request)
     {
         if ($request->category_name != null && $request->category_slug != null) {
-            if (!$this->term->checkSlugExists($request->category_slug)) {
-                if ($this->term->add_new_term($request->category_name, $request->category_slug, 0)) {
-                    $get_term = $this->term->get_term_by_slug($request->category_slug);
-                    $term_id = $get_term['term_id'];
+            if ($this->term->slug($request->category_slug)->first() == null) {
+                $termRequest = array(
+                    'name' => $request->category_name,
+                    'slug' => $request->category_slug,
+                    'term_group' => 0
+                );
+                $term = $this->term->create($termRequest);
+                if ($term) {
                     if ($request->category_description == null) {
                         $category_description = '';
                     } else {
                         $category_description = $request->category_description;
                     }
-                    $this->taxonomy->add_new_term_taxonomy($term_id, $this->tax, $category_description, $request->category_parent);
+                    $taxonomyRequest = array(
+                        'taxonomy' => $this->tax,
+                        'description' => $category_description,
+                        'parent' => $request->category_parent,
+                        'count' => 0
+                    );
+                    $term->taxonomy()->create($taxonomyRequest);
                     return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'success')->withInput();
                 } else {
                     return redirect()->route('GET_CATEGORY_ROUTE')->with('messages', 'error')->withInput();

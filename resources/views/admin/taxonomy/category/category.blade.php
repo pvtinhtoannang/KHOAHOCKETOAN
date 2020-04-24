@@ -22,9 +22,9 @@
                             <label for="category-parent">Chuyên mục hiện tại</label>
                             <select class="form-control" id="category-parent" name="category_parent">
                                 <option value="0">Trống</option>
-                                @foreach($categoryData as $categoryValue)
-                                    <option value="{{$categoryValue['term_id']}}"
-                                            @if(old('category_parent') == $categoryValue['term_id']) selected @endif>{{$categoryValue['name']}}</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category['term_id']}}"
+                                            @if(old('category_parent') == $category['term_id']) selected @endif>{{$category['name']}}</option>
                                 @endforeach
                             </select>
                             <span class="form-text text-muted">Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên mục. Ví dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.</span>
@@ -55,9 +55,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categoryData as $categoryValue)
+                        @foreach($categories as $category)
                             <tr>
-                                <td class="kt-font-bold">{{$categoryValue['name']}}
+                                <td class="kt-font-bold">{{$category['name']}}
                                     <div class="nowrap row-actions">
                                         <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                                             <i class="la la-eye"></i>
@@ -71,13 +71,13 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if($categoryValue['description'] == '')
+                                    @if($category['description'] == '')
                                         {{'Không có mô tả'}}
                                     @else
-                                        {{$categoryValue['description']}}
+                                        {{$category['description']}}
                                     @endif
                                 </td>
-                                <td>{{$categoryValue['slug']}}</td>
+                                <td>{{$category['slug']}}</td>
                             </tr>
                         @endforeach
                         </tbody>
