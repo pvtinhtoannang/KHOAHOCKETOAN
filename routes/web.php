@@ -17,12 +17,15 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'GET_ADMIN_DASHBOARD_ROUTE', 'uses' => 'AdminController@getAdminDashboard']);
+
     //post
-    Route::get('/post-new', ['as' => 'GET_POST_NEW_ROUTE', 'uses' => 'PostController@getPostNew']);
-    Route::post('/post-new', ['as' => 'POST_POST_NEW_ROUTE', 'uses' => 'PostController@postPostNew']);
+    Route::get('/posts', ['as' => 'GET_POSTS_ROUTE', 'uses' => 'PostController@index']);
+
+    //create new post
+    Route::get('/post/create', ['as' => 'GET_CREATE_POST_ROUTE', 'uses' => 'PostController@getPostEditor']);
+    Route::post('/post/create', ['as' => 'POST_CREATE_POST_ROUTE', 'uses' => 'PostController@createPost']);
 
     Route::get('/post-edit', ['as' => 'GET_POST_EDIT_ROUTE', 'uses' => 'PostController@getPostEdit']);
-    Route::get('/post', ['as' => 'GET_POST_ALL_ROUTE', 'uses' => 'PostController@getPostAll']);
 
     //page
     Route::get('/page-new', ['as' => 'GET_PAGE_NEW_ROUTE', 'uses' => 'PageController@getPageNew']);
@@ -41,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     //tag
     Route::get('/post_tag', ['as' => 'GET_TAG_ROUTE', 'uses' => 'TagController@getTag']);
-    Route::post('/post_tag', ['as' => 'POST_TAG_ROUTE', 'uses' => 'TagController@postAddNewTag']);
+    Route::post('/post_tag', ['as' => 'POST_TAG_ROUTE', 'uses' => 'TagController@addTag']);
 
     //ajax
     Route::get('/check-slug/{slug}', 'AdminAjaxController@checkSlug');

@@ -6,17 +6,46 @@ use Illuminate\Database\Eloquent\Model;
 
 class Term extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'terms';
+
+    /**
+     * @var bool
+     */
     public $timestamps = false;
+
+    /**
+     * @var string
+     */
     protected $primaryKey = 'term_id';
+
+    /**
+     * @var array
+     */
     protected $fillable = [
-        'term_id',
         'name',
         'slug',
         'term_group'
     ];
 
-    public function posts() {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function taxonomy()
+    {
+        return $this->hasOne(Taxonomy::class, 'term_id');
+    }
+
+    public function slug($slug)
+    {
+        return $this->where('slug', $slug);
+    }
+
+    //old version
+    public function posts()
+    {
         return $this->belongsToMany('App\Post', 'term_relationships', 'object_id', 'term_taxonomy_id');
     }
 
@@ -26,28 +55,5 @@ class Term extends Model
             return 0;
         }
         return $this->join('term_taxonomy', 'term_taxonomy.term_id', '=', 'terms.term_id')->where('term_taxonomy.taxonomy', $taxonomy)->get();
-    }
-
-    function add_new_term($name = null, $slug = null, $term_group = null)
-    {
-        return $this->create(['name' => $name, 'slug' => $slug, 'term_group' => $term_group]);
-    }
-
-    function get_term_by_slug($slug = null)
-    {
-        if ($slug == '') {
-            return 0;
-        }
-        return $this->where('slug', $slug)->first();
-    }
-
-    function checkSlugExists($slug = null)
-    {
-        $check = $this->where('slug', '=', $slug)->first();
-        if (is_null($check)) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }

@@ -44,9 +44,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($tagData as $tagValue)
+                        @foreach($tags as $tag)
                             <tr>
-                                <td class="kt-font-bold">{{$tagValue['name']}}
+                                <td class="kt-font-bold">{{$tag->term->name}}
                                     <div class="nowrap row-actions">
                                         <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                                             <i class="la la-eye"></i>
@@ -60,13 +60,13 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if($tagValue['description'] == '')
+                                    @if($tag->description == '')
                                         {{'Không có mô tả'}}
                                     @else
-                                        {{$tagValue['description']}}
+                                        {{$tag->description}}
                                     @endif
                                 </td>
-                                <td>{{$tagValue['slug']}}</td>
+                                <td>{{$tag->term->slug}}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -20,14 +20,26 @@ class Taxonomy extends Model
     /**
      * @var array
      */
-//    protected $with = ['term'];
+    protected $with = ['term'];
 
     /**
      * @var bool
      */
     public $timestamps = false;
 
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'taxonomy',
+        'description',
+        'parent',
+        'count'
+    ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function term()
     {
         return $this->belongsTo(Term::class, 'term_id');
@@ -68,11 +80,5 @@ class Taxonomy extends Model
         return isset($this->taxonomy) && $this->taxonomy ?
             parent::newQuery()->where('taxonomy', $this->taxonomy) :
             parent::newQuery();
-    }
-
-    //old version
-    function add_new_term_taxonomy($term_id = null, $taxonomy = null, $description = null, $parent = null)
-    {
-        return $this->create(['term_id' => $term_id, 'taxonomy' => $taxonomy, 'description' => $description, 'parent' => $parent, 'count' => 0]);
     }
 }

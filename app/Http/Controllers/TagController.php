@@ -2,40 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Term;
-use App\Taxonomy;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    private $term, $taxonomy, $term_taxonomy;
+    private $term, $tag, $tax;
 
     public function __construct()
     {
-        $this->taxonomy = 'post_tag';
+        $this->tax = 'post_tag';
         $this->term = new Term();
-        $this->term_taxonomy = new Taxonomy();
+        $this->tag = new Tag();
     }
 
     function getTag()
     {
-        $tags = $this->term->get_all_term_by_taxonomy($this->taxonomy);
-        return view('admin.taxonomy.tag.tag', ['tagData' => $tags]);
+        $tags = $this->tag->get();
+        return view('admin.taxonomy.tag.tag', ['tags' => $tags]);
     }
 
-    function postAddNewTag(Request $request)
+    function addTag(Request $request)
     {
         if ($request->tag_name != null && $request->tag_slug != null) {
-            if (!$this->term->checkSlugExists($request->tag_slug)) {
-                if ($this->term->add_new_term($request->tag_name, $request->tag_slug, 0)) {
-                    $get_term = $this->term->get_term_by_slug($request->tag_slug);
-                    $term_id = $get_term['term_id'];
+            if ($this->term->slug($request->tag_slug)->first() == null) {
+                $termRequest = array(
+                    'name' => $request->tag_name,
+                    'slug' => $request->tag_slug,
+                    'term_group' => 0
+                );
+                $term = $this->term->create($termRequest);
+                if ($term) {
                     if ($request->tag_description == null) {
                         $tag_description = '';
                     } else {
                         $tag_description = $request->tag_description;
                     }
-                    $this->term_taxonomy->add_new_term_taxonomy($term_id, $this->taxonomy, $tag_description, 0);
+                    $taxonomyRequest = array(
+                        'taxonomy' => $this->tax,
+                        'description' => $tag_description,
+                        'parent' => 0,
+                        'count' => 0
+                    );
+                    $term->taxonomy()->create($taxonomyRequest);
                     return redirect()->route('GET_TAG_ROUTE')->with('messages', 'success');
                 } else {
                     return redirect()->route('GET_TAG_ROUTE')->with('messages', 'error');
