@@ -43,12 +43,20 @@ class Term extends Model
         return $this->hasOne(Taxonomy::class, 'term_id');
     }
 
+    /**
+     * @param $slug
+     * @return mixed
+     */
     public function slug($slug)
     {
         return $this->where('slug', $slug);
     }
 
-    public function slugGenerator($slug = null)
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public function slugGenerator($slug)
     {
         if ($this->slug($slug)->first() == null) {
             return $slug;
@@ -56,19 +64,5 @@ class Term extends Model
             $newSlug = $slug . '-' . $this->slugAlias++;
             return $this->slugGenerator($newSlug);
         }
-    }
-
-    //old version
-    public function posts()
-    {
-        return $this->belongsToMany('App\Post', 'term_relationships', 'object_id', 'term_taxonomy_id');
-    }
-
-    function get_all_term_by_taxonomy($taxonomy = null)
-    {
-        if ($taxonomy == '') {
-            return 0;
-        }
-        return $this->join('term_taxonomy', 'term_taxonomy.term_id', '=', 'terms.term_id')->where('term_taxonomy.taxonomy', $taxonomy)->get();
     }
 }

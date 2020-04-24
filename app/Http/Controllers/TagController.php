@@ -10,6 +10,9 @@ class TagController extends Controller
 {
     private $term, $tag, $tax;
 
+    /**
+     * TagController constructor.
+     */
     public function __construct()
     {
         $this->tax = 'post_tag';
@@ -17,12 +20,19 @@ class TagController extends Controller
         $this->tag = new Tag();
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getTag()
     {
         $tags = $this->tag->get();
         return view('admin.taxonomy.tag.tag', ['tags' => $tags]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function addTag(Request $request)
     {
         if ($request->tag_name != null && $request->tag_slug != null) {

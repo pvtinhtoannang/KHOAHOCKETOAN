@@ -47,7 +47,6 @@ class Post extends Model
         'post_type'
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -74,6 +73,9 @@ class Post extends Model
             ->where('meta_key', 'thumbnail_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function meta()
     {
         return $this->hasOne(PostMeta::class, 'post_id');

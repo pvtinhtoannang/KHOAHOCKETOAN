@@ -11,6 +11,9 @@ class PageController extends Controller
 {
     private $post_type, $page, $post;
 
+    /**
+     * PageController constructor.
+     */
     public function __construct()
     {
         $this->post_type = 'page';
@@ -18,17 +21,26 @@ class PageController extends Controller
         $this->post = new Post();
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function index()
     {
         $pages = $this->page->get();
         return view('admin.page.page-all', ['pages' => $pages]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getPageEditor()
     {
         return view('admin.page.page-new');
     }
 
+    /**
+     * @param Request $request
+     */
     function createPage(Request $request)
     {
         if (!empty($request->post_content) || $request->post_content === null) {

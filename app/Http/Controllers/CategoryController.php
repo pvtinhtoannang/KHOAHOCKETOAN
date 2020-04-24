@@ -10,6 +10,9 @@ class CategoryController extends Controller
 {
     private $term, $tax, $taxonomy;
 
+    /**
+     * CategoryController constructor.
+     */
     public function __construct()
     {
         $this->tax = 'category';
@@ -17,6 +20,12 @@ class CategoryController extends Controller
         $this->taxonomy = new Taxonomy();
     }
 
+    /**
+     * @param int $parent
+     * @param string $spacing
+     * @param string $user_tree_array
+     * @return array|string
+     */
     function fetchCategoryTree($parent = 0, $spacing = '', $user_tree_array = '')
     {
         $get_term = $this->taxonomy->parent_id($parent)->category()->get();
@@ -37,11 +46,18 @@ class CategoryController extends Controller
         return $user_tree_array;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getCategory()
     {
         return view('admin.taxonomy.category.category', ['categories' => $this->fetchCategoryTree()]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function addCategory(Request $request)
     {
         if ($request->category_name != null && $request->category_slug != null) {

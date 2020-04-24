@@ -11,6 +11,9 @@ class UploadController extends Controller
 {
     private $uploads_path, $post_type, $post_name_num, $month, $year, $attachment;
 
+    /**
+     * UploadController constructor.
+     */
     public function __construct()
     {
         $this->attachment = new Attachment();
@@ -21,17 +24,30 @@ class UploadController extends Controller
         $this->uploads_path = public_path('/contents/uploads/' . $this->year . '/' . $this->month);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getUpload()
     {
         $attachments = $this->attachment->get();
         return view('admin.uploads.upload', ['attachments' => $attachments]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getUploadNew()
     {
         return view('admin.uploads.upload-new');
     }
 
+    /**
+     * @param string $path
+     * @param string $file_name
+     * @param string $base_name
+     * @param string $file_extension
+     * @return string|string[]
+     */
     function fileNameGenerator($path = '', $file_name = '', $base_name = '', $file_extension = '')
     {
         $file_name = str_replace(" ", "-", $file_name);
@@ -44,6 +60,9 @@ class UploadController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     */
     function postUploadNew(Request $request)
     {
         $files = $request->file('file');

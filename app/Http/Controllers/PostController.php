@@ -13,6 +13,9 @@ class PostController extends Controller
 {
     private $term, $term_taxonomy, $post_type, $post, $term_relationships, $post_name_num;
 
+    /**
+     * PostController constructor.
+     */
     public function __construct()
     {
         $this->post_type = 'post';
@@ -23,12 +26,18 @@ class PostController extends Controller
         $this->post_name_num = 1;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function index()
     {
         $posts = $this->post->type($this->post_type)->get();
         return view('admin.post.post-all', ['postData' => $posts]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getPostEditor()
     {
         return view('admin.post.post-new');
@@ -43,6 +52,9 @@ class PostController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     */
     function createPost(Request $request)
     {
         $post_content = '';

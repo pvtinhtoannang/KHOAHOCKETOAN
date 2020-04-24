@@ -53,7 +53,6 @@ class Taxonomy extends Model
         );
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -62,11 +61,19 @@ class Taxonomy extends Model
         return $this->belongsTo(Taxonomy::class, 'parent');
     }
 
+    /**
+     * @param $taxonomy
+     * @return mixed
+     */
     public function tax($taxonomy)
     {
         return $this->where('taxonomy', $taxonomy);
     }
 
+    /**
+     * @param $parent_id
+     * @return mixed
+     */
     public function parent_id($parent_id)
     {
         return $this->where('parent', $parent_id);
