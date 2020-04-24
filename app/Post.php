@@ -22,6 +22,8 @@ class Post extends Model
      */
     protected static $postTypes = [];
 
+    protected $slugAlias = 1;
+
     /**
      * @var array
      */
@@ -92,6 +94,16 @@ class Post extends Model
         return $this->postType ?
             parent::newQuery()->type($this->postType) :
             parent::newQuery();
+    }
+
+    public function slugGenerator($slug = null)
+    {
+        if ($this->slug($slug)->first() == null) {
+            return $postName = $slug;
+        } else {
+            $newPostName = $slug . '-' . $this->slugAlias++;
+            return $this->slugGenerator($newPostName);
+        }
     }
 
     //old version

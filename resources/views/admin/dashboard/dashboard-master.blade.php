@@ -170,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </li>
 
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_PAGE_NEW_ROUTE') || Request::url() === route('GET_PAGE_ALL_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_CREATE_PAGE_ROUTE') || Request::url() === route('GET_PAGES_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -194,14 +194,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Trang</span></span></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_PAGE_ALL_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_PAGES_ROUTE')) kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
-                                            href="{{ route('GET_PAGE_ALL_ROUTE') }}" class="kt-menu__link "><i
+                                            href="{{ route('GET_PAGES_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Tất cả các trang</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_PAGE_NEW_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::url() === route('GET_CREATE_PAGE_ROUTE')) kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
-                                            href="{{ route('GET_PAGE_NEW_ROUTE') }}" class="kt-menu__link "><i
+                                            href="{{ route('GET_CREATE_PAGE_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Thêm trang mới</span></a></li>
                                 </ul>

@@ -13,7 +13,7 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{route('GET_POST_NEW_ROUTE')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{route('GET_CREATE_PAGE_ROUTE')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Thêm trang mới
                         </a>
@@ -32,12 +32,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($postData as $post)
+                @foreach($pages as $page)
                     <tr>
-                        <td class="kt-font-bold"><a href="">{{$post->post_title}}</a>
-                            @if($post->post_status == 'draft')
+                        <td class="kt-font-bold"><a href="">{{$page->post_title}}</a>
+                            @if($page->post_status == 'draft')
                                 <span class="post-status"> - Bản nháp</span>
-                            @elseif($post->post_status == 'pending')
+                            @elseif($page->post_status == 'pending')
                                 <span class="post-status"> - Chờ duyệt</span>
                             @endif
                             <div class="nowrap row-actions">
@@ -52,20 +52,16 @@
                                 </a>
                             </div>
                         </td>
-                        <td>{{$post->name}}</td>
-                        <?php
-                        $created_on = date_create($post->created_on);
-                        $updated_at = date_create($post->updated_at);
-                        ?>
+                        <td>{{$page->author->name}}</td>
                         <td>
-                            @if($post->post_status == 'publish')
+                            @if($page->post_status == 'publish')
                                 Đã xuất bản
                                 <br>
-                                {{date_format($created_on,"d/m/Y")}}
+                                {{date_format(date_create($page->created_on),"d/m/Y")}}
                             @else
                                 Sửa đổi lần cuối
                                 <br>
-                                {{date_format($updated_at,"d/m/Y")}}
+                                {{date_format(date_create($page->updated_at),"d/m/Y")}}
                             @endif
                         </td>
                     </tr>

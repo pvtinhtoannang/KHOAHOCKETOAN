@@ -12,7 +12,7 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{route('GET_PAGE_NEW_ROUTE')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{route('GET_CREATE_POST_ROUTE')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Viết bài mới
                         </a>
@@ -62,19 +62,15 @@
                             @endforeach
                         </td>
                         <td>Thẻ</td>
-                        <?php
-                        $created_on = date_create($post->created_on);
-                        $updated_at = date_create($post->updated_at);
-                        ?>
                         <td>
                             @if($post->post_status == 'publish')
                                 Đã xuất bản
                                 <br>
-                                {{date_format($created_on,"d/m/Y")}}
+                                {{date_format(date_create($post->created_on),"d/m/Y")}}
                             @else
                                 Sửa đổi lần cuối
                                 <br>
-                                {{date_format($updated_at,"d/m/Y")}}
+                                {{date_format(date_create($post->updated_at),"d/m/Y")}}
                             @endif
                         </td>
                     </tr>

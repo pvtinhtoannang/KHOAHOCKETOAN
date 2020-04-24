@@ -28,10 +28,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/post-edit', ['as' => 'GET_POST_EDIT_ROUTE', 'uses' => 'PostController@getPostEdit']);
 
     //page
-    Route::get('/page-new', ['as' => 'GET_PAGE_NEW_ROUTE', 'uses' => 'PageController@getPageNew']);
-    Route::post('/page-new', ['as' => 'POST_PAGE_NEW_ROUTE', 'uses' => 'PageController@postPageNew']);
+    Route::get('/pages', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);
 
-    Route::get('/page', ['as' => 'GET_PAGE_ALL_ROUTE', 'uses' => 'PageController@getPageAll']);
+    Route::get('/page/create', ['as' => 'GET_CREATE_PAGE_ROUTE', 'uses' => 'PageController@getPageEditor']);
+    Route::post('/page/create', ['as' => 'POST_CREATE_PAGE_ROUTE', 'uses' => 'PageController@createPage']);
 
     //upload
     Route::get('/upload', ['as' => 'GET_UPLOAD_ROUTE', 'uses' => 'UploadController@getUpload']);
