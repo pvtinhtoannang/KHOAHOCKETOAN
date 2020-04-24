@@ -158,6 +158,7 @@ function featured_image_select() {
     attachment.dblclick(function () {
         if ($(this).hasClass('selected')) {
             thumbnail.attr('value', $(this).attr('data-id'));
+            featured_image.empty();
             featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
             featured_image_modal.modal('hide');
         }
@@ -167,6 +168,7 @@ function featured_image_select() {
         attachment.each(function (index, value) {
             if ($(this).hasClass('selected')) {
                 thumbnail.attr('value', $(this).attr('data-id'));
+                featured_image.empty();
                 featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
                 featured_image_modal.modal('hide');
             }
