@@ -1,25 +1,26 @@
-@inject('post_meta', 'App\PostMeta')
-@inject('post', 'App\Post')
-<?php
-$attachment = $post->get_posts('attachment');
-?>
+@inject('attachment', 'App\Attachment')
 <ul class="attachments">
-    @if(!empty($attachment))
-        @foreach($attachment as $file)
-            <?php
-            $attachment_meta = $post_meta->get_postmeta_by_meta_key($file->ID, 'attached_file');
-            $uploads_url = url('/contents/uploads');
-            $file_url = $uploads_url . '/' . $attachment_meta['meta_value'];
-            ?>
-            <li class="attachment" aria-checked="false" aria-label="{{$file->post_name}}" data-id="{{$file->ID}}">
-                <div class="attachment-preview">
-                    <div class="thumbnail">
-                        <img
-                            src="{{$file_url}}"
-                            alt="">
-                    </div>
-                </div>
-            </li>
+    @if(!empty($attachment->get()))
+        @foreach($attachment->get() as $file)
+            @if($file->meta['meta_value'] !== null)
+                <?php
+                $uploads_url = url('/contents/uploads');
+                $uploads_path = public_path('/contents/uploads');
+                $file_url = $uploads_url . '/' . $file->meta['meta_value'];
+                $file_path = $uploads_path . '/' . $file->meta['meta_value'];
+                ?>
+                @if(file_exists($file_path))
+                    <li>
+                        <div class="attachment-preview">
+                            <div class="thumbnail">
+                                <img
+                                    src="{{$file_url}}"
+                                    alt="">
+                            </div>
+                        </div>
+                    </li>
+                @endif
+            @endif
         @endforeach
     @endif
 </ul>

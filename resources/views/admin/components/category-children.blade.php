@@ -1,4 +1,4 @@
-@foreach ($term_taxonomy->parent_id($parent)->category()->get() as $childTerm)
+@foreach ($taxonomy->parent_id($parent)->category()->get() as $childTerm)
     <ul class="children">
         <li>
             <label class="kt-checkbox">

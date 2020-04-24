@@ -1,5 +1,5 @@
 @inject('term_relationships', 'App\TermRelationships')
-@inject('post_meta', 'App\PostMeta')
+@inject('taxonomy', 'App\Taxonomy')
 <?php
 $post_title = '';
 $post_content = '';
@@ -104,7 +104,7 @@ $thumbnail_id = '';
                     <div class="kt-checkbox-list">
                         <div id="category-list">
                             <ul class="categorychecklist">
-                                @foreach($term_taxonomy->parent_id(0)->category()->get() as $term)
+                                @foreach($taxonomy->parent_id(0)->category()->get() as $term)
                                     <li>
                                         <label class="kt-checkbox">
                                             <input name="post_category[]" type="checkbox"
@@ -131,7 +131,7 @@ $thumbnail_id = '';
                             <div data-repeater-list="">
                                 <div data-repeater-item class="form-group row align-items-center">
                                     <div class="col-md-10">
-                                        <input type="text" name="group[][post_tag]" class="form-control"
+                                        <input type="text" name="post_tag[]" class="form-control"
                                                placeholder="Thêm thẻ">
                                     </div>
                                     <div class="col-md-2">

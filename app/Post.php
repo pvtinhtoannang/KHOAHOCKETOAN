@@ -138,23 +138,4 @@ class Post extends Model
         return $this->hasMany(Post::class, 'post_parent')
             ->where('post_type', 'attachment');
     }
-
-    //old version
-    function get_posts($post_type = 'post')
-    {
-        return $this->join('users', 'users.ID', '=', 'posts.post_author')
-            ->where('post_status', '!=', 'trash')
-            ->where('post_type', $post_type)->get();
-    }
-
-    function get_post($post_type = 'post', $post_id = null)
-    {
-        return $this->join('users', 'users.ID', '=', 'posts.post_author')
-            ->where('post_status', '!=', 'trash')
-            ->where('post_type', $post_type)
-            ->where('posts.ID', $post_id)
-            ->first();
-    }
-
-
 }

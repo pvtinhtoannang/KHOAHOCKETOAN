@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\PostMeta;
 use App\TermRelationships;
 use App\Term;
 use App\Taxonomy;
@@ -22,7 +21,6 @@ class PostController extends Controller
         $this->post = new Post();
         $this->term_relationships = new TermRelationships();
         $this->post_name_num = 1;
-        $this->post_meta = new PostMeta();
     }
 
     function index()
@@ -43,18 +41,6 @@ class PostController extends Controller
             'sub_title' => '',
             'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
         );
-
-        if (isset($_GET['post'])) {
-            $post_id = $_GET['post'];
-            $get_post = $this->post->checkPostExists($post_id, $this->post_type);
-            if ($get_post) {
-                return view('admin.post.post-edit', ['postData' => $get_post]);
-            } else {
-                return view('admin.errors.admin-error', ['error_responses' => $responses]);
-            }
-        } else {
-            return view('admin.errors.admin-error', ['error_responses' => $responses]);
-        }
     }
 
     function autoPostName($post_name)
@@ -69,7 +55,6 @@ class PostController extends Controller
 
     function createPost(Request $request)
     {
-
         $post_content = '';
         $excerpt = '';
         if (isset($request->post_content)) {
