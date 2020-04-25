@@ -23,7 +23,8 @@
         <div class="tab-pane active" id="tb_tab1" role="tabpanel">
             <h1 class="template-title">Quản lý truy cập</h1>
 
-            <form class="kt-form" id="update_permission_for_role" method="POST" action="{{route('UPDATE_PERMISSION_FOR_ROLE')}}">
+            <form class="kt-form" id="update_permission_for_role" method="POST"
+                  action="{{route('UPDATE_PERMISSION_FOR_ROLE')}}">
                 @csrf
                 <div class="kt-portlet__body">
                     <div class="form-group form-group-last">
@@ -50,7 +51,7 @@
                             <div class="form-group">
                                 <label for="admin_settings_tp_permissions">Thêm quyền mới</label>
                                 <select class="form-control m-select2 admin_settings_tp_permissions"
-                                        id="admin_settings_tp_permissions" name="permission_for_role"
+                                        id="admin_settings_tp_permissions" name="permission_for_role[]"
                                         multiple="multiple">
                                     @foreach($getAllGroup as $value)
                                         <optgroup label="{{ $value->name }}">
@@ -69,7 +70,10 @@
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="kt-form__actions">
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        <button type="submit" class="btn btn-primary btn-elevate">Cập nhật</button>
+                        <button type="button" class="reset-permission btn-elevate btn btn-brand"
+                                title="Tải lại nếu mọi thứ không thay đổi"><i class="fa fa-undo"></i>Tải lại
+                        </button>
                     </div>
                 </div>
             </form>
@@ -78,7 +82,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Thêm quyền truy cập mới</h2>
-                    <form class="kt-form" method="POST" action="{{route('ADD_OPTION_GENERAL')}}">
+                    <form class="kt-form" method="POST" action="{{route('ADD_PERMISSION')}}">
                         @csrf
                         <div class="hidden"></div>
                         <div class="kt-portlet__body">
@@ -108,6 +112,16 @@
                                        value="{{ old('display_name') }}"
                                        placeholder="Nhập tên hiển thị, ex: Thêm mới bài viết">
                             </div>
+
+                            <div class="form-group">
+                                <label for="group_id">Nhóm quyền</label>
+                                <select name="group_id" class="form-control" id="group_id">
+                                    @foreach($getAllGroup as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
@@ -245,12 +259,13 @@
                             <div class="form-group">
                                 <label class="d-block" for="admin_add_user_permission">Thêm quyền khác</label>
                                 <select style="width: 100%" class="form-controlm-select2 admin_settings_tp_permissions"
-                                        id="admin_add_user_permission"  name="admin_add_user_permission"
+                                        id="admin_add_user_permission" name="admin_add_user_permission"
                                         multiple="multiple">
                                     @foreach($getAllGroup as $value)
                                         <optgroup label="{{ $value->name  }}">
                                             @foreach($value->permission as $key => $item)
-                                                <option selected value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                                <option selected
+                                                        value="{{ $item->name }}">{{ $item->display_name }}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach

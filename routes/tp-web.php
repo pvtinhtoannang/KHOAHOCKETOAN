@@ -16,10 +16,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('options-general', ['as' => 'POST_OPTION_GENERAL', 'uses' => 'OptionController@postUpdateOptionGeneral']);
     Route::post('add-options-general', ['as' => 'ADD_OPTION_GENERAL', 'uses' => 'OptionController@postAddOptionGeneral']);
     Route::get('permissions-settings', ['as' => 'GET_PERMISSION_SETTINGS', 'uses' => 'PermissionController@getPermission']);
+    Route::post('add-permissions-settings', ['as' => 'ADD_PERMISSION_SETTINGS', 'uses' => 'PermissionController@addPermission']);
 
 //    Route::post('update-permission-for-role/{role-id}', ['as' => 'UPDATE_PERMISSION_FOR_ROLE', 'uses' => 'PermissionController@updatePermissionForRole'])->where('id', '[0-9]+');
     Route::post('update-permission-for-role', ['as' => 'UPDATE_PERMISSION_FOR_ROLE', 'uses' => 'PermissionController@updatePermissionForRole']);
     Route::get('ajax-permission-by-role/{role_id}', ['as' => 'GET_PERMISSION_BY_ROLE', 'uses' => 'PermissionController@getPermissionByRole'])->where('id', '[0-9]+');
+
 });
 
 

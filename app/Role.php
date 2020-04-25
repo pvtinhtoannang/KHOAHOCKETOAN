@@ -36,6 +36,7 @@ class Role extends Model
 
     public function updatePermissionForRole($idRole, $idPermission = [])
     {
+
         return self::find($idRole)->permission()->sync($idPermission);
     }
 
