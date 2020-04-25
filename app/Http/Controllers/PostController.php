@@ -42,13 +42,23 @@ class PostController extends Controller
         return view('admin.post.post-new');
     }
 
-    function getPostEdit()
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    function editPost($id)
     {
         $responses = array(
             'title' => 'Lỗi',
             'sub_title' => '',
             'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
         );
+        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            return view('admin.post.post-edit', ['postData' => $postData]);
+        }
     }
 
     function toSlug($str)
@@ -138,5 +148,6 @@ class PostController extends Controller
             $post->meta()->create($metaRequest);
         }
         $post->taxonomies()->attach($taxonomy);
+        return redirect()->route('GET_EDIT_POST_ROUTE', [$post]);
     }
 }

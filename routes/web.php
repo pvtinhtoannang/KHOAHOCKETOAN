@@ -25,7 +25,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/post/create', ['as' => 'GET_CREATE_POST_ROUTE', 'uses' => 'PostController@getPostEditor']);
     Route::post('/post/create', ['as' => 'POST_CREATE_POST_ROUTE', 'uses' => 'PostController@createPost']);
 
-    Route::get('/post-edit', ['as' => 'GET_POST_EDIT_ROUTE', 'uses' => 'PostController@getPostEdit']);
+    //edit post
+    Route::get('/post/edit/{id?}', ['as' => 'GET_EDIT_POST_ROUTE', 'uses' => 'PostController@editPost']);
 
     //page
     Route::get('/pages', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);

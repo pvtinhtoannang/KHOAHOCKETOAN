@@ -103,9 +103,9 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                 <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1"
                      data-ktmenu-dropdown-timeout="500">
-                    <ul class="kt-menu__nav ">
-                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="index.html"
-                                                                                                 class="kt-menu__link "><span
+                    <ul class="kt-menu__nav">
+                        <li class="kt-menu__item @if(Request::route()->getName() === 'GET_ADMIN_DASHBOARD_ROUTE') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{route('GET_ADMIN_DASHBOARD_ROUTE')}}"
+                                                                          class="kt-menu__link "><span
                                     class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg"
                                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                                                     width="24px" height="24px" viewBox="0 0 24 24"
@@ -121,7 +121,12 @@ License: You must have a valid license purchased only from themeforest(the above
 												</g>
 											</svg></span><span class="kt-menu__link-text">Bảng tin</span></a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_CREATE_POST_ROUTE') || Request::url() === route('GET_POST_EDIT_ROUTE') || Request::url() === route('GET_POSTS_ROUTE') || @Request::url() === route('GET_CATEGORY_ROUTE') || @Request::url() === route('GET_TAG_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(
+                            Request::route()->getName() === 'GET_CREATE_POST_ROUTE' ||
+                            Request::route()->getName() === 'GET_POSTS_ROUTE' ||
+                            Request::route()->getName() === 'GET_CATEGORY_ROUTE' ||
+                            Request::route()->getName() === 'GET_EDIT_POST_ROUTE' ||
+                            Request::route()->getName() === 'GET_TAG_ROUTE') kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -145,23 +150,25 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Bài viết</span></span></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_POSTS_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(
+                                        Request::route()->getName() === 'GET_POSTS_ROUTE' ||
+                                        Request::route()->getName() === 'GET_EDIT_POST_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_POSTS_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Tất cả bài viết</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_CREATE_POST_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_CREATE_POST_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_CREATE_POST_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Viết bài mới</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_CATEGORY_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_CATEGORY_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_CATEGORY_ROUTE') }}"
                                             class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Chuyên mục</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_TAG_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_TAG_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_TAG_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
@@ -170,7 +177,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </li>
 
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_CREATE_PAGE_ROUTE') || Request::url() === route('GET_PAGES_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(
+                            Request::route()->getName() === 'GET_CREATE_PAGE_ROUTE' ||
+                            Request::route()->getName() === 'GET_PAGES_ROUTE') kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -194,12 +203,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Trang</span></span></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_PAGES_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_PAGES_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_PAGES_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Tất cả các trang</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_CREATE_PAGE_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_CREATE_PAGE_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_CREATE_PAGE_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
@@ -207,7 +216,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </ul>
                             </div>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu @if(Request::url() === route('GET_UPLOAD_NEW_ROUTE') || Request::url() === route('GET_UPLOAD_ROUTE')) kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
+                        <li class="kt-menu__item  kt-menu__item--submenu @if(
+                            Request::route()->getName() === 'GET_UPLOAD_NEW_ROUTE' ||
+                            Request::route()->getName()  === 'GET_UPLOAD_ROUTE') kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
                                                                   class="kt-menu__link kt-menu__toggle"><span
@@ -231,12 +242,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Thư viện</span></span></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_UPLOAD_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_UPLOAD_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_UPLOAD_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span
                                                 class="kt-menu__link-text">Thư viện</span></a></li>
-                                    <li class="kt-menu__item @if(Request::url() === route('GET_UPLOAD_NEW_ROUTE')) kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_UPLOAD_NEW_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_UPLOAD_NEW_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span

@@ -108,13 +108,22 @@ class Post extends Model
         return $this->where('post_name', $slug);
     }
 
+    public function post_id($post_id)
+    {
+        return $this->where('ID', $post_id);
+    }
 
+    /**
+     * Create a new Eloquent query builder
+     */
     public function newEloquentBuilder($query)
     {
         return new PostBuilder($query);
     }
 
-
+    /**
+     * Get a new query builder
+     */
     public function newQuery()
     {
         return $this->postType ?

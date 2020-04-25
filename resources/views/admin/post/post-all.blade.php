@@ -46,7 +46,7 @@
                                 <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xem">
                                     <i class="la la-eye"></i>
                                 </a>
-                                <a href="{{route('GET_POST_EDIT_ROUTE').'?post='.$post->ID}}"
+                                <a href="{{route('GET_EDIT_POST_ROUTE', $post->ID)}}"
                                    class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Chỉnh sửa">
                                     <i class="la la-edit"></i>
                                 </a>

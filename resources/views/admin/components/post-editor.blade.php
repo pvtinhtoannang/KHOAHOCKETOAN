@@ -6,9 +6,11 @@ $post_content = '';
 $post_name = '';
 $excerpt = '';
 $cats = array();
+$tags = '';
 $post_status = '';
-$file_url = '';
+$thumbnail_url = '';
 $thumbnail_id = '';
+$uploads_url = url('/contents/uploads');
 ?>
 @isset($postData)
     {{--    @dump($postData)--}}
@@ -20,17 +22,16 @@ $thumbnail_id = '';
     $post_name = $postData['post_name'];
     $excerpt = $postData['post_excerpt'];
     $post_status = $postData['post_status'];
-    $terms = $term_relationships->get_term_id_by_object_id($post_id);
-    if (!empty($terms)) {
-        foreach ($terms as $term) {
-            array_push($cats, $term['term_taxonomy_id']);
+    foreach ($postData->taxonomies as $cat) {
+        if ($cat->taxonomy === 'category') {
+            array_push($cats, $cat['term_taxonomy_id']);
+        } else if ($cat->taxonomy === 'post_tag') {
+            $tags = $tags . $cat->term->name . ',';
         }
     }
-    $thumbnail_id = $post_meta->get_postmeta_by_meta_key($post_id, 'thumbnail_id');
-    $attached_meta = $post_meta->get_postmeta_by_meta_key($thumbnail_id['meta_value'], 'attached_file');
-    if (!is_null($attached_meta)) {
-        $uploads_url = url('/contents/uploads');
-        $file_url = $uploads_url . '/' . $attached_meta['meta_value'];
+    if ($postData->thumbnail !== null) {
+        $thumbnail_id = $postData->thumbnail->meta_value;
+        $thumbnail_url = $uploads_url . '/' .$postData->thumbnail->attachment->meta->meta_value;
     }
     ?>
 @endisset
@@ -133,7 +134,8 @@ $thumbnail_id = '';
                 <div class="kt-portlet__body">
                     <div class="form-group form-group-last">
                         <label for="post-tag" hidden>Thêm thẻ</label>
-                        <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput">
+                        <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput"
+                               value="{{$tags}}">
                         <span class="form-text text-muted">Phân cách các thẻ bằng dấu phẩy (,).</span>
                     </div>
                 </div>
@@ -154,11 +156,11 @@ $thumbnail_id = '';
                 </div>
                 <div class="kt-portlet__body">
                     <div class="featured-image">
-                        @if($file_url !== '')
-                            <img src="{{$file_url}}"/>
+                        @if($thumbnail_url !== '')
+                            <img src="{{$thumbnail_url}}"/>
                         @endif
                     </div>
-                    <input type="hidden" id="thumbnail_id" name="thumbnail_id">
+                    <input type="hidden" id="thumbnail_id" name="thumbnail_id" value="{{$thumbnail_id}}">
                 </div>
             </div>
         </div>
