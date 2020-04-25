@@ -14,10 +14,10 @@ table.tnct-table tbody tr td {
   vertical-align: top !important;
 }
 
-.categories a:after {
+.categories a:after, .tags a:after {
   content: ",";
 }
-.categories a:last-child:after {
+.categories a:last-child:after, .tags a:last-child:after {
   content: none;
 }
 

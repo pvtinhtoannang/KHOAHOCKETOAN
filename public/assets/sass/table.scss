@@ -10,7 +10,7 @@ table.tnct-table tbody tr td {
     vertical-align: top !important;
 }
 
-.categories {
+.categories, .tags {
     a {
         &:after {
             content: ',';

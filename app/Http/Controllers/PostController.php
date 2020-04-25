@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private $term, $term_taxonomy, $post_type, $post, $term_relationships, $post_name_num;
+    private $term, $term_taxonomy, $post_type, $post, $term_relationships;
 
     /**
      * PostController constructor.
@@ -23,7 +23,6 @@ class PostController extends Controller
         $this->term_taxonomy = new Taxonomy();
         $this->post = new Post();
         $this->term_relationships = new TermRelationships();
-        $this->post_name_num = 1;
     }
 
     /**
@@ -133,12 +132,9 @@ class PostController extends Controller
         foreach ($cats as $key => $term_id) {
             $catData[$key]['term_taxonomy_id'] = $term_id;
         }
+        $taxonomy = array_merge($catData, $tagData);
         $post = $this->post->create($postRequest);
         $post->meta()->create($metaRequest);
-        $post->taxonomies()->attach($catData);
-        $post->taxonomies()->attach($tagData);
-
-//        $this->term_relationships->addTermRelationships($termRelationshipsData);
-
+        $post->taxonomies()->attach($taxonomy);
     }
 }

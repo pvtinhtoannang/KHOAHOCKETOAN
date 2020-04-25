@@ -58,10 +58,18 @@
                         <td>{{$post->author->name}}</td>
                         <td class="categories">
                             @foreach($post->taxonomies as $cat)
-                                <a class="" href="">{{$cat->term->name}}</a>
+                                @if($cat->taxonomy === 'category')
+                                    <a class="" href="">{{$cat->term->name}}</a>
+                                @endif
                             @endforeach
                         </td>
-                        <td>Thẻ</td>
+                        <td class="tags">
+                            @foreach($post->taxonomies as $cat)
+                                @if($cat->taxonomy === 'post_tag')
+                                    <a class="" href="">{{$cat->term->name}}</a>
+                                @endif
+                            @endforeach
+                        </td>
                         <td>
                             @if($post->post_status == 'publish')
                                 Đã xuất bản
