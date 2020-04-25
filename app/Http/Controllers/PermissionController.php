@@ -35,6 +35,33 @@ class PermissionController extends Controller
             ]);
     }
 
+    public function addPermission(Request $request)
+    {
+        if (!empty($request->name) && !empty($request->display_name) && !empty($request->group_id)) {
+            if ($this->permission->createPermission($request->name, $request->display_name, $request->group_id)) {
+                return redirect()->back()->with('messages', 'Thêm quyền mới thành công!');
+            }
+        } else {
+            return redirect()->back()->withInput()->with('messages', 'Thêm quyền mới thất bại');
+        }
+    }
+
+
+    public function getPermissionByID($id)
+    {
+        if (!empty($id)) {
+            return $this->permission->getPermissionByID($id);
+        } else {
+            return false;
+        }
+
+    }
+
+    public function updatePermissionByID(Request $request)
+    {
+
+    }
+
     public function updatePermissionForRole(Request $request)
     {
         $permission_id = $request->permission_for_role;
@@ -49,5 +76,6 @@ class PermissionController extends Controller
     {
         return $this->role->getPermissionByRole($role_id);
     }
+
 
 }

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
 
+    protected $fillable = ['name', 'display_name', 'group_id'];
+
     /**
      * Relationship to Role Table
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -50,4 +52,13 @@ class Permission extends Model
     }
 
 
+    public function createPermission($name, $display_name, $group_id)
+    {
+        return $this->create(['name' => $name, 'display_name' => $display_name, 'group_id' => $group_id]);
+    }
+
+    public function getPermissionByID($id)
+    {
+        return self::find($id);
+    }
 }

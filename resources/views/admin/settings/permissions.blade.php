@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Thêm quyền truy cập mới</h2>
-                    <form class="kt-form" method="POST" action="{{route('ADD_PERMISSION')}}">
+                    <form class="kt-form" method="POST" action="{{route('ADD_PERMISSION_SETTINGS')}}">
                         @csrf
                         <div class="hidden"></div>
                         <div class="kt-portlet__body">
@@ -121,7 +121,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
@@ -208,8 +207,9 @@
                                                        title="View">
                                                         <i class="la la-eye"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                                       title="View">
+                                                    <a href="javascript:;"
+                                                       class="btn btn-edit-permission btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="Chỉnh sửa" data-toggle="modal" data-id="{{ $value->id }}" data-target="#kt_modal_update_permission_settings">
                                                         <i class="la la-edit"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
@@ -225,6 +225,58 @@
                                 </table>
                             </div>
                         </div>
+                        <!--begin::Modal-->
+                        <form class="kt-form" method="POST" action="{{route('UPDATE_PERMISSION_SETTINGS')}}">
+                        <div class="modal fade" id="kt_modal_update_permission_settings" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePermission" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật quyền truy cập</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            @csrf
+                                            <div class="hidden"></div>
+                                            <div class="kt-portlet__body">
+
+                                                <div class="form-group">
+                                                    <label for="update_name">Tên quyền truy cập</label>
+                                                    <input id="update_name" type="text"
+                                                           name="name" class="form-control"
+                                                           aria-describedby="name"
+                                                           value=""
+                                                           placeholder="Nhập tên, ex: add_post">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="update_display_name">Tên hiển thị hoặc mô tả</label>
+                                                    <input id="update_display_name" type="text"
+                                                           name="display_name" class="form-control"
+                                                           aria-describedby="display_name"
+                                                           value=""
+                                                           placeholder="Nhập tên hiển thị, ex: Thêm mới bài viết">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_group_id">Nhóm quyền</label>
+                                                    <select name="group_id" class="form-control" id="update_group_id">
+                                                        @foreach($getAllGroup as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary">Lưu lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+
+                        <!--end::Modal-->
                     </div>
                     <!-- end:: Content -->
                 </div>

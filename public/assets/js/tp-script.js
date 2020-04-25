@@ -96,10 +96,53 @@ var KTFormPermissionUpdateForRole = function () {
 }();
 
 
+var PvtinhPermissionModal = function () {
+    var deletePermission = function () {
+        $('#kt_sweetalert_delete_permission').click(function(e) {
+            swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                type: "success",
+                confirmButtonText: "Confirm me!",
+                confirmButtonClass: "btn btn-focus--pill--air"
+            });
+        });
+    }
+
+    var updatePermission = function () {
+        $('.btn-edit-permission').click(function () {
+            var permission = parseInt($(this).attr('data-id'));
+            if (permission != null) {
+                $.ajax({
+                    url: "/admin/ajax-permission-by-id/" + permission,
+                    method: "GET"
+                }).done(function (data) {
+                    $('#kt_modal_update_permission_settings #update_name').val(data.name);
+                    $('#kt_modal_update_permission_settings #update_display_name').val(data.display_name);
+                    $('#kt_modal_update_permission_settings #update_group_id option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
+                        option_ele.removeAttr('selected');
+                        if (option_value === data.group_id) {
+                            option_ele.attr('selected', 'selected');
+                        }
+                    });
+                });
+            }
+        });
+    }
+    return {
+        init: function () {
+            updatePermission();
+        }
+    }
+}();
+
 jQuery(document).ready(function () {
     KTDatatablesPermission.init();
     KTSelect2Permission.init();
     KTFormPermissionUpdateForRole.init();
+    PvtinhPermissionModal.init();
 });
 
 
