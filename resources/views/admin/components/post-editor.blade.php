@@ -62,8 +62,10 @@ $thumbnail_id = '';
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <label for="excerpt" hidden>Mô tả ngắn</label>
-                    <textarea class="form-control" id="excerpt" name="excerpt" rows="4">{{$excerpt}}</textarea>
+                    <div class="form-group form-group-last">
+                        <label for="excerpt" hidden>Mô tả ngắn</label>
+                        <textarea class="form-control" id="excerpt" name="excerpt" rows="4">{{$excerpt}}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,27 +131,11 @@ $thumbnail_id = '';
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <div class="form-group row align-items-center">
-                        <div class="col-md-10">
-                            <label for="post-tags" hidden>Thêm thẻ</label>
-                            <input type="text" id="post-tag" class="form-control" placeholder="Thêm thẻ">
-                        </div>
-                        <div class="col-md-2">
-                            <div class="btn btn-primary btn-elevate btn-circle btn-icon" id="complete-btn">
-                                    <span>
-                                        <i class="la la-check"></i>
-                                    </span>
-                            </div>
-                        </div>
+                    <div class="form-group form-group-last">
+                        <label for="post-tag" hidden>Thêm thẻ</label>
+                        <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput">
+                        <span class="form-text text-muted">Phân cách các thẻ bằng dấu phẩy (,).</span>
                     </div>
-                    <ul class="tag-list">
-{{--                        <li>--}}
-{{--                            <span class="remove-tag-icon kt-bg-success">--}}
-{{--                                <i class="la la-remove"></i>--}}
-{{--                            </span>--}}
-{{--                            tag 1--}}
-{{--                        </li>--}}
-                    </ul>
                 </div>
             </div>
             <div class="kt-portlet">

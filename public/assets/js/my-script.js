@@ -187,14 +187,16 @@ function postTagGenerator() {
             tags = tagInput.val().split(/[\s,]+/);
             tagInput.val('');
             for (let i = 0; i < tags.length; i++) {
-                tag_list.append(
-                    '<li id="tag-' + i + '">' +
-                    '<span class="remove-tag-icon kt-bg-success">' +
-                    '<i class="la la-remove"></i>' +
-                    '</span>' +
-                    tags[i] +
-                    '</li>'
-                );
+                if (!tags.includes(tags[i])) {
+                    tag_list.append(
+                        '<li id="tag-' + i + '">' +
+                        '<span class="remove-tag-icon kt-bg-success">' +
+                        '<i class="la la-remove"></i>' +
+                        '</span>' +
+                        tags[i] +
+                        '</li>'
+                    );
+                }
             }
         }
     });
