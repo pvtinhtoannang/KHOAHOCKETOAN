@@ -179,6 +179,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <li class="kt-menu__item  kt-menu__item--submenu @if(
                             Request::route()->getName() === 'GET_CREATE_PAGE_ROUTE' ||
+                            Request::route()->getName() === 'GET_EDIT_PAGE_ROUTE' ||
                             Request::route()->getName() === 'GET_PAGES_ROUTE') kt-menu__item--submenu kt-menu__item--open kt-menu__item--here @endif"
                             aria-haspopup="true"
                             data-ktmenu-submenu-toggle="hover"><a href="javascript:;"
@@ -203,7 +204,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
                                             class="kt-menu__link"><span
                                                 class="kt-menu__link-text">Trang</span></span></li>
-                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_PAGES_ROUTE') kt-menu__item--active @endif"
+                                    <li class="kt-menu__item @if(Request::route()->getName() === 'GET_PAGES_ROUTE' ||
+                                                                  Request::route()->getName() === 'GET_EDIT_PAGE_ROUTE') kt-menu__item--active @endif"
                                         aria-haspopup="true"><a
                                             href="{{ route('GET_PAGES_ROUTE') }}" class="kt-menu__link "><i
                                                 class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span

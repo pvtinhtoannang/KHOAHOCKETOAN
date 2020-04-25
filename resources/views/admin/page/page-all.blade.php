@@ -44,7 +44,7 @@
                                 <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                                     <i class="la la-eye"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a href="{{route('GET_EDIT_PAGE_ROUTE', $page->ID)}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                                     <i class="la la-edit"></i>
                                 </a>
                                 <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">

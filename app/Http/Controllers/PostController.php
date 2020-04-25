@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     function getPostEditor()
     {
-        return view('admin.post.post-new');
+        return view('admin.post.post-new', ['post_type' => $this->post_type]);
     }
 
     /**
@@ -78,6 +78,7 @@ class PostController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     function createPost(Request $request)
     {

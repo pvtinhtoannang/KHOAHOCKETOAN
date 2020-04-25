@@ -4,6 +4,7 @@
 $post_title = '';
 $post_content = '';
 $post_name = '';
+$type = '';
 $excerpt = '';
 $cats = array();
 $tags = '';
@@ -12,6 +13,7 @@ $thumbnail_url = '';
 $thumbnail_id = '';
 $uploads_url = url('/contents/uploads');
 ?>
+
 @isset($postData)
     {{--    @dump($postData)--}}
     <?php
@@ -31,11 +33,17 @@ $uploads_url = url('/contents/uploads');
     }
     if ($postData->thumbnail !== null) {
         $thumbnail_id = $postData->thumbnail->meta_value;
-        $thumbnail_url = $uploads_url . '/' .$postData->thumbnail->attachment->meta->meta_value;
+        $thumbnail_url = $uploads_url . '/' . $postData->thumbnail->attachment->meta->meta_value;
     }
     ?>
 @endisset
-
+<?php
+if (isset($post_type)) {
+    $type = $post_type;
+} else {
+    $type = $postData['post_type'];
+}
+?>
 <form class="kt-form" id="post" method="post">
     <div class="row">
         <div class="col-md-9">
@@ -56,19 +64,21 @@ $uploads_url = url('/contents/uploads');
                 <textarea class="summernote-post-content" id="post_content"
                           name="post_content">{{$post_content}}</textarea>
             </div>
-            <div class="kt-portlet">
-                <div class="kt-portlet__head kt-bg-primary">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Mô tả ngắn</h3>
+            @if($type === 'post')
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head kt-bg-primary">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Mô tả ngắn</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="form-group form-group-last">
+                            <label for="excerpt" hidden>Mô tả ngắn</label>
+                            <textarea class="form-control" id="excerpt" name="excerpt" rows="4">{{$excerpt}}</textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="kt-portlet__body">
-                    <div class="form-group form-group-last">
-                        <label for="excerpt" hidden>Mô tả ngắn</label>
-                        <textarea class="form-control" id="excerpt" name="excerpt" rows="4">{{$excerpt}}</textarea>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
         <div class="col-md-3">
             <div class="kt-portlet">
@@ -99,47 +109,49 @@ $uploads_url = url('/contents/uploads');
                     </button>
                 </div>
             </div>
-
-            <div class="kt-portlet">
-                <div class="kt-portlet__head kt-bg-primary">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Chuyên mục</h3>
+            @if($type === 'post')
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head kt-bg-primary">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Chuyên mục</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="kt-portlet__body">
-                    <div class="kt-checkbox-list">
-                        <div id="category-list">
-                            <ul class="categorychecklist">
-                                @foreach($taxonomy->parent_id(0)->category()->get() as $term)
-                                    <li>
-                                        <label class="kt-checkbox">
-                                            <input name="post_category[]" type="checkbox"
-                                                   value="{{$term->term_id}}" @if(in_array($term->term_id, $cats)) {{'checked'}} @endif> {{$term->term->name}}
-                                            <span></span>
-                                        </label>
-                                        @include('admin.components.category-children', ['parent' => $term->term_id])
-                                    </li>
-                                @endforeach
-                            </ul>
+                    <div class="kt-portlet__body">
+                        <div class="kt-checkbox-list">
+                            <div id="category-list">
+                                <ul class="categorychecklist">
+                                    @foreach($taxonomy->parent_id(0)->category()->get() as $term)
+                                        <li>
+                                            <label class="kt-checkbox">
+                                                <input name="post_category[]" type="checkbox"
+                                                       value="{{$term->term_id}}" @if(in_array($term->term_id, $cats)) {{'checked'}} @endif> {{$term->term->name}}
+                                                <span></span>
+                                            </label>
+                                            @include('admin.components.category-children', ['parent' => $term->term_id])
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="kt-portlet">
-                <div class="kt-portlet__head kt-bg-primary">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Thẻ</h3>
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head kt-bg-primary">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Thẻ</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="form-group form-group-last">
+                            <label for="post-tag" hidden>Thêm thẻ</label>
+                            <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput"
+                                   value="{{$tags}}">
+                            <span class="form-text text-muted">Phân cách các thẻ bằng dấu phẩy (,).</span>
+                        </div>
                     </div>
                 </div>
-                <div class="kt-portlet__body">
-                    <div class="form-group form-group-last">
-                        <label for="post-tag" hidden>Thêm thẻ</label>
-                        <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput"
-                               value="{{$tags}}">
-                        <span class="form-text text-muted">Phân cách các thẻ bằng dấu phẩy (,).</span>
-                    </div>
-                </div>
-            </div>
+            @endif
+
             <div class="kt-portlet">
                 <div class="kt-portlet__head kt-portlet__head--noborder kt-bg-primary">
                     <div class="kt-portlet__head-label">

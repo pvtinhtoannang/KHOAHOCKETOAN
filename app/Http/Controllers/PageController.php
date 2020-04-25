@@ -35,7 +35,26 @@ class PageController extends Controller
      */
     function getPageEditor()
     {
-        return view('admin.page.page-new');
+        return view('admin.page.page-new', ['post_type' => $this->post_type]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    function editPage($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            return view('admin.page.page-edit', ['postData' => $postData]);
+        }
     }
 
     /**
