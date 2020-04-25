@@ -39,9 +39,10 @@ class PermissionController extends Controller
     {
         $permission_id = $request->permission_for_role;
         $role = $request->role;
-        if ($this->role->updatePermissionForRole($role, $permission_id)) {
-            return redirect()->back()->with('messages', 'Cập nhật thành công!');
+        if (!empty($permission_id)) {
+            $this->role->updatePermissionForRole($role, $permission_id);
         }
+        return redirect()->route('GET_PERMISSION_SETTINGS');
     }
 
     public function getPermissionByRole($role_id)
