@@ -100,10 +100,6 @@ class PostController extends Controller
             'post_name' => $post_name,
             'post_type' => $this->post_type
         );
-        $metaRequest = array(
-            'meta_key' => 'thumbnail_id',
-            'meta_value' => $request->thumbnail_id,
-        );
         foreach ($tags as $key => $tag) {
             if ($tag !== '') {
                 $tagCheck = $this->term->slug($this->toSlug($tag))->first();
@@ -134,7 +130,13 @@ class PostController extends Controller
         }
         $taxonomy = array_merge($catData, $tagData);
         $post = $this->post->create($postRequest);
-        $post->meta()->create($metaRequest);
+        if (isset($request->thumbnail_id)) {
+            $metaRequest = array(
+                'meta_key' => 'thumbnail_id',
+                'meta_value' => $request->thumbnail_id,
+            );
+            $post->meta()->create($metaRequest);
+        }
         $post->taxonomies()->attach($taxonomy);
     }
 }
