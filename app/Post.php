@@ -131,13 +131,14 @@ class Post extends Model
             parent::newQuery();
     }
 
-    public function slugGenerator($slug = null)
+    public function slugGenerator($slug)
     {
-        if ($this->slug($slug)->first() == null) {
-            return $postName = $slug;
-        } else {
-            $newPostName = $slug . '-' . $this->slugAlias++;
+        $post = $this->slug($slug)->first();
+        if ($post !== null) {
+            $newPostName = $slug . '-' . ++$this->slugAlias;
             return $this->slugGenerator($newPostName);
+        } else {
+            return $postName = $slug;
         }
     }
 

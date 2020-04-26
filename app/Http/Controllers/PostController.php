@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\TermRelationships;
 use App\Term;
-use App\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private $term, $term_taxonomy, $post_type, $post, $term_relationships;
+    private $term, $post_type, $post;
 
     /**
      * PostController constructor.
@@ -20,9 +18,7 @@ class PostController extends Controller
     {
         $this->post_type = 'post';
         $this->term = new Term();
-        $this->term_taxonomy = new Taxonomy();
         $this->post = new Post();
-        $this->term_relationships = new TermRelationships();
     }
 
     /**
@@ -46,7 +42,7 @@ class PostController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function editPost($id)
+    function getEditPost($id)
     {
         $responses = array(
             'title' => 'Lỗi',
@@ -61,6 +57,10 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * @param $str
+     * @return string|string[]|null
+     */
     function toSlug($str)
     {
         $str = trim(mb_strtolower($str));
@@ -77,14 +77,12 @@ class PostController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param $request
+     * @param string $id
+     * @return array
      */
-    function createPost(Request $request)
+    function postRequest($request, $id = '')
     {
-        $tags = explode(',', $request->post_tag);
-        $tagData = array();
-        $catData = array();
         $post_content = '';
         $excerpt = '';
         if (isset($request->post_content)) {
@@ -94,15 +92,13 @@ class PostController extends Controller
         if (isset($request->excerpt)) {
             $excerpt = $request->excerpt;
         }
-
-        if (empty($request->post_category)) {
-            $cats = array("1");
-        } else {
-            $cats = $request->post_category;
-        }
         $user_id = Auth::user()->id;
-        $post_name = $this->post->slugGenerator($request->post_name);
-        $postRequest = array(
+        if ($id !== '') {
+            $post_name = $request->post_name;
+        } else {
+            $post_name = $this->post->slugGenerator($this->toSlug($request->post_title));
+        }
+        return array(
             'post_author' => $user_id,
             'post_content' => $post_content,
             'post_title' => $request->post_title,
@@ -111,6 +107,22 @@ class PostController extends Controller
             'post_name' => $post_name,
             'post_type' => $this->post_type
         );
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    function taxonomyRequest($request)
+    {
+        $tags = explode(',', $request->post_tag);
+        $tagData = array();
+        $catData = array();
+        if (empty($request->post_category)) {
+            $cats = array("1");
+        } else {
+            $cats = $request->post_category;
+        }
         foreach ($tags as $key => $tag) {
             if ($tag !== '') {
                 $tagCheck = $this->term->slug($this->toSlug($tag))->first();
@@ -139,16 +151,62 @@ class PostController extends Controller
         foreach ($cats as $key => $term_id) {
             $catData[$key]['term_taxonomy_id'] = $term_id;
         }
-        $taxonomy = array_merge($catData, $tagData);
-        $post = $this->post->create($postRequest);
+        return array_merge($catData, $tagData);
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    function thumbnailRequest($request)
+    {
+        return array(
+            'meta_key' => 'thumbnail_id',
+            'meta_value' => $request->thumbnail_id,
+        );
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    function createPost(Request $request)
+    {
+        $post = $this->post->create($this->postRequest($request));
+        $post->taxonomies()->attach($this->taxonomyRequest($request));
         if (isset($request->thumbnail_id)) {
-            $metaRequest = array(
-                'meta_key' => 'thumbnail_id',
-                'meta_value' => $request->thumbnail_id,
-            );
-            $post->meta()->create($metaRequest);
+            $post->meta()->create($this->thumbnailRequest($request));
         }
-        $post->taxonomies()->attach($taxonomy);
-        return redirect()->route('GET_EDIT_POST_ROUTE', [$post]);
+        return redirect()->route('GET_EDIT_POST_ROUTE', [$post])->with('create', 'Bài viết đã được tạo.');
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    function updatePost(Request $request, $id)
+    {
+        $post = $this->post->find($id);
+        $post->update($this->postRequest($request, $id));
+        $cats = array();
+        foreach ($this->taxonomyRequest($request) as $term_id) {
+            array_push($cats, $term_id['term_taxonomy_id']);
+        }
+        $post->taxonomies()->wherePivot('object_id', $id)->sync($cats);
+        if ($post->thumbnail === null) {
+            if (isset($request->thumbnail_id)) {
+                $post->meta()->create($this->thumbnailRequest($request));
+            }
+        } else {
+            if (isset($request->thumbnail_id)) {
+                $post->meta()->update($this->thumbnailRequest($request));
+            } else {
+                $thumbnail = $post->meta()->find($post->thumbnail->meta_id);
+                $thumbnail->delete();
+            }
+        }
+        return redirect()->route('GET_EDIT_POST_ROUTE', [$id])->with('update', 'Bài viết đã được cập nhật.');
     }
 }

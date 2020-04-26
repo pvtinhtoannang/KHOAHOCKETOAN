@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Page;
-use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
-    private $post_type, $page, $post;
+    private $post_type, $page;
 
     /**
      * PageController constructor.
@@ -18,7 +17,6 @@ class PageController extends Controller
     {
         $this->post_type = 'page';
         $this->page = new Page();
-        $this->post = new Post();
     }
 
     /**
@@ -42,14 +40,14 @@ class PageController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function editPage($id)
+    function getEditPage($id)
     {
         $responses = array(
             'title' => 'Lỗi',
             'sub_title' => '',
             'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
         );
-        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        $postData = $this->page->post_id($id)->type($this->post_type)->first();
         if ($postData == null) {
             return view('admin.errors.admin-error', ['error_responses' => $responses]);
         } else {
@@ -58,18 +56,54 @@ class PageController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param $str
+     * @return string|string[]|null
      */
-    function createPage(Request $request)
+    function toSlug($str)
     {
-        if (!empty($request->post_content) || $request->post_content === null) {
-            $post_content = '';
-        } else {
+        $str = trim(mb_strtolower($str));
+        $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
+        $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
+        $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
+        $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
+        $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
+        $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
+        $str = preg_replace('/(đ)/', 'd', $str);
+        $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
+        $str = preg_replace('/([\s]+)/', '-', $str);
+        return $str;
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    function thumbnailRequest($request)
+    {
+        return array(
+            'meta_key' => 'thumbnail_id',
+            'meta_value' => $request->thumbnail_id,
+        );
+    }
+
+    /**
+     * @param $request
+     * @param string $id
+     * @return array
+     */
+    function pageRequest($request, $id = '')
+    {
+        $post_content = '';
+        if (isset($request->post_content)) {
             $post_content = $request->post_content;
         }
         $user_id = Auth::user()->id;
-        $post_name = $this->post->slugGenerator($request->post_name);
-        $pageRequest = array(
+        if ($id !== '') {
+            $post_name = $request->post_name;
+        } else {
+            $post_name = $this->page->slugGenerator($this->toSlug($request->post_title));
+        }
+        return array(
             'post_author' => $user_id,
             'post_content' => $post_content,
             'post_title' => $request->post_title,
@@ -78,6 +112,42 @@ class PageController extends Controller
             'post_name' => $post_name,
             'post_type' => $this->post_type
         );
-        $this->page->create($pageRequest);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    function createPage(Request $request)
+    {
+        $page = $this->page->create($this->pageRequest($request));
+        if (isset($request->thumbnail_id)) {
+            $page->meta()->create($this->thumbnailRequest($request));
+        }
+        return redirect()->route('GET_EDIT_PAGE_ROUTE', $page)->with('create', 'Trang đã được tạo.');
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    function updatePage(Request $request, $id)
+    {
+        $page = $this->page->find($id);
+        $page->update($this->pageRequest($request, $id));
+        if ($page->thumbnail === null) {
+            if (isset($request->thumbnail_id)) {
+                $page->meta()->create($this->thumbnailRequest($request));
+            }
+        } else {
+            if (isset($request->thumbnail_id)) {
+                $page->meta()->update($this->thumbnailRequest($request));
+            } else {
+                $thumbnail = $page->meta()->find($page->thumbnail->meta_id);
+                $thumbnail->delete();
+            }
+        }
+        return redirect()->route('GET_EDIT_PAGE_ROUTE', [$id])->with('update', 'Trang đã được cập nhật.');
     }
 }

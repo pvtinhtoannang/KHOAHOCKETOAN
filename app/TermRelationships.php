@@ -45,4 +45,13 @@ class TermRelationships extends Model
     {
         return $this->belongsTo(Taxonomy::class, 'term_taxonomy_id');
     }
+
+    /**
+     * @param $post_id
+     * @return mixed
+     */
+    public function object($post_id)
+    {
+        return $this->where('object_id', $post_id);
+    }
 }

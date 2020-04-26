@@ -44,6 +44,16 @@ if (isset($post_type)) {
     $type = $postData['post_type'];
 }
 ?>
+@if (session()->has('create'))
+    <div class="alert alert-success" role="alert">
+        <div class="alert-text">{{session('create')}}</div>
+    </div>
+@endif
+@if (session()->has('update'))
+    <div class="alert alert-success" role="alert">
+        <div class="alert-text">{{session('update')}}</div>
+    </div>
+@endif
 <form class="kt-form" id="post" method="post">
     <div class="row">
         <div class="col-md-9">
@@ -56,7 +66,8 @@ if (isset($post_type)) {
                 <label for="post-name" class="col-form-label">Đường dẫn tĩnh: </label>
                 <span class="post-link">{{url('/')}}/</span>
                 <div class="col-6">
-                    <input class="form-control" type="text" id="post-name" name="post_name" value="{{$post_name}}">
+                    <input class="form-control" type="text" id="post-name" name="post_name" value="{{$post_name}}"
+                           readonly>
                 </div>
             </div>
             <div class="form-group">
@@ -162,6 +173,10 @@ if (isset($post_type)) {
                             <a href="#" data-toggle="modal" data-target="#featured-image-modal"
                                class="btn btn-outline-light btn-sm btn-icon btn-icon-md">
                                 <i class="flaticon2-add-1"></i>
+                            </a>
+                            <a id="remove-thumbnail" href="#" data-toggle="modal"
+                               class="btn btn-outline-light btn-sm btn-icon btn-icon-md">
+                                <i class="flaticon2-trash"></i>
                             </a>
                         </div>
                     </div>

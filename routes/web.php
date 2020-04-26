@@ -26,7 +26,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/post/create', ['as' => 'POST_CREATE_POST_ROUTE', 'uses' => 'PostController@createPost']);
 
     //edit post
-    Route::get('/post/edit/{id?}', ['as' => 'GET_EDIT_POST_ROUTE', 'uses' => 'PostController@editPost']);
+    Route::get('/post/edit/{id}', ['as' => 'GET_EDIT_POST_ROUTE', 'uses' => 'PostController@getEditPost']);
+    Route::post('/post/edit/{id}', ['as' => 'POST_EDIT_POST_ROUTE', 'uses' => 'PostController@updatePost']);
 
     //page
     Route::get('/pages', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);
@@ -35,7 +36,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/page/create', ['as' => 'POST_CREATE_PAGE_ROUTE', 'uses' => 'PageController@createPage']);
 
     //edit page
-    Route::get('/page/edit/{id?}', ['as' => 'GET_EDIT_PAGE_ROUTE', 'uses' => 'PageController@editPage']);
+    Route::get('/page/edit/{id}', ['as' => 'GET_EDIT_PAGE_ROUTE', 'uses' => 'PageController@getEditPage']);
+    Route::post('/page/edit/{id}', ['as' => 'POST_EDIT_PAGE_ROUTE', 'uses' => 'PageController@updatePage']);
 
     //upload
     Route::get('/upload', ['as' => 'GET_UPLOAD_ROUTE', 'uses' => 'UploadController@getUpload']);

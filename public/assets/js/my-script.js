@@ -134,6 +134,16 @@ function postNameGenerator() {
     });
 }
 
+function removeThumbnail() {
+    let featured_image = $('.featured-image');
+    let remove_btn = $('#remove-thumbnail');
+    let thumbnail = $('#thumbnail_id');
+    remove_btn.click(function () {
+        featured_image.empty();
+        thumbnail.removeAttr('value');
+    });
+}
+
 function featured_image_select() {
     let attachment = $('li.attachment');
     let thumbnail = $('#thumbnail_id');
@@ -209,6 +219,7 @@ jQuery(function ($) {
             postNameGenerator();
             featured_image_select();
             postTagGenerator();
+            removeThumbnail();
         });
     } catch (e) {
         console.log(e);
