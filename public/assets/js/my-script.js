@@ -58,14 +58,6 @@ var CategoriesTable = function () {
 
 }();
 
-$('.media-modal').on('shown.bs.modal', function (e) {
-    let media_button_select = $('.media-modal .media-button-select');
-    let attachment = $('.media-modal li.attachment');
-    media_button_select.attr('disabled', 'disabled');
-    attachment.removeClass('selected');
-    attachment.attr('aria-checked', 'false');
-});
-
 var insertMedia = function (context) {
     var ui = $.summernote.ui;
     let attachment = $('#insert-media-modal li.attachment');
@@ -77,10 +69,11 @@ var insertMedia = function (context) {
             let featured_image_modal = $('#insert-media-modal');
             featured_image_modal.modal('show');
             media_button_select.click(function () {
-                attachment.each(function (index, value) {
+                $.each($('#insert-media-modal li.attachment'), function (index, value) {
                     if ($(this).hasClass('selected')) {
-                        console.log($(this));
                         context.invoke('editor.insertImage', $(this).attr('data-src'));
+                        attachment.removeClass('selected');
+                        attachment.attr('aria-checked', 'false');
                         featured_image_modal.modal('hide');
                     }
                 });
@@ -204,6 +197,8 @@ function featured_image_select() {
                 thumbnail.attr('value', $(this).attr('data-id'));
                 featured_image.empty();
                 featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
+                attachment.removeClass('selected');
+                attachment.attr('aria-checked', 'false');
                 featured_image_modal.modal('hide');
             }
         });
