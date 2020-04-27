@@ -35,19 +35,17 @@ var KTSelect2Permission = function () {
 }();
 
 var KTFormPermissionUpdateForRole = function () {
-
     var updateForRole = function () {
         var role = $('#update_permission_for_role #role').val();
-        // console.log($('#admin_settings_tp_permissions').find('optgroup option').attr('value'));
         if (role != null) {
             $.ajax({
                 url: "/admin/ajax-permission-by-role/" + role,
                 method: "GET"
             }).done(function (data) {
-                $('#admin_settings_tp_permissions optgroup option').each(function (i) {
-                    var option_value = parseInt($(this).val());
-                    var option_ele = $(this);
-                    $.each(data, function (key, value) {
+                $.each(data, function (key, value) {
+                    $('#admin_settings_tp_permissions optgroup option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
                         if (option_value === value.id) {
                             option_ele.attr('selected', 'selected');
                         }
@@ -60,25 +58,22 @@ var KTFormPermissionUpdateForRole = function () {
     }
 
     var getPermisionForRole = function () {
-        $('#update_permission_for_role #role, #update_permission_for_role .reset-permission').click(function () {
+        $('#update_permission_for_role #role').change(function () {
             var role = $('#update_permission_for_role #role').val();
-            // console.log($('#admin_settings_tp_permissions').find('optgroup option').attr('value'));
+            $('#admin_settings_tp_permissions optgroup option').each(function (i) {
+                $(this).removeAttr('selected');
+            });
             $.ajax({
                 url: "/admin/ajax-permission-by-role/" + role,
                 method: "GET"
             }).done(function (data) {
-                // var dataJson = JSON.stringify(data);
-                $('#admin_settings_tp_permissions optgroup').each(function (i) {
-                    $(this).find('option').each(function (i) {
-                        var option_value = $(this).val();
+                $.each(data, function (key, value) {
+                    $('#admin_settings_tp_permissions optgroup option').each(function (i) {
+                        var option_value = parseInt($(this).val());
                         var option_ele = $(this);
-                        $.each(data, function (key, value) {
-                            if (parseInt(option_value) == parseInt(value.id)) {
-                                option_ele.attr('selected', 'selected');
-                            } else {
-                                option_ele.removeAttr('selected');
-                            }
-                        });
+                        if (option_value === value.id) {
+                            option_ele.attr('selected', 'selected');
+                        }
                     });
                 });
                 $("#admin_settings_tp_permissions").select2("destroy");
@@ -98,12 +93,12 @@ var KTFormPermissionUpdateForRole = function () {
 
 var PvtinhPermissionModal = function () {
     var deletePermission = function () {
-        $('#kt_sweetalert_delete_permission').click(function(e) {
+        $('.kt_sweetalert_delete_permission').click(function (e) {
             swal.fire({
-                title: "Good job!",
-                text: "You clicked the button!",
+                title: "Xoá quyền truy cập!",
+                text: "Bạn nên chỉnh sửa một quyền truy cập nào đó thay vì xoá nó đi, khi xoá có thể làm ảnh hưởng đến một số chức năng nhất định!",
                 type: "success",
-                confirmButtonText: "Confirm me!",
+                confirmButtonText: "Xác nhận!",
                 confirmButtonClass: "btn btn-focus--pill--air"
             });
         });
@@ -118,6 +113,7 @@ var PvtinhPermissionModal = function () {
                     method: "GET"
                 }).done(function (data) {
                     $('#kt_modal_update_permission_settings #update_name').val(data.name);
+                    $('#kt_modal_update_permission_settings #update_id').val(data.id);
                     $('#kt_modal_update_permission_settings #update_display_name').val(data.display_name);
                     $('#kt_modal_update_permission_settings #update_group_id option').each(function (i) {
                         var option_value = parseInt($(this).val());
@@ -133,7 +129,94 @@ var PvtinhPermissionModal = function () {
     }
     return {
         init: function () {
+            deletePermission();
             updatePermission();
+        }
+    }
+}();
+
+
+var PvtinhPermissionForUser = function () {
+    var tb_tab3_user = function () {
+        // multi select
+        $('#tb_tab3_user').select2({
+            placeholder: "Chọn người dùng",
+        });
+    }
+
+    var getTabPermissionByUserID = function () {
+        var user_id = $('#tb_tab3_user').val();
+        if (user_id != null) {
+            $('#admin_add_user_permission optgroup option').each(function (i) {
+                $(this).removeAttr('selected');
+            });
+            $.ajax({
+                url: "/admin/ajax-update-permission-by-user/" + user_id,
+                method: "GET"
+            }).done(function (data) {
+                $.each(data, function (key, value) {
+                    $('#admin_add_user_permission optgroup option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
+                        if (option_value === value.id) {
+                            option_ele.attr('selected', 'selected');
+                        }
+                    });
+                });
+                $("#admin_add_user_permission").select2("destroy");
+                $("#admin_add_user_permission").select2();
+            });
+            $.ajax({
+                url: "/admin/ajax-permission-by-user/" + user_id,
+                method: "GET"
+            }).done(function (data) {
+                $.each(data, function (key, value) {
+                    $('#admin_add_user_permission optgroup option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
+                        if (option_value === value.id) {
+                            option_ele.attr('selected', 'selected');
+                        }
+                    });
+                });
+                $("#admin_add_user_permission").select2("destroy");
+                $("#admin_add_user_permission").select2();
+            });
+
+
+        }
+    }
+
+    var getPermissionByUserIDAfterChangeUser = function () {
+        $('#tb_tab3_user').change(function () {
+            var user_id = $(this).val();
+            $('#admin_add_user_permission optgroup option').each(function (i) {
+                $(this).removeAttr('selected');
+            });
+
+            $.ajax({
+                url: "/admin/ajax-permission-by-user/" + user_id,
+                method: "GET"
+            }).done(function (data) {
+                $.each(data, function (key, value) {
+                    $('#admin_add_user_permission optgroup option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
+                        if (option_value === value.id) {
+                            option_ele.attr('selected', 'selected');
+                        }
+                    });
+                });
+                $("#admin_add_user_permission").select2("destroy");
+                $("#admin_add_user_permission").select2();
+            });
+        });
+    }
+    return {
+        init: function () {
+            tb_tab3_user();
+            getTabPermissionByUserID();
+            getPermissionByUserIDAfterChangeUser();
         }
     }
 }();
@@ -143,6 +226,7 @@ jQuery(document).ready(function () {
     KTSelect2Permission.init();
     KTFormPermissionUpdateForRole.init();
     PvtinhPermissionModal.init();
+    PvtinhPermissionForUser.init();
 });
 
 

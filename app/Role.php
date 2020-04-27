@@ -29,15 +29,20 @@ class Role extends Model
         return self::get();
     }
 
-    public function getPermissionByRole($id)
+    public function getRoleByID($id)
     {
-        return self::find($id)->permission;
+        return self::find($id);
     }
 
     public function updatePermissionForRole($idRole, $idPermission = [])
     {
-
         return self::find($idRole)->permission()->sync($idPermission);
+    }
+
+
+    public function getPermissionByRole($id)
+    {
+        return self::find($id)->permission;
     }
 
 }
