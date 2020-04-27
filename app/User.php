@@ -153,4 +153,26 @@ class User extends Authenticatable
     {
         return self::orderBy('name', 'ASC')->get();
     }
+
+    public function getPermissionByUser($user_id)
+    {
+        return self::find($user_id)->permissions()->get();
+    }
+
+    public function updatePermissionForUser($id, $permission = [])
+    {
+        return self::find($id)->permissions()->sync($permission);
+    }
+
+    public function addPermissionForUser($id, $idPermission = [])
+    {
+        return self::find($id)->permissions()->attach($idPermission);
+    }
+
+    public function getUserbyID($id)
+    {
+        return self::find($id);
+    }
+
+
 }

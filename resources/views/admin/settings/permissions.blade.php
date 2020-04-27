@@ -112,7 +112,6 @@
                                        value="{{ old('display_name') }}"
                                        placeholder="Nhập tên hiển thị, ex: Thêm mới bài viết">
                             </div>
-
                             <div class="form-group">
                                 <label for="group_id">Nhóm quyền</label>
                                 <select name="group_id" class="form-control" id="group_id">
@@ -209,11 +208,13 @@
                                                     </a>
                                                     <a href="javascript:;"
                                                        class="btn btn-edit-permission btn-sm btn-clean btn-icon btn-icon-md"
-                                                       title="Chỉnh sửa" data-toggle="modal" data-id="{{ $value->id }}" data-target="#kt_modal_update_permission_settings">
+                                                       title="Chỉnh sửa" data-toggle="modal" data-id="{{ $value->id }}"
+                                                       data-target="#kt_modal_update_permission_settings">
                                                         <i class="la la-edit"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                                       title="View">
+                                                    <a href="#"
+                                                       class="btn btn-sm btn-clean btn-icon btn-icon-md kt_sweetalert_delete_permission"
+                                                       title="Xoá">
                                                         <i class="la la-trash"></i>
                                                     </a>
                                                 </div>
@@ -227,19 +228,19 @@
                         </div>
                         <!--begin::Modal-->
                         <form class="kt-form" method="POST" action="{{route('UPDATE_PERMISSION_SETTINGS')}}">
-                        <div class="modal fade" id="kt_modal_update_permission_settings" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePermission" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật quyền truy cập</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                            <div class="modal fade" id="kt_modal_update_permission_settings" tabindex="-1" role="dialog"
+                                 aria-labelledby="modalUpdatePermission" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Cập nhật quyền truy cập</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
                                             @csrf
                                             <div class="hidden"></div>
                                             <div class="kt-portlet__body">
-
                                                 <div class="form-group">
                                                     <label for="update_name">Tên quyền truy cập</label>
                                                     <input id="update_name" type="text"
@@ -266,14 +267,16 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                        <button type="button" class="btn btn-primary">Lưu lại</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" value="" id="update_id" name="id">
+                                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
 
                         <!--end::Modal-->
@@ -286,7 +289,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Phân quyền tài khoản</h2>
-                    <form class="kt-form" method="POST" action="{{route('ADD_OPTION_GENERAL')}}">
+                    <form class="kt-form" method="POST" action="{{route('UPDATE_PERMISSION_FOR_USER')}}">
                         @csrf
                         <div class="hidden"></div>
                         <div class="kt-portlet__body">
@@ -301,23 +304,24 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="user">Chọn người dùng</label>
-                                <select class="form-control " id="user" name="user">
+                                <label class="d-block" for="tb_tab3_user">Chọn người dùng</label>
+                                <select style="width: 100%" class="form-control" id="tb_tab3_user" name="user">
                                     @foreach($getAllUser as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option data-role="{{ $item->role }}"
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="d-block" for="admin_add_user_permission">Thêm quyền khác</label>
                                 <select style="width: 100%" class="form-controlm-select2 admin_settings_tp_permissions"
-                                        id="admin_add_user_permission" name="admin_add_user_permission"
+                                        id="admin_add_user_permission" name="admin_add_user_permission[]"
                                         multiple="multiple">
+
                                     @foreach($getAllGroup as $value)
                                         <optgroup label="{{ $value->name  }}">
                                             @foreach($value->permission as $key => $item)
-                                                <option selected
-                                                        value="{{ $item->name }}">{{ $item->display_name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->display_name }}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach

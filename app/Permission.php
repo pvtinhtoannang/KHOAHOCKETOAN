@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Permission extends Model
 {
@@ -51,7 +52,6 @@ class Permission extends Model
         return self::get();
     }
 
-
     public function createPermission($name, $display_name, $group_id)
     {
         return $this->create(['name' => $name, 'display_name' => $display_name, 'group_id' => $group_id]);
@@ -60,5 +60,9 @@ class Permission extends Model
     public function getPermissionByID($id)
     {
         return self::find($id);
+    }
+
+    public function updatePermissionByID($request_name, $request_display_name, $request_group_id, $id){
+        return self::find($id)->update(['name'=>$request_name, 'display_name'=>$request_display_name, 'group_id'=>$request_group_id]);
     }
 }
