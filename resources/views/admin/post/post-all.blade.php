@@ -74,7 +74,7 @@
                             @if($post->post_status == 'publish')
                                 Đã xuất bản
                                 <br>
-                                {{date_format(date_create($post->created_on),"d/m/Y")}}
+                                {{date_format(date_create($post->created_at),"d/m/Y")}}
                             @else
                                 Sửa đổi lần cuối
                                 <br>

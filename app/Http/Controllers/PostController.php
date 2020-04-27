@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     function index()
     {
-        $posts = $this->post->type($this->post_type)->get();
+        $posts = $this->post->type($this->post_type)->latest()->get();
         return view('admin.post.post-all', ['postData' => $posts]);
     }
 

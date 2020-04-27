@@ -24,7 +24,7 @@ class PageController extends Controller
      */
     function index()
     {
-        $pages = $this->page->get();
+        $pages = $this->page->latest()->get();
         return view('admin.page.page-all', ['pages' => $pages]);
     }
 

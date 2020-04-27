@@ -1,10 +1,10 @@
-<div class="modal fade featured-image-modal media-modal" id="featured-image-modal" tabindex="-1" role="dialog"
+<div class="modal fade insert-media-modal media-modal" id="insert-media-modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Ảnh đại diện</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Thêm Media</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -33,7 +33,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" id="thumbnail-button-select" class="btn btn-primary media-button-select" disabled="disabled">Đặt làm ảnh đại diện</button>
+                <button type="button" id="media-button-select" class="btn btn-primary media-button-select" disabled="disabled">Chèn vào bài viết</button>
             </div>
         </div>
     </div>

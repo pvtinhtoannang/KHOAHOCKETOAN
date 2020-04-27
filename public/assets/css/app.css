@@ -21,24 +21,24 @@ table.tnct-table tbody tr td {
   content: none;
 }
 
-.featured-image-modal .modal-header {
+.media-modal .modal-header {
   border-bottom: none;
 }
-.featured-image-modal .modal-dialog {
+.media-modal .modal-dialog {
   overflow-y: initial !important;
   max-width: calc(100% - 3.5rem);
 }
-.featured-image-modal .modal-body {
+.media-modal .modal-body {
   height: calc(100vh - 15em);
   overflow-y: auto;
 }
-.featured-image-modal .modal-content {
+.media-modal .modal-content {
   border-radius: 0 !important;
 }
-.featured-image-modal .attachments li {
+.media-modal .attachments li {
   cursor: pointer;
 }
-.featured-image-modal .attachments li.selected {
+.media-modal .attachments li.selected {
   box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #5867dd;
 }
 

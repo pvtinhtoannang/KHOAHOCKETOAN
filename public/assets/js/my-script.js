@@ -6,7 +6,13 @@ var PostTable = function () {
         // begin first table
         table.DataTable({
             responsive: true,
-            pagingType: 'full_numbers',
+            bSort: false,
+            columnDefs: [
+                {
+                    targets: 0,
+                    orderable: false
+                }
+            ]
         });
 
     };
@@ -52,33 +58,55 @@ var CategoriesTable = function () {
 
 }();
 
-let TreeView = function () {
+$('.media-modal').on('shown.bs.modal', function (e) {
+    let media_button_select = $('.media-modal .media-button-select');
+    let attachment = $('.media-modal li.attachment');
+    media_button_select.attr('disabled', 'disabled');
+    attachment.removeClass('selected');
+    attachment.attr('aria-checked', 'false');
+});
 
-    let category = function () {
-        $('#category-list').jstree({
-            "core": {
-                "themes": {
-                    "responsive": false,
-                    "icons": false
-                }
-            },
-            "plugins": ["types"]
-        });
-    };
-
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            category();
+var insertMedia = function (context) {
+    var ui = $.summernote.ui;
+    let attachment = $('#insert-media-modal li.attachment');
+    let media_button_select = $('#insert-media-modal #media-button-select');
+    var button = ui.button({
+        contents: '<i class="note-icon-picture"/>',
+        tooltip: 'Thêm Media',
+        click: function () {
+            let featured_image_modal = $('#insert-media-modal');
+            featured_image_modal.modal('show');
+            media_button_select.click(function () {
+                attachment.each(function (index, value) {
+                    if ($(this).hasClass('selected')) {
+                        console.log($(this));
+                        context.invoke('editor.insertImage', $(this).attr('data-src'));
+                        featured_image_modal.modal('hide');
+                    }
+                });
+            });
         }
-    };
-}();
+    });
 
-jQuery(document).ready(function () {
-    PostTable.init();
-    CategoriesTable.init();
-    // TreeView.init();
+    return button.render();   // return button as jquery object
+};
+
+$('.summernote-post-content').summernote({
+    height: 500,
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'media', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']],
+        ['mybutton', ['hello']]
+    ],
+    buttons: {
+        media: insertMedia
+    }
 });
 
 function remove_unicode(str) {
@@ -144,12 +172,9 @@ function removeThumbnail() {
     });
 }
 
-function featured_image_select() {
-    let attachment = $('li.attachment');
-    let thumbnail = $('#thumbnail_id');
-    let media_button_select = $('#media-button-select');
-    let featured_image_modal = $('#featured-image-modal');
-    let featured_image = $('.featured-image');
+function mediaSelect() {
+    let attachment = $('.media-modal li.attachment');
+    let media_button_select = $('.media-modal .media-button-select');
     attachment.click(function () {
         //reset status
         attachment.removeClass('selected');
@@ -164,17 +189,16 @@ function featured_image_select() {
             media_button_select.attr('disabled', 'disabled');
         }
     });
+}
 
-    attachment.dblclick(function () {
-        if ($(this).hasClass('selected')) {
-            thumbnail.attr('value', $(this).attr('data-id'));
-            featured_image.empty();
-            featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
-            featured_image_modal.modal('hide');
-        }
-    });
+function featured_image_select() {
+    let attachment = $('#featured-image-modal li.attachment');
+    let thumbnail = $('#thumbnail_id');
+    let thumbnail_button_select = $('#featured-image-modal #thumbnail-button-select');
+    let featured_image_modal = $('#featured-image-modal');
+    let featured_image = $('.featured-image');
 
-    media_button_select.click(function () {
+    thumbnail_button_select.click(function () {
         attachment.each(function (index, value) {
             if ($(this).hasClass('selected')) {
                 thumbnail.attr('value', $(this).attr('data-id'));
@@ -215,11 +239,14 @@ function postTagGenerator() {
 jQuery(function ($) {
     try {
         $(document).ready(function () {
+            PostTable.init();
+            CategoriesTable.init();
             slugGenerator();
             postNameGenerator();
             featured_image_select();
             postTagGenerator();
             removeThumbnail();
+            mediaSelect();
         });
     } catch (e) {
         console.log(e);

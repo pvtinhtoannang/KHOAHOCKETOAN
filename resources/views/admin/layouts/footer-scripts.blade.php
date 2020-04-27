@@ -125,7 +125,7 @@
 <script src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
 <script src="/assets/js/my-script.js" type="text/javascript"></script>
 <script src="/assets/js/tp-script.js" type="text/javascript"></script>
-<script src="/assets/app/custom/general/crud/forms/widgets/summernote.js" type="text/javascript"></script>
+{{--<script src="/assets/app/custom/general/crud/forms/widgets/summernote.js" type="text/javascript"></script>--}}
 <script src="/assets/app/custom/general/crud/forms/widgets/form-repeater.js" type="text/javascript"></script>
 <script src="/assets/vendors/custom/jstree/jstree.bundle.js" type="text/javascript"></script>
 <script src="/assets/js/bootstrap-tagsinput.js" type="text/javascript"></script>

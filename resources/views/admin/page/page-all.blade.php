@@ -57,7 +57,7 @@
                             @if($page->post_status == 'publish')
                                 Đã xuất bản
                                 <br>
-                                {{date_format(date_create($page->created_on),"d/m/Y")}}
+                                {{date_format(date_create($page->created_at),"d/m/Y")}}
                             @else
                                 Sửa đổi lần cuối
                                 <br>
@@ -68,7 +68,6 @@
                 @endforeach
                 </tbody>
             </table>
-
             <!--end: Datatable -->
         </div>
     </div>

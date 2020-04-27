@@ -11,10 +11,6 @@ require_once 'tp-web.php';
 |
 */
 
-Route::get('/', function () {
-    return 0;
-});
-
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'GET_ADMIN_DASHBOARD_ROUTE', 'uses' => 'AdminController@getAdminDashboard']);
 
@@ -56,4 +52,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/slug-generator/{slug}', 'AdminAjaxController@slugGenerator');
     Route::get('/post-name-generator/{post_name}', 'AdminAjaxController@postNameGenerator');
     Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
+});
+
+Route::get('/', function () {
+
 });
