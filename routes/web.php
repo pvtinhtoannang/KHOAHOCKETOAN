@@ -54,6 +54,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
 });
 
-Route::get('/', function () {
-
-});
+Route::get('/', 'ThemeController@index');
+Route::get('/{slug}', 'ThemeController@type');
