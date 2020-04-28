@@ -67,19 +67,6 @@ class User extends Authenticatable
         }
         return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');
 
-//        return $this->hasRole($roles) ||
-//            abort(401, 'Bạn không có quyền truy cập hành động này!');
-//
-//        if (is_array($roles_name)) {
-//            if ($this->hasAnyRole($roles_name)) {
-//                return $this->hasAnyRole($roles_name);
-//            } else {
-//                return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');
-//            }
-//        }
-//        return $this->hasRole($roles[0]) || abort(401, 'Bạn không có quyền truy cập hành động này!');
-
-
     }
 
     /**
@@ -104,7 +91,7 @@ class User extends Authenticatable
 
     public function checkPermission($permission)
     {
-        return null !== self::find(Auth::user()->id)->permissions()->where('permissions.name', $permission)->first();
+        return self::find(Auth::user()->id)->permissions()->where('permissions.name', $permission)->first();
     }
 
     public function getNameRole()
@@ -193,7 +180,7 @@ class User extends Authenticatable
 
     public function addPermissionForUser($id, $idPermission = [])
     {
-        return self::find($id)->permissions()->attach($idPermission);
+        return self::find($id)->permissions()->sync($idPermission);
     }
 
     public function getUserbyID($id)

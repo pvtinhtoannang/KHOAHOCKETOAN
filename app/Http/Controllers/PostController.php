@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use App\Post;
 use App\Term;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private $term, $post_type, $post;
+    private $term, $post_type, $post, $user;
 
     /**
      * PostController constructor.
@@ -19,6 +19,7 @@ class PostController extends Controller
         $this->post_type = 'post';
         $this->term = new Term();
         $this->post = new Post();
+        $this->user = new User();
     }
 
     /**
@@ -35,6 +36,7 @@ class PostController extends Controller
      */
     function getPostEditor()
     {
+        $this->user->authorizeRoles('add_post');
         return view('admin.post.post-new', ['post_type' => $this->post_type]);
     }
 

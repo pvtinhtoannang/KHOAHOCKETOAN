@@ -21,7 +21,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tb_tab1" role="tabpanel">
-            <h1 class="template-title">Quản lý truy cập</h1>
+
 
             <form class="kt-form" id="update_permission_for_role" method="POST"
                   action="{{route('UPDATE_PERMISSION_FOR_ROLE')}}">
@@ -39,6 +39,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-md-4">
+                            <h1 class="template-title">Quản lý truy cập</h1>
                             <div class="form-group">
                                 <label for="role">Chọn loại tài khoản</label>
                                 <select name="role" id="role" class="form-control">
@@ -64,7 +65,36 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-8">
-
+                            <h1 class="template-title">Hướng dẫn sử dụng</h1>
+                            <div class="alert alert-light alert-elevate" role="alert">
+                                <div class="alert-icon"><i class="flaticon-support kt-font-brand"></i></div>
+                                <div class="alert-text">
+                                    <h4>Tab 1: <strong> Quản lý truy cập: </strong></h4>
+                                    <p>Mặc định sẽ hiển thị loại tài khoản và các quyền mới của loại tài khoản đó. Nếu
+                                        vẫn không hiển thị kiểm tra internet hoặc load lại trang</p>
+                                    <p>Chức năng này cho phép thêm các quyền cho từng loại tài khoản</p>
+                                    <p>Cột phải là hướng dẫn sử dụng toàn bộ chức năng quản lý truy cập</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-light alert-elevate" role="alert">
+                                <div class="alert-icon"><i class="flaticon-support kt-font-brand"></i></div>
+                                <div class="alert-text">
+                                    <h4>Tab 2: <strong> Quyền truy cập: </strong></h4>
+                                    <p>Cột bên trái cho phép thêm các quyền truy cập mới</p>
+                                    <p>Cột bên phải cho phép xem các quyền truy cập</p>
+                                    <p>Chức năng này chỉ dành cho developer</p>
+                                    <p>Các dùng: </p>
+                                    <p><strong>Bước 1: </strong> xem các quyền truy cập có sẵn chẳng hạn <span
+                                            class="kt-font-danger">add_post</span></p>
+                                    <p><strong>Bước 2: </strong> thêm và khai báo Model <span class="kt-font-danger">User</span>
+                                    </p>
+                                    <p><strong>Bước 3: </strong> thêm functions <span class="kt-font-danger">authorizeRoles</span>
+                                        với cú pháp <span class="kt-font-danger">$this->user->authorizeRoles('add_post');</span>
+                                        tại controller <span class="kt-font-danger">PostController</span> ở phương thức lấy danh
+                                        sách bài viết</p>
+                                    <i>Nếu ở tab 1 các nhóm người dùng nào có quyền thêm add_post (thêm bài viết) sẽ thêm được bài mới</i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
