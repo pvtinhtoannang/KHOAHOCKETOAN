@@ -13,6 +13,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     protected $role;
+
     public function __construct()
     {
         $this->role = new Role();
@@ -102,7 +103,14 @@ class User extends Authenticatable
             $role_user = $this->getNameRole();
             $role_id = $role_user[0]->id;
             $role = $this->role->where('id', $role_id)->first();
-            $permissions = $role->permission;
+            $permission_arr = $role->permission;
+            foreach ($permission_arr as $key => $value) {
+                if ($value['name'] == $permission) {
+                    $permissions[$key] = $value['name'];
+                } else {
+                    $permissions = null;
+                }
+            }
         }
         return $permissions;
     }
