@@ -15,13 +15,13 @@ class UsersTableSeeds extends Seeder
     public function run()
     {
 
+        $permission = [1, 2, 3, 4, 5, 6, 7, 8];
         $user = new User();
         $user->name = 'Văn Tính';
         $user->email = 'pvtinh.toannang@gmail.com';
         $user->password = bcrypt('123456789');
         $user->save();
         $administrator = Role::find(1);
-        $permission = Permission::all();
         $user->roles()->attach($administrator);
         $user->permissions()->attach($permission);
 
@@ -31,6 +31,7 @@ class UsersTableSeeds extends Seeder
         $user->password = bcrypt('123456789');
         $user->save();
         $administrator = Role::find(1);
+        $permission = Permission::all();
         $user->roles()->attach($administrator);
         $user->permissions()->attach($permission);
     }

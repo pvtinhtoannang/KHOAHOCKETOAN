@@ -51,6 +51,7 @@ class PermissionController extends Controller
      * **/
     public function getPermission()
     {
+        $this->user->authorizeRoles('permission');
         $getAllPermissionWithPaginate = $this->permission->getAllPermission();
         $getAllRole = $this->role->getAllRole();
         $getAllGroup = $this->group->getAllGroup();

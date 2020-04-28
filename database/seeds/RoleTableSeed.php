@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Role;
+use App\Permission;
+
 class RoleTableSeed extends Seeder
 {
     /**
@@ -11,10 +13,13 @@ class RoleTableSeed extends Seeder
      */
     public function run()
     {
+        $permission = [1, 2, 3, 4, 5, 6, 7, 8];
+
         $role_employee = new Role();
         $role_employee->name = 'administrator';
         $role_employee->description = 'Administrator';
         $role_employee->save();
+        $role_employee->permission()->attach($permission);
 
         $role_employee = new Role();
         $role_employee->name = 'editor';

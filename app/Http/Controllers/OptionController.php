@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Option;
+use App\User;
 
 class OptionController extends Controller
 {
-    protected $option;
+    protected $option, $user;
 
     public function __construct()
     {
         $this->option = new Option();
+        $this->user = new User();
     }
 
     public function getOptionGeneral()
     {
+        $this->user->authorizeRoles('option_general');
         $option = $this->option->getAllOption();
         return view('admin.settings.options', ['options' => $option]);
     }

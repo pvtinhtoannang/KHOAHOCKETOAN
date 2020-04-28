@@ -57,6 +57,7 @@ class User extends Authenticatable
 
     public function authorizeRoles($permission_name)
     {
+
         $roles_name = [];
         $roles = $this->getNameRole();
         if (!empty($roles)) {
@@ -64,16 +65,21 @@ class User extends Authenticatable
                 $roles_name[$key] = $role['name'];
             }
         }
+        return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');
+
+//        return $this->hasRole($roles) ||
+//            abort(401, 'Bạn không có quyền truy cập hành động này!');
+//
+//        if (is_array($roles_name)) {
+//            if ($this->hasAnyRole($roles_name)) {
+//                return $this->hasAnyRole($roles_name);
+//            } else {
+//                return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');
+//            }
+//        }
+//        return $this->hasRole($roles[0]) || abort(401, 'Bạn không có quyền truy cập hành động này!');
 
 
-        if (is_array($roles_name)) {
-            if ($this->hasAnyRole($roles_name)) {
-                return $this->hasAnyRole($roles_name);
-            } else {
-                return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');;
-            }
-        }
-//        return $this->hasRole($roles) || abort(401, 'Bạn không có quyền truy cập hành động này!');
     }
 
     /**
@@ -83,7 +89,7 @@ class User extends Authenticatable
      */
     public function hasAnyRole($roles)
     {
-        return null !== $this->roles()->whereIn('name', $roles)->first();
+        return null !== $this->roles()->whereIn('roles.name', $roles)->first();
     }
 
     /**
@@ -98,7 +104,7 @@ class User extends Authenticatable
 
     public function checkPermission($permission)
     {
-        return null !== $this->permissions()->whereIn('name', $permission)->first();
+        return null !== self::find(Auth::user()->id)->permissions()->where('permissions.name', $permission)->first();
     }
 
     public function getNameRole()
