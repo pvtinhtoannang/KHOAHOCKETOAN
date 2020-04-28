@@ -55,6 +55,7 @@ class PermissionController extends Controller
         $getAllRole = $this->role->getAllRole();
         $getAllGroup = $this->group->getAllGroup();
         $getAllUser = $this->user->getAllUser();
+
         $this->updatePermissionForUser(Auth::user()->id);
         return view('admin.settings.permissions',
             [

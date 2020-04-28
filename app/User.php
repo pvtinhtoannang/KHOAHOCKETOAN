@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -54,20 +55,26 @@ class User extends Authenticatable
     }
 
 
-    /**
-     * @param $roles
-     * @return bool
-     */
-    public function authorizeRoles($roles)
+    public function authorizeRoles($permission_name)
     {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) ||
-                abort(401, 'Bạn không có quyền truy cập hành động này!');
+        $roles_name = [];
+        $roles = $this->getNameRole();
+        if (!empty($roles)) {
+            foreach ($roles as $key => $role) {
+                $roles_name[$key] = $role['name'];
+            }
         }
-        return $this->hasRole($roles) ||
-            abort(401, 'Bạn không có quyền truy cập hành động này!');
-    }
 
+
+        if (is_array($roles_name)) {
+            if ($this->hasAnyRole($roles_name)) {
+                return $this->hasAnyRole($roles_name);
+            } else {
+                return $this->checkPermission($permission_name) || abort(401, 'Bạn không có quyền truy cập hành động này!');;
+            }
+        }
+//        return $this->hasRole($roles) || abort(401, 'Bạn không có quyền truy cập hành động này!');
+    }
 
     /**
      * Check multiple roles
@@ -79,7 +86,6 @@ class User extends Authenticatable
         return null !== $this->roles()->whereIn('name', $roles)->first();
     }
 
-
     /**
      * Check one role
      * @param $role
@@ -89,6 +95,22 @@ class User extends Authenticatable
     {
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    public function checkPermission($permission)
+    {
+        return null !== $this->permissions()->whereIn('name', $permission)->first();
+    }
+
+    public function getNameRole()
+    {
+        return self::find(Auth::user()->id)->roles()->get();
+    }
+
+    public function getPermission()
+    {
+        return self::find(Auth::user()->id)->permissions()->get();
+    }
+
 
     /**
      * @param $newPassword
@@ -147,7 +169,6 @@ class User extends Authenticatable
     {
         return self::find($id)->update(['name' => $name]);
     }
-
 
     public function getAllUser()
     {
