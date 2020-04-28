@@ -66,6 +66,23 @@ class PermissionSeeder extends Seeder
             'updated_at' => $date
         ]);
 
+        $group_id = DB::table('groups')->where('name', '=', 'Cài đặt')->first();
+        DB::table('permissions')->insert([
+            'name' => 'permission',
+            'display_name' => 'Quản lý truy cập',
+            'group_id' => $group_id->id,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'option_general',
+            'display_name' => 'Cài đặt tổng quan',
+            'group_id' => $group_id->id,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
+
 
     }
 }

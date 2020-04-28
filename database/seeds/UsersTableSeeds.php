@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Role;
 use App\User;
+use App\Permission;
 
 class UsersTableSeeds extends Seeder
 {
@@ -20,7 +21,9 @@ class UsersTableSeeds extends Seeder
         $user->password = bcrypt('123456789');
         $user->save();
         $administrator = Role::find(1);
+        $permission = Permission::all();
         $user->roles()->attach($administrator);
+        $user->permissions()->attach($permission);
 
         $user = new User();
         $user->name = 'Minh Nhựt';
@@ -29,5 +32,6 @@ class UsersTableSeeds extends Seeder
         $user->save();
         $administrator = Role::find(1);
         $user->roles()->attach($administrator);
+        $user->permissions()->attach($permission);
     }
 }
