@@ -36,7 +36,7 @@ class PostController extends Controller
      */
     function getPostEditor()
     {
-//        $this->user->authorizeRoles('add_post');
+        $this->user->authorizeRoles('add_post');
         return view('admin.post.post-new', ['post_type' => $this->post_type]);
     }
 

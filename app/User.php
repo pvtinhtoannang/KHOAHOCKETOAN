@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +12,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $role;
+    public function __construct()
+    {
+        $this->role = new Role();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -92,9 +98,12 @@ class User extends Authenticatable
     public function checkPermission($permission)
     {
         $permissions = self::find(Auth::user()->id)->permissions()->where('permissions.name', $permission)->first();
-//        if(empty($permissions)){
-//            $permissions  = self::find(Auth::user()->id)->roles()->permissions()->where('permissions.name', $permission)->first();
-//        }
+        if (empty($permissions)) {
+            $role_user = $this->getNameRole();
+            $role_id = $role_user[0]->id;
+            $role = $this->role->where('id', $role_id)->first();
+            $permissions = $role->permission;
+        }
         return $permissions;
     }
 
