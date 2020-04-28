@@ -90,8 +90,7 @@
                                     </p>
                                     <p><strong>Bước 3: </strong> thêm functions <span class="kt-font-danger">authorizeRoles</span>
                                         với cú pháp <span class="kt-font-danger">$this->user->authorizeRoles('add_post');</span>
-                                        tại controller <span class="kt-font-danger">PostController</span> ở phương thức lấy danh
-                                        sách bài viết</p>
+                                        tại controller <span class="kt-font-danger">PostController</span> ở phương thức thêm bài viết</p>
                                     <i>Nếu ở tab 1 các nhóm người dùng nào có quyền thêm add_post (thêm bài viết) sẽ thêm được bài mới</i>
                                 </div>
                             </div>

@@ -57,7 +57,6 @@ class PermissionController extends Controller
         $getAllGroup = $this->group->getAllGroup();
         $getAllUser = $this->user->getAllUser();
 
-//        $this->updatePermissionForUser(Auth::user()->id);
         return view('admin.settings.permissions',
             [
                 'getAllPermissionWithPaginate' => $getAllPermissionWithPaginate,
