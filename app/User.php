@@ -93,7 +93,7 @@ class User extends Authenticatable
     {
         $permissions = self::find(Auth::user()->id)->permissions()->where('permissions.name', $permission)->first();
         if(empty($permissions)){
-            $permissions  = self::find(Auth::user())->id->roles()->permissions()->where('permissions.name', $permission)->first();
+            $permissions  = self::find(Auth::user()->id)->roles()->permissions()->where('permissions.name', $permission)->first();
         }
         return $permissions;
     }
