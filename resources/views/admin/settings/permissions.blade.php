@@ -385,14 +385,7 @@
 
                     <!-- begin:: Content -->
                     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-                        <div class="alert alert-light alert-elevate" role="alert">
-                            <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-                            <div class="alert-text">
-                                Ghi chú: Dưới đây là danh sách các quyền truy cập, xin lưu ý mọi thao tác dưới đây phải
-                                được sự cho phép hoặc được thao tác bởi kỹ thuật viên. Mọi phát sinh lỗi nếu truy cập
-                                trái phép vào phần này Toàn Năng Cần Thơ không chịu trách nhiệm! Dev Team.
-                            </div>
-                        </div>
+
                         <div class="kt-portlet kt-portlet--mobile">
                             <div class="kt-portlet__head kt-portlet__head--lg">
                                 <div class="kt-portlet__head-label">
@@ -432,25 +425,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
-                                            <a href="#" class="btn btn-default kt-hidden">
-                                                <i class="la la-cart-plus"></i> New Order
-                                            </a>
-                                            <div
-                                                class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
-                                        </div>
                                     </div>
                                 </div>
-                                <table class="table table-striped table-hover tnct-table" id="permission">
+                                <table class="table table-striped table-hover" id="permission">
                                     <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Tên</th>
-                                        <th>Mô tả</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($getAllPermissionWithPaginate as $key => $value)
+
+                                    @foreach($getAllGroup as $value)
                                         <tr>
                                             <td>{{$value->id}}</td>
                                             <td class="kt-font-bold">{{$value->name}}
@@ -472,7 +458,6 @@
                                                     </a>
                                                 </div>
                                             </td>
-                                            <td>{{$value->display_name}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

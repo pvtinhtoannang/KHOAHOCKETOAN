@@ -214,7 +214,6 @@
                                 </div>
                             </div>
                             <div class="kt-portlet__body">
-
                                 <!--begin: Search Form -->
                                 <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                                     <div class="row align-items-center">
@@ -222,65 +221,57 @@
                                             <div class="row align-items-center">
                                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                                     <div class="kt-input-icon kt-input-icon--left">
-                                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Tìm kiếm..."
+                                                               id="generalSearch">
                                                         <span class="kt-input-icon__icon kt-input-icon__icon--left">
 																<span><i class="la la-search"></i></span>
 															</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                                    <div class="kt-form__group kt-form__group--inline">
-                                                        <div class="kt-form__label">
-                                                            <label>Status:</label>
-                                                        </div>
-                                                        <div class="kt-form__control">
-                                                            <select class="form-control bootstrap-select" id="kt_form_status">
-                                                                <option value="">All</option>
-                                                                <option value="1">Pending</option>
-                                                                <option value="2">Delivered</option>
-                                                                <option value="3">Canceled</option>
-                                                                <option value="4">Success</option>
-                                                                <option value="5">Info</option>
-                                                                <option value="6">Danger</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                                    <div class="kt-form__group kt-form__group--inline">
-                                                        <div class="kt-form__label">
-                                                            <label>Type:</label>
-                                                        </div>
-                                                        <div class="kt-form__control">
-                                                            <select class="form-control bootstrap-select" id="kt_form_type">
-                                                                <option value="">All</option>
-                                                                <option value="1">Online</option>
-                                                                <option value="2">Retail</option>
-                                                                <option value="3">Direct</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
-                                            <a href="#" class="btn btn-default kt-hidden">
-                                                <i class="la la-cart-plus"></i> New Order
-                                            </a>
-                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
                                         </div>
                                     </div>
                                 </div>
+                                <table class="table table-striped table-hover" id="permission">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên</th>
+                                        <th>Nhãn</th>
+                                        <th>Giá trị</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                                <!--end: Search Form -->
-                            </div>
-                            <div class="kt-portlet__body kt-portlet__body--fit">
-
-                                <!--begin: Datatable -->
-                                <div class="kt-datatable" id="local_data"></div>
-
-                                <!--end: Datatable -->
-                            </div>
+                                    @foreach($options as $option)
+                                        <tr>
+                                            <td>{{$option->id}}</td>
+                                            <td class="kt-font-bold">{{ $option['option_name'] }}
+                                                <div class="nowrap row-actions">
+                                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="View">
+                                                        <i class="la la-eye"></i>
+                                                    </a>
+                                                    <a href="javascript:;"
+                                                       class="btn btn-edit-permission btn-sm btn-clean btn-icon btn-icon-md"
+                                                       title="Chỉnh sửa" data-toggle="modal" data-id="{{ $option->id }}"
+                                                       data-target="#kt_modal_update_permission_settings">
+                                                        <i class="la la-edit"></i>
+                                                    </a>
+                                                    <a href="#"
+                                                       class="btn btn-sm btn-clean btn-icon btn-icon-md kt_sweetalert_delete_permission"
+                                                       title="Xoá">
+                                                        <i class="la la-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{$option->option_label}}</td>
+                                            <td>{{$option->option_value}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
 
