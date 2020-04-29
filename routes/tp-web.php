@@ -29,6 +29,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::post('update-permission-for-user', ['as' => 'UPDATE_PERMISSION_FOR_USER', 'uses'=>'PermissionController@updatePermissionForUserByIDUser']);
 
+
+
+    Route::get('nav-menu', ['as' => 'GET_NAV_MENU', 'uses'=>'NavMenuController@getViewNavMenu']);
+
 });
 
 
