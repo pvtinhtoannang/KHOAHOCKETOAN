@@ -105,7 +105,7 @@
                                                 <i class="la la-eye"></i>
                                             </a>
                                             <a href="javascript:;"
-                                               class="btn btn-edit-permission btn-sm btn-clean btn-icon btn-icon-md"
+                                               class="btn btn-edit-user btn-sm btn-clean btn-icon btn-icon-md"
                                                title="Chỉnh sửa" data-toggle="modal" data-id="{{ $value->id }}"
                                                data-target="#kt_modal_update_users">
                                                 <i class="la la-edit"></i>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <!--begin::Modal-->
-                <form class="kt-form" method="POST" action="{{route('UPDATE_PERMISSION_SETTINGS')}}">
+                <form class="kt-form" method="POST" action="{{route('UPDATE_USER_BY_LIST')}}">
                     <div class="modal fade" id="kt_modal_update_users" tabindex="-1" role="dialog"
                          aria-labelledby="modalUpdatePermission" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -140,28 +140,36 @@
                                     @csrf
                                     <div class="hidden"></div>
                                     <div class="kt-portlet__body">
+                                        <input type="hidden" id="update_id" value="" name="update_id">
                                         <div class="form-group">
-                                            <label for="update_name">Tên quyền truy cập</label>
+                                            <label for="update_name">Họ và tên</label>
                                             <input id="update_name" type="text"
                                                    name="name" class="form-control"
                                                    aria-describedby="name"
                                                    value=""
-                                                   placeholder="Nhập tên, ex: add_post">
+                                                   placeholder="Nhập họ và tên, ex: nguyen van a">
                                         </div>
                                         <div class="form-group">
-                                            <label for="update_display_name">Tên hiển thị hoặc mô tả</label>
-                                            <input id="update_display_name" type="text"
-                                                   name="display_name" class="form-control"
-                                                   aria-describedby="display_name"
+                                            <label for="update_email">Email</label>
+                                            <input id="update_email" type="email"
+                                                   name="email" class="form-control"
+                                                   aria-describedby="email"
                                                    value=""
-                                                   placeholder="Nhập tên hiển thị, ex: Thêm mới bài viết">
+                                                   placeholder="Nhập email, ex: nguyenvana@gmail.com">
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="update_group_id">Vai trò</label>
-                                            <select name="group_id" class="form-control" id="update_group_id">
+                                            <label for="update_password">Mật khẩu: (để trống nếu không cập nhật)</label>
+                                            <input id="update_password" type="password"
+                                                   name="password" class="form-control"
+                                                   aria-describedby="email"
+                                                   value=""
+                                                   placeholder="Nhập email, ex: nguyenvana@gmail.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="update_role_id">Vai trò</label>
+                                            <select name="role_id" class="form-control" id="update_role_id">
                                                 @foreach($dataRole as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->decscription }}</option>
+                                                    <option value="{{ $value->id }}">{{ $value->description }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

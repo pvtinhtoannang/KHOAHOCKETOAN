@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $password = $request->password;
         $email = Auth::user()->email;
-        $this->user->updateInformation($request->name, Auth::user()->id);
+        $this->user->updateInformation($request->name, $email, Auth::user()->id);
         if (!empty($request->email) && !$this->user->checkEmailExists($request->email)) {
             //thay đổi email
             if (!empty($password)) {
@@ -46,6 +46,20 @@ class UserController extends Controller
         }
     }
 
+
+    /**
+     * lấy thông tin user
+     * @param $id
+     * Dùng cho ajax ajax-get-user-by-id
+     * @return collect
+     */
+    public function getUserByID($id)
+    {
+        $role = $this->user->getUserbyID($id)->roles;
+        $user = $this->user->getUserbyID($id);
+        return collect([$role, $user]);
+    }
+
     public function getAllUser()
     {
         $data_user = $this->user->getAllUser();
@@ -56,11 +70,54 @@ class UserController extends Controller
     public function addNewUser(Request $request)
     {
         if (!empty($request->name) && !empty($request->email) && !empty($request->password)) {
-            $user = $this->user->addNewUser($request->name, $request->email, $request->password, $request->role_id);
+            if ($this->user->checkEmailExists($request->email)) {
+                return redirect()->back()->with('messages', 'Email đã tồn tại!');
+            } else {
+                $user = $this->user->addNewUser($request->name, $request->email, $request->password, $request->role_id);
+            }
             return redirect()->back()->with('messages', 'Cập nhật thông tin thành công!');
         } else {
             return redirect()->back()->with('messages', 'Cập nhật thông tin thất bại!');
         }
     }
 
+
+    public function updateUserByList(Request $request)
+    {
+        $id = $request->update_id;
+        $password = $request->password;
+        $name = $request->name;
+        $email_new = $request->email;
+        $role_id = $request->role_id;
+        $email_old = $this->user->getUserbyID($id)->email;
+        $this->user->updateRoleByUserID($id, $role_id);
+
+
+        if (!empty($password) && !empty($name) && !empty($email_new)) {
+            $this->user->updatePassword($request->password, $id, '');
+            if (!$email_old !== $email_new) {
+                if (!$this->user->checkEmailExists($email_new)) {
+                    $this->user->updateInformation($name, $email_new, $id);
+                    return redirect()->back()->with('messages', 'Cập nhật thành công!');
+                } else {
+                    return redirect()->back()->with('messages', 'Cập nhật thất bại, email này đã tồn tại!');
+                }
+            } else {
+                $this->user->updateInformation($name, $email_old, $id);
+                return redirect()->back()->with('messages', 'Cập nhật thành công!');
+            }
+        } else {
+            if (!empty($name) && !empty($email_new)) {
+                if (!$this->user->checkEmailExists($email_new)) {
+                    $this->user->updateInformation($name, $email_new, $id);
+                    return redirect()->back()->with('messages', 'Cập nhật thành công!');
+                } else {
+                    return redirect()->back()->with('messages', 'Cập nhật thất bại, email này đã tồn tại!');
+                }
+            } else {
+                return redirect()->back()->with('messages', 'Vui lòng nhập thông tin!');
+            }
+        }
+
+    }
 }

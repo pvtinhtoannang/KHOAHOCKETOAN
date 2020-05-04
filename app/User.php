@@ -180,9 +180,9 @@ class User extends Authenticatable
         }
     }
 
-    public function updateInformation($name, $id)
+    public function updateInformation($name, $email, $id)
     {
-        return self::find($id)->update(['name' => $name]);
+        return self::find($id)->update(['name' => $name, 'email' => $email]);
     }
 
     public function getAllUser()
@@ -214,5 +214,10 @@ class User extends Authenticatable
     {
         $user = self::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
         $user->roles()->sync($role_id);
+    }
+
+    public function updateRoleByUserID($user_id, $role_id = [])
+    {
+        return self::find($user_id)->roles()->sync($role_id);
     }
 }

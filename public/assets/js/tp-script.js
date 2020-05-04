@@ -221,12 +221,53 @@ var PvtinhPermissionForUser = function () {
     }
 }();
 
+var PvtinhUserManagement = function () {
+    var updateUserByID = function () {
+        $('.btn-edit-user').click(function () {
+            var id_user = $(this).attr('data-id');
+
+            if (id_user != null) {
+                $('#kt_modal_update_users option').each(function (i) {
+                    $(this).removeAttr('selected');
+                });
+                $.ajax({
+                    url: "/admin/ajax-get-user-by-id/" + id_user,
+                    method: "GET"
+                }).done(function (data) {
+                    var role_id = data[0][0]['id'];
+                    $('#kt_modal_update_users  #update_group_id option').each(function (i) {
+                        var option_value = parseInt($(this).val());
+                        var option_ele = $(this);
+                        if (option_value === role_id) {
+                            option_ele.attr('selected', 'selected');
+                        }
+                    });
+
+                    var data_user = data[1];
+                    $('#update_id').val(data_user.id);
+                    $('#update_name').val(data_user.name);
+                    $('#update_email').val(data_user.email);
+                });
+            }
+
+        });
+    }
+
+    return {
+        init: function () {
+            updateUserByID();
+        }
+    }
+}();
+
+
 jQuery(document).ready(function () {
     KTDatatablesPermission.init();
     KTSelect2Permission.init();
     KTFormPermissionUpdateForRole.init();
     PvtinhPermissionModal.init();
     PvtinhPermissionForUser.init();
+    PvtinhUserManagement.init();
 });
 
 

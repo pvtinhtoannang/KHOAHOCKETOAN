@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::post('update-permission-for-user', ['as' => 'UPDATE_PERMISSION_FOR_USER', 'uses'=>'PermissionController@updatePermissionForUserByIDUser']);
     Route::post('add-group-user', ['as' => 'ADD_GROUP_USER', 'uses'=>'PermissionController@addNewGroup']);
+    Route::get('ajax-get-user-by-id/{id}', ['as' => 'GET_USER_BY_ID', 'uses'=>'UserController@getUserByID']);
+    Route::post('update-user-by-list', ['as' => 'UPDATE_USER_BY_LIST', 'uses'=>'UserController@updateUserByList']);
 
     Route::get('nav-menu', ['as' => 'GET_NAV_MENU', 'uses'=>'NavMenuController@getViewNavMenu']);
 
