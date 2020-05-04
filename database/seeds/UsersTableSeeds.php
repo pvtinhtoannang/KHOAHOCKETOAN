@@ -31,7 +31,6 @@ class UsersTableSeeds extends Seeder
         $user->password = bcrypt('123456789');
         $user->save();
         $administrator = Role::find(1);
-        $permission = Permission::all();
         $user->roles()->attach($administrator);
         $user->permissions()->attach($permission);
     }
