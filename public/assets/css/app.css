@@ -27,9 +27,14 @@ table.trash tbody tr td {
 table.trash tbody tr td .edit-btn, table.trash tbody tr td .view-btn {
   display: none;
 }
-
+table.trash tbody tr td .restore-btn {
+  display: inline !important;
+}
 table.pending tbody tr td .view-btn, table.pending tbody tr td .restore-btn, table.pending tbody tr td .post-status, table.draft tbody tr td .view-btn, table.draft tbody tr td .restore-btn, table.draft tbody tr td .post-status {
   display: none;
+}
+table tbody tr td .restore-btn {
+  display: none !important;
 }
 
 .media-modal .modal-header {

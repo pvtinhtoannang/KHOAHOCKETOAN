@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/post/restore/{id}', ['as' => 'GET_ACTION_RESTORE_POST_ROUTE', 'uses' => 'PostController@getActionRestorePost']);
 
     //page
-    Route::get('/pages', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);
+    Route::get('/pages/{status?}', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);
 
     Route::get('/page/create', ['as' => 'GET_CREATE_PAGE_ROUTE', 'uses' => 'PageController@getPageEditor']);
     Route::post('/page/create', ['as' => 'POST_CREATE_PAGE_ROUTE', 'uses' => 'PageController@createPage']);
@@ -40,6 +40,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //edit page
     Route::get('/page/edit/{id}', ['as' => 'GET_EDIT_PAGE_ROUTE', 'uses' => 'PageController@getEditPage']);
     Route::post('/page/edit/{id}', ['as' => 'POST_EDIT_PAGE_ROUTE', 'uses' => 'PageController@updatePage']);
+
+    //trash page
+    Route::get('/page/trash/{id}', ['as' => 'GET_ACTION_TRASH_PAGE_ROUTE', 'uses' => 'PageController@getActionTrashPage']);
+
+    //restore page
+    Route::get('/page/restore/{id}', ['as' => 'GET_ACTION_RESTORE_PAGE_ROUTE', 'uses' => 'PageController@getActionRestorePage']);
 
     //upload
     Route::get('/upload', ['as' => 'GET_UPLOAD_ROUTE', 'uses' => 'UploadController@getUpload']);

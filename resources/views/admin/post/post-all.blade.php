@@ -85,10 +85,18 @@
                                    class="btn btn-sm btn-clean btn-icon btn-icon-md restore-btn" title="Phục hồi">
                                     <i class="la la-rotate-left"></i>
                                 </a>
-                                <a href="{{route('GET_ACTION_TRASH_POST_ROUTE', $post->ID)}}"
-                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
-                                    <i class="la la-trash"></i>
-                                </a>
+                                @if($post->post_status != 'trash')
+                                    <a href="{{route('GET_ACTION_TRASH_POST_ROUTE', $post->ID)}}"
+                                       class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
+                                        <i class="la la-trash"></i>
+                                    </a>
+                                @else
+                                    <a href="{{route('GET_ACTION_TRASH_POST_ROUTE', $post->ID)}}"
+                                       class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xoá vĩnh viễn">
+                                        <i class="la la-trash"></i>
+                                    </a>
+                                @endif
+
                             </div>
                         </td>
                         <td>{{$post->author->name}}</td>

@@ -20,12 +20,82 @@ class PageController extends Controller
     }
 
     /**
+     * @param null $status
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function index()
+    function index($status = null)
     {
         $pages = $this->page->latest()->get();
-        return view('admin.page.page-all', ['pages' => $pages]);
+        $pages = array();
+        if (!isset($status)) {
+            $pages = $this->page->not_status('trash')->latest()->get();
+        } else if ($status === 'publish') {
+            $pages = $this->page->status('publish')->latest()->get();
+        } else if ($status === 'draft') {
+            $pages = $this->page->status('draft')->latest()->get();
+        } else if ($status === 'pending') {
+            $pages = $this->page->status('pending')->latest()->get();
+        } else if ($status === 'trash') {
+            $pages = $this->page->status('trash')->latest()->get();
+        }
+        return view('admin.page.page-all', ['pages' => $pages, 'count' => $this->count_post()]);
+    }
+
+    /**
+     * @return array
+     */
+    function count_post()
+    {
+        $all = $this->page->not_status('trash')->latest()->get();
+        $trash = $this->page->status('trash')->latest()->get();
+        $pending = $this->page->status('pending')->latest()->get();
+        $draft = $this->page->status('draft')->latest()->get();
+        $publish = $this->page->status('publish')->latest()->get();
+        return array(
+            'all' => count($all),
+            'publish' => count($publish),
+            'draft' => count($draft),
+            'pending' => count($pending),
+            'trash' => count($trash)
+        );
+    }
+
+    function getActionTrashPage($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->page->post_id($id)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->page->post_id($id)->update(array(
+                    'post_status' => 'trash'
+                )
+            );
+            return redirect()->back();
+        }
+    }
+
+    function getActionRestorePage($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->page->post_id($id)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->page->post_id($id)->update(array(
+                    'post_status' => 'draft'
+                )
+            );
+            return redirect()->back();
+        }
     }
 
     /**
@@ -47,7 +117,7 @@ class PageController extends Controller
             'sub_title' => '',
             'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
         );
-        $postData = $this->page->post_id($id)->type($this->post_type)->first();
+        $postData = $this->page->post_id($id)->first();
         if ($postData == null) {
             return view('admin.errors.admin-error', ['error_responses' => $responses]);
         } else {

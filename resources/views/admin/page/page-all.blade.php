@@ -1,8 +1,32 @@
 @extends('admin.dashboard.dashboard-master')
 @section('title', 'Trang')
 @section('content')
-    @inject('term_relationships', 'App\TermRelationships')
     <h1 class="template-title">Trang</h1>
+    <ul class="post-status">
+        <li @if(Request::route()->status === null) class="active" @endif>
+            <a href="{{route('GET_PAGES_ROUTE')}}">Tất cả</a> <span>({{$count['all']}})</span>
+        </li>
+        @if($count['publish'] !== 0)
+            <li @if(Request::route()->status === 'publish') class="active" @endif>
+                <a href="{{route('GET_PAGES_ROUTE', 'publish')}}">Đã xuất bản</a> <span>({{$count['publish']}})</span>
+            </li>
+        @endif
+        @if($count['draft'] !== 0)
+            <li @if(Request::route()->status === 'draft') class="active" @endif>
+                <a href="{{route('GET_PAGES_ROUTE', 'draft')}}">Bản nháp</a> <span>({{$count['draft']}})</span>
+            </li>
+        @endif
+        @if($count['pending'] !== 0)
+            <li @if(Request::route()->status === 'pending') class="active" @endif>
+                <a href="{{route('GET_PAGES_ROUTE', 'pending')}}">Chờ duyệt</a> <span>({{$count['pending']}})</span>
+            </li>
+        @endif
+        @if($count['trash'] !== 0)
+            <li @if(Request::route()->status === 'trash') class="active" @endif>
+                <a href="{{route('GET_PAGES_ROUTE', 'trash')}}">Thùng rác</a> <span>({{$count['trash']}})</span>
+            </li>
+        @endif
+    </ul>
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -23,7 +47,7 @@
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table class="table table-striped table-hover tnct-table" id="posts">
+            <table class="table table-striped table-hover tnct-table {{Request::route()->status}}" id="posts">
                 <thead>
                 <tr>
                     <th>Tiêu đề</th>
@@ -34,22 +58,41 @@
                 <tbody>
                 @foreach($pages as $page)
                     <tr>
-                        <td class="kt-font-bold"><a href="">{{$page->post_title}}</a>
+                        <td class="kt-font-bold">
+                            @if($page->post_status != 'trash')
+                                <a href="{{route('GET_EDIT_PAGE_ROUTE', $page->ID)}}">{{$page->post_title}}</a>
+                            @else
+                                {{$page->post_title}}
+                            @endif
                             @if($page->post_status == 'draft')
                                 <span class="post-status"> - Bản nháp</span>
                             @elseif($page->post_status == 'pending')
                                 <span class="post-status"> - Chờ duyệt</span>
                             @endif
                             <div class="nowrap row-actions">
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a target="_blank" href="{{url('/')."/".$page->post_name}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md view-btn" title="Xem">
                                     <i class="la la-eye"></i>
                                 </a>
-                                <a href="{{route('GET_EDIT_PAGE_ROUTE', $page->ID)}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                                <a href="{{route('GET_EDIT_PAGE_ROUTE', $page->ID)}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md edit-btn" title="Chỉnh sửa">
                                     <i class="la la-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                                    <i class="la la-trash"></i>
+                                <a href="{{route('GET_ACTION_RESTORE_PAGE_ROUTE', $page->ID)}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md restore-btn" title="Phục hồi">
+                                    <i class="la la-rotate-left"></i>
                                 </a>
+                                @if($page->post_status != 'trash')
+                                    <a href="{{route('GET_ACTION_TRASH_PAGE_ROUTE', $page->ID)}}"
+                                       class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
+                                        <i class="la la-trash"></i>
+                                    </a>
+                                @else
+                                    <a href="{{route('GET_ACTION_TRASH_PAGE_ROUTE', $page->ID)}}"
+                                       class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xoá vĩnh viễn">
+                                        <i class="la la-trash"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
                         <td>{{$page->author->name}}</td>

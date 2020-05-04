@@ -24,26 +24,42 @@ table.tnct-table tbody tr td {
     }
 }
 
-table.trash {
-    tbody {
-        tr {
-            td {
-                color: #555555;
+table {
+    &.trash {
+        tbody {
+            tr {
+                td {
+                    color: #555555;
 
-                .edit-btn, .view-btn {
-                    display: none;
+                    .edit-btn, .view-btn {
+                        display: none;
+                    }
+
+                    .restore-btn {
+                        display: inline !important;
+                    }
                 }
             }
         }
     }
-}
 
-table.pending, table.draft {
+    &.pending, &.draft {
+        tbody {
+            tr {
+                td {
+                    .view-btn, .restore-btn, .post-status {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
     tbody {
         tr {
             td {
-                .view-btn, .restore-btn, .post-status {
-                    display: none;
+                .restore-btn {
+                    display: none !important;
                 }
             }
         }
