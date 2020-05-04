@@ -261,6 +261,40 @@ var PvtinhUserManagement = function () {
 }();
 
 
+var PvtinhMenuManagement = function (){
+
+    var createSelect2MenuPages = function () {
+        $('#menu_pages').select2({
+            placeholder: "Chọn một hoặc nhiều trang"
+        });
+    }
+    var createSelect2MenuPosts = function () {
+        $('#menu_posts').select2({
+            placeholder: "Chọn một hoặc nhiều bài viết",
+        });
+    }
+
+    var createSelect2MenuTags = function () {
+        $('#menu_tags').select2({
+            placeholder: "Chọn một hoặc nhiều thẻ"
+        });
+    }
+    var createSelect2MenuCategories = function () {
+        $('#menu_categories').select2({
+            placeholder: "Chọn một hoặc chuyên mục"
+        });
+    }
+
+    return {
+        init: function () {
+            createSelect2MenuPages();
+            createSelect2MenuPosts();
+            createSelect2MenuTags();
+            createSelect2MenuCategories();
+        }
+    }
+} ();
+
 jQuery(document).ready(function () {
     KTDatatablesPermission.init();
     KTSelect2Permission.init();
@@ -268,6 +302,7 @@ jQuery(document).ready(function () {
     PvtinhPermissionModal.init();
     PvtinhPermissionForUser.init();
     PvtinhUserManagement.init();
+    PvtinhMenuManagement.init();
 });
 
 

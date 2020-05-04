@@ -18,120 +18,229 @@
         <div class="tab-pane active" id="menu_tab_1" role="tabpanel">
             <div class="row">
                 <div class="col-xs-12 col-md-3">
-                    <h1 class="template-title">Thêm liên kết</h1>
                     <!--begin::Portlet-->
-                    <div class="kt-portlet" data-ktportlet="true" id="kt_portlet_tools_1">
+                    <div class="kt-portlet">
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
                                 <h3 class="kt-portlet__head-title">
-                                    Trang
+                                    Thêm liên kết
                                 </h3>
+
                             </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-group">
-                                    <a href="#" data-ktportlet-tool="toggle"
-                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
-                                            class="la la-angle-down"></i></a>
+                        </div>
+
+                        <div class="kt-portlet__body">
+                            <!--begin::Accordion-->
+                            <div class="accordion  accordion-toggle-arrow" id="side-sortables">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne4">
+                                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne4"
+                                             aria-expanded="true" aria-controls="collapseOne4">
+                                            <i class="flaticon2-layers-1"></i> Trang
+                                        </div>
+                                    </div>
+                                    <div id="collapseOne4" class="collapse show" aria-labelledby="headingOne"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <!--begin::Portlet-->
+                                                <label for="menu_pages">Chọn một hoặc nhiều trang</label>
+                                                <select multiple class="form-control m-select2" id="menu_pages"
+                                                        name="menu_pages[]">
+                                                    <option></option>
+                                                    @foreach($pages as $page)
+                                                        <option value="{{ $page->ID }}"
+                                                                data-link="{{ $page->post_name }}">{{ $page->post_title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                                vào menu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo4">
+                                        <div class="card-title collapsed" data-toggle="collapse"
+                                             data-target="#collapseTwo4" aria-expanded="false"
+                                             aria-controls="collapseTwo4">
+                                            <i class="flaticon2-copy"></i> Bài viết
+                                        </div>
+                                    </div>
+                                    <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo1"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <!--begin::Portlet-->
+                                                <label for="menu_posts">Chọn một hoặc nhiều bài viết</label>
+
+                                                <select multiple="multiple" class="form-control m-select2 d-block"
+                                                        style="width: 100%" id="menu_posts" name="menu_posts[]">
+                                                    <option></option>
+
+                                                    @foreach($posts as $post)
+                                                        <option value="{{ $post->ID }}"
+                                                                data-link="{{ $post->post_name }}">{{ $post->post_title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                                vào menu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree4">
+                                        <div class="card-title collapsed" data-toggle="collapse"
+                                             data-target="#collapseThree4" aria-expanded="false"
+                                             aria-controls="collapseThree4">
+                                            <i class="flaticon2-link"></i> Liên kết tự tạo
+                                        </div>
+                                    </div>
+                                    <div id="collapseThree4" class="collapse" aria-labelledby="headingThree1"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="">URL</label>
+                                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                                       placeholder="https://">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Tên đường dẫn</label>
+                                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                                       placeholder="Tên đường dẫn">
+                                            </div>
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                                vào menu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree5">
+                                        <div class="card-title collapsed" data-toggle="collapse"
+                                             data-target="#collapseThree5" aria-expanded="false"
+                                             aria-controls="collapseThree5">
+                                            <i class="flaticon-notes"></i> Danh mục sản phẩm
+                                        </div>
+                                    </div>
+                                    <div id="collapseThree5" class="collapse" aria-labelledby="headingThree1"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            CHƯA CÓ CÁI GÌ Ở ĐÂY
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree6">
+                                        <div class="card-title collapsed" data-toggle="collapse"
+                                             data-target="#collapseThree6" aria-expanded="false"
+                                             aria-controls="collapseThree6">
+                                            <i class="flaticon-price-tag"></i> Thẻ
+                                        </div>
+                                    </div>
+                                    <div id="collapseThree6" class="collapse" aria-labelledby="headingThree1"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <!--begin::Portlet-->
+                                                <select class="form-control m-select2 d-block"
+                                                        style="width: 100%" multiple id="menu_tags"
+                                                        name="menu_tags[]">
+                                                    <option></option>
+                                                    @foreach($tags as $tag)
+                                                        <option value="{{ $tag->term->term_id }}"
+                                                                data-link="{{ $tag->term->slug }}">{{ $tag->term->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                                vào menu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo7">
+                                        <div class="card-title collapsed" data-toggle="collapse"
+                                             data-target="#collapseTwo7" aria-expanded="false"
+                                             aria-controls="collapseTwo7">
+                                            <i class="flaticon-list"></i> Chuyên mục
+                                        </div>
+                                    </div>
+                                    <div id="collapseTwo7" class="collapse" aria-labelledby="headingTwo1"
+                                         data-parent="#side-sortables">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <!--begin::Portlet-->
+                                                <select class="form-control m-select2 d-block"
+                                                        style="width: 100%" multiple id="menu_categories"
+                                                        name="menu_categories[]">
+
+                                                    @foreach($categories as $category)
+                                                        <option value="{{ $category->term->term_id }}"
+                                                                data-link="{{ $category->term->slug }}">{{ $category->term->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                                vào menu
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="kt-portlet__body">
-                            <div class="kt-portlet__content">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-                            </div>
+
+                            <!--end::Accordion-->
                         </div>
                     </div>
-                    <div class="kt-portlet" data-ktportlet="true" id="kt_portlet_tools_1">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">
-                                    Trang
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-group">
-                                    <a href="#" data-ktportlet-tool="toggle"
-                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
-                                            class="la la-angle-down"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__body">
-                            <div class="kt-portlet__content">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kt-portlet" data-ktportlet="true" id="kt_portlet_tools_1">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">
-                                    Trang
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-group">
-                                    <a href="#" data-ktportlet-tool="toggle"
-                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
-                                            class="la la-angle-down"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__body">
-                            <div class="kt-portlet__content">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kt-portlet" data-ktportlet="true" id="kt_portlet_tools_1">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">
-                                    Trang
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-group">
-                                    <a href="#" data-ktportlet-tool="toggle"
-                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
-                                            class="la la-angle-down"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__body">
-                            <div class="kt-portlet__content">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-                            </div>
-                        </div>
-                    </div>
+
                     <!--end::Portlet-->
+
                 </div>
                 <div class="col-xs-12 col-md-9">
-                    <h1 class="template-title">Cấu trúc menu</h1>
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Cấu trúc menu
+                                </h3>
+
+
+                            </div>
+                        </div>
+
+                        <div class="kt-portlet__body">
+
+                            <div class="form-group">
+                                <ul id="sortable">
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end::Portlet-->
+
                 </div>
             </div>
         </div>
-        <div class="tab-pane active" id="menu_tab_2" role="tabpanel">
+        <div class="tab-pane " id="menu_tab_2" role="tabpanel">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Thêm vị trí mới</h2>
-                    <form class="kt-form" method="POST" action="{{route('POST_ADD_NEW_MENU_POSITION')}}">
+                    <form class="kt-form" method="POST" action="{{route('POST_ADD_USER')}}">
                         @csrf
                         <div class="hidden"></div>
                         <div class="kt-portlet__body">
@@ -259,7 +368,7 @@
                                             @csrf
                                             <div class="hidden"></div>
                                             <div class="kt-portlet__body">
-                                                <input type="hidden" id="update_id" value="" name="update_id">
+
                                                 <div class="form-group">
                                                     <label for="update_name">Họ và tên</label>
                                                     <input id="update_name" type="text"
