@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Term;
-use App\PostMeta;
 use Illuminate\Http\Request;
 
 class AdminAjaxController extends Controller
