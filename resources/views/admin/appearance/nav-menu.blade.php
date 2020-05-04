@@ -210,23 +210,68 @@
                                 <h3 class="kt-portlet__head-title">
                                     Cấu trúc menu
                                 </h3>
-
-
                             </div>
                         </div>
+                        <style>
+                            .dd-list, .dd-item{
+                                border-bottom: 1px solid #FFF;
+                            }
+                            .dd-item {
+                                border: 1px solid #f2f3f8;
+                                padding: 5px 10px;
+                                background: #f2f3f8;
+                                margin-bottom: 5px;
+                                font-weight: 700;
+                                cursor: move;
+                                -webkit-transition: all .3s ease-in-out;
+                                -moz-transition: all .3s ease-in-out;
+                                -ms-transition: all .3s ease-in-out;
+                                -o-transition: all .3s ease-in-out;
+                                transition: all .3s ease-in-out;
+                            }
+                            /*.dd-item:hover{*/
+                            /*    border: 1px solid #5c78ff;*/
+                            /*    background: #5c78ff;*/
+                            /*    color: #FFF;*/
+                            /*}*/
 
+                            .dd-handle, .dd-item button{
+                                display: inline-block;
+                            }
+                        </style>
                         <div class="kt-portlet__body">
-
                             <div class="form-group">
-                                <ul id="sortable">
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-                                    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
-                                </ul>
+                                <div class="dd">
+                                    <ol class="dd-list">
+                                        <li class="dd-item" data-id="1">
+                                            <span class="dd-handle"><i class="fa fa-list"></i></span>
+                                            <span class="dd3-content"><span id="1">Item 1</span>
+                                                <a class="edit-button" id="2" data-label="item 2" href="javascript:;"
+                                                   data-link="item-2"><i class="flaticon-edit"></i></a>
+                                                <a class="del-button" href="javascript:;" id="2"><i
+                                                        class="flaticon-delete"></i></a></span></span>
+                                        </li>
+                                        <li class="dd-item" data-id="2">
+                                            <span class="dd-handle"><i class="fa fa-list"></i></span>
+                                            <span class="dd3-content"><span id="1">Item 2</span>
+                                                <a class="edit-button" id="2" data-label="item 2" href="javascript:;"
+                                                   data-link="item-2"><i class="flaticon-edit"></i></a>
+                                                <a class="del-button" href="javascript:;" id="2"><i
+                                                        class="flaticon-delete"></i></a></span></span>
+                                        </li>
+                                        <li class="dd-item" data-id="3">
+                                            <div class="dd-handle"><i class="fa fa-list"></i></div>
+                                            <ol class="dd-list">
+                                                <li class="dd-item" data-id="4">
+                                                    <div class="dd-handle">Item 4</div>
+                                                </li>
+                                                <li class="dd-item" data-id="5">
+                                                    <div class="dd-handle">Item 5</div>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                     </div>

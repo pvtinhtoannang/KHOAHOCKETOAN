@@ -261,7 +261,7 @@ var PvtinhUserManagement = function () {
 }();
 
 
-var PvtinhMenuManagement = function (){
+var PvtinhMenuManagement = function () {
 
     var createSelect2MenuPages = function () {
         $('#menu_pages').select2({
@@ -273,7 +273,6 @@ var PvtinhMenuManagement = function (){
             placeholder: "Chọn một hoặc nhiều bài viết",
         });
     }
-
     var createSelect2MenuTags = function () {
         $('#menu_tags').select2({
             placeholder: "Chọn một hoặc nhiều thẻ"
@@ -284,16 +283,20 @@ var PvtinhMenuManagement = function (){
             placeholder: "Chọn một hoặc chuyên mục"
         });
     }
+    var createStructMenu = function () {
+        $('.dd').nestable({ /* config options */});
 
+    }
     return {
         init: function () {
             createSelect2MenuPages();
             createSelect2MenuPosts();
             createSelect2MenuTags();
             createSelect2MenuCategories();
+            createStructMenu();
         }
     }
-} ();
+}();
 
 jQuery(document).ready(function () {
     KTDatatablesPermission.init();
