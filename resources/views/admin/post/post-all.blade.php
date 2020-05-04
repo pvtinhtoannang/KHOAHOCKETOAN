@@ -91,7 +91,7 @@
                                         <i class="la la-trash"></i>
                                     </a>
                                 @else
-                                    <a href="{{route('GET_ACTION_TRASH_POST_ROUTE', $post->ID)}}"
+                                    <a href="{{route('GET_ACTION_DELETE_POST_ROUTE', $post->ID)}}"
                                        class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xoá vĩnh viễn">
                                         <i class="la la-trash"></i>
                                     </a>

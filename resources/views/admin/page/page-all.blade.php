@@ -88,7 +88,7 @@
                                         <i class="la la-trash"></i>
                                     </a>
                                 @else
-                                    <a href="{{route('GET_ACTION_TRASH_PAGE_ROUTE', $page->ID)}}"
+                                    <a href="{{route('GET_ACTION_DELETE_PAGE_ROUTE', $page->ID)}}"
                                        class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xoá vĩnh viễn">
                                         <i class="la la-trash"></i>
                                     </a>

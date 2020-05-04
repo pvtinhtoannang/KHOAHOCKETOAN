@@ -129,7 +129,21 @@ class PostController extends Controller
         }
     }
 
-
+    function getActionDeletePost($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->post->post_id($id)->delete();
+            return redirect()->back();
+        }
+    }
 
     /**
      * @param $str

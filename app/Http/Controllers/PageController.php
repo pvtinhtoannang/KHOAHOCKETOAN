@@ -98,6 +98,22 @@ class PageController extends Controller
         }
     }
 
+    function getActionDeletePage($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->page->post_id($id)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->page->post_id($id)->delete();
+            return redirect()->back();
+        }
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

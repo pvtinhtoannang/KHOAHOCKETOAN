@@ -31,6 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //restore post
     Route::get('/post/restore/{id}', ['as' => 'GET_ACTION_RESTORE_POST_ROUTE', 'uses' => 'PostController@getActionRestorePost']);
 
+    //delete post
+    Route::get('/post/delete/{id}', ['as' => 'GET_ACTION_DELETE_POST_ROUTE', 'uses' => 'PostController@getActionDeletePost']);
+
     //page
     Route::get('/pages/{status?}', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);
 
@@ -46,6 +49,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     //restore page
     Route::get('/page/restore/{id}', ['as' => 'GET_ACTION_RESTORE_PAGE_ROUTE', 'uses' => 'PageController@getActionRestorePage']);
+
+    //delete page
+    Route::get('/page/delete/{id}', ['as' => 'GET_ACTION_DELETE_PAGE_ROUTE', 'uses' => 'PageController@getActionDeletePage']);
 
     //upload
     Route::get('/upload', ['as' => 'GET_UPLOAD_ROUTE', 'uses' => 'UploadController@getUpload']);
