@@ -43,4 +43,13 @@ class PostBuilder extends Builder
         return $this->where('post_name', $slug);
     }
 
+    /**
+     * @param $status
+     * @return mixed
+     */
+    public function not_status($status)
+    {
+        return $this->where('post_status', '!=', $status);
+    }
+
 }

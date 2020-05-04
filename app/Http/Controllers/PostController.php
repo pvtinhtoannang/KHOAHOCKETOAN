@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use App\Post;
 use App\Term;
@@ -23,12 +24,43 @@ class PostController extends Controller
     }
 
     /**
+     * @param null $status
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function index()
+    function index($status = null)
     {
-        $posts = $this->post->type($this->post_type)->latest()->get();
-        return view('admin.post.post-all', ['postData' => $posts]);
+        $posts = array();
+        if (!isset($status)) {
+            $posts = $this->post->type($this->post_type)->not_status('trash')->latest()->get();
+        } else if ($status === 'publish') {
+            $posts = $this->post->type($this->post_type)->status('publish')->latest()->get();
+        } else if ($status === 'draft') {
+            $posts = $this->post->type($this->post_type)->status('draft')->latest()->get();
+        } else if ($status === 'pending') {
+            $posts = $this->post->type($this->post_type)->status('pending')->latest()->get();
+        } else if ($status === 'trash') {
+            $posts = $this->post->type($this->post_type)->status('trash')->latest()->get();
+        }
+        return view('admin.post.post-all', ['postData' => $posts, 'count' => $this->count_post()]);
+    }
+
+    /**
+     * @return array
+     */
+    function count_post()
+    {
+        $all = $this->post->type($this->post_type)->not_status('trash')->latest()->get();
+        $trash = $this->post->type($this->post_type)->status('trash')->latest()->get();
+        $pending = $this->post->type($this->post_type)->status('pending')->latest()->get();
+        $draft = $this->post->type($this->post_type)->status('draft')->latest()->get();
+        $publish = $this->post->type($this->post_type)->status('publish')->latest()->get();
+        return array(
+            'all' => count($all),
+            'publish' => count($publish),
+            'draft' => count($draft),
+            'pending' => count($pending),
+            'trash' => count($trash)
+        );
     }
 
     /**
@@ -56,6 +88,44 @@ class PostController extends Controller
             return view('admin.errors.admin-error', ['error_responses' => $responses]);
         } else {
             return view('admin.post.post-edit', ['postData' => $postData]);
+        }
+    }
+
+    function getActionTrashPost($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->post->post_id($id)->update(array(
+                    'post_status' => 'trash'
+                )
+            );
+            return redirect()->back();
+        }
+    }
+
+    function getActionRestorePost($id)
+    {
+        $responses = array(
+            'title' => 'Lỗi',
+            'sub_title' => '',
+            'description' => 'Bạn đang muốn sửa một thứ không tồn tại. Có thể nó đã bị xóa?'
+        );
+        $postData = $this->post->post_id($id)->type($this->post_type)->first();
+        if ($postData == null) {
+            return view('admin.errors.admin-error', ['error_responses' => $responses]);
+        } else {
+            $this->post->post_id($id)->update(array(
+                    'post_status' => 'draft'
+                )
+            );
+            return redirect()->back();
         }
     }
 

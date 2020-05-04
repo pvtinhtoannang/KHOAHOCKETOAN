@@ -121,3 +121,36 @@ span.post-link {
         }
     }
 }
+
+ul.post-status {
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+    font-size: 13px;
+    color: #666;
+    @include flexbox();
+
+    li {
+        margin-right: 5px;
+
+        &.active {
+            color: #000;
+
+            a {
+                color: #000;
+                font-weight: 500;
+            }
+        }
+
+        &:last-child {
+            &:after {
+                content: none;
+            }
+        }
+
+        &:after {
+            content: "|";
+            margin-left: 5px;
+        }
+    }
+}

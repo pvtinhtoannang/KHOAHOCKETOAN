@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'GET_ADMIN_DASHBOARD_ROUTE', 'uses' => 'AdminController@getAdminDashboard']);
 
     //post
-    Route::get('/posts', ['as' => 'GET_POSTS_ROUTE', 'uses' => 'PostController@index']);
+    Route::get('/posts/{status?}', ['as' => 'GET_POSTS_ROUTE', 'uses' => 'PostController@index']);
 
     //create new post
     Route::get('/post/create', ['as' => 'GET_CREATE_POST_ROUTE', 'uses' => 'PostController@getPostEditor']);
@@ -24,6 +24,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //edit post
     Route::get('/post/edit/{id}', ['as' => 'GET_EDIT_POST_ROUTE', 'uses' => 'PostController@getEditPost']);
     Route::post('/post/edit/{id}', ['as' => 'POST_EDIT_POST_ROUTE', 'uses' => 'PostController@updatePost']);
+
+    //trash post
+    Route::get('/post/trash/{id}', ['as' => 'GET_ACTION_TRASH_POST_ROUTE', 'uses' => 'PostController@getActionTrashPost']);
+
+    //restore post
+    Route::get('/post/restore/{id}', ['as' => 'GET_ACTION_RESTORE_POST_ROUTE', 'uses' => 'PostController@getActionRestorePost']);
 
     //page
     Route::get('/pages', ['as' => 'GET_PAGES_ROUTE', 'uses' => 'PageController@index']);

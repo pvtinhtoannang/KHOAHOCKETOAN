@@ -1,7 +1,6 @@
-@extends('admin.dashboard.dashboard-master')
+@extends('admin.post.post-master')
 @section('title', 'Bài viết')
-@section('content')
-    <h1 class="template-title">Bài viết</h1>
+@section('post_list')
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -23,7 +22,7 @@
         <div class="kt-portlet__body">
 
             <!--begin: Datatable -->
-            <table class="table table-striped table-hover tnct-table" id="posts">
+            <table class="table table-striped table-hover tnct-table {{Request::route()->status}}" id="posts">
                 <thead>
                 <tr>
                     <th>Tiêu đề</th>
@@ -36,21 +35,32 @@
                 <tbody>
                 @foreach($postData as $post)
                     <tr>
-                        <td class="kt-font-bold"><a href="">{{$post->post_title}}</a>
+                        <td class="kt-font-bold">
+                            @if($post->post_status != 'trash')
+                                <a href="{{route('GET_EDIT_POST_ROUTE', $post->ID)}}">{{$post->post_title}}</a>
+                            @else
+                                {{$post->post_title}}
+                            @endif
                             @if($post->post_status == 'draft')
                                 <span class="post-status"> - Bản nháp</span>
                             @elseif($post->post_status == 'pending')
                                 <span class="post-status"> - Chờ duyệt</span>
                             @endif
                             <div class="nowrap row-actions">
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Xem">
+                                <a target="_blank" href="{{url('/')."/".$post->post_name}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md view-btn" title="Xem">
                                     <i class="la la-eye"></i>
                                 </a>
                                 <a href="{{route('GET_EDIT_POST_ROUTE', $post->ID)}}"
-                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Chỉnh sửa">
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md edit-btn" title="Chỉnh sửa">
                                     <i class="la la-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
+                                <a href="{{route('GET_ACTION_RESTORE_POST_ROUTE', $post->ID)}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md restore-btn" title="Phục hồi">
+                                    <i class="la la-rotate-left"></i>
+                                </a>
+                                <a href="{{route('GET_ACTION_TRASH_POST_ROUTE', $post->ID)}}"
+                                   class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Bỏ vào thùng rác">
                                     <i class="la la-trash"></i>
                                 </a>
                             </div>
