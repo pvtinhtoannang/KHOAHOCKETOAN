@@ -35,6 +35,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('update-user-by-list', ['as' => 'UPDATE_USER_BY_LIST', 'uses'=>'UserController@updateUserByList']);
 
     Route::get('nav-menu', ['as' => 'GET_NAV_MENU', 'uses'=>'NavMenuController@getViewNavMenu']);
+    Route::post('add-postion-nav-menu', ['as' => 'POST_ADD_NEW_MENU_POSITION', 'uses'=>'NavMenuController@addPositionMenu']);
+
+
 
 });
 
