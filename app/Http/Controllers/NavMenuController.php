@@ -9,6 +9,6 @@ class NavMenuController extends Controller
 
     public function getViewNavMenu()
     {
-        
+        return view('admin.appearance.nav-menu');
     }
 }

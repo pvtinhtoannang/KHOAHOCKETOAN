@@ -350,7 +350,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h2 class="template-title">Thêm nhóm mới</h2>
-                    <form class="kt-form" method="POST" action="{{route('ADD_PERMISSION_SETTINGS')}}">
+                    <form class="kt-form" method="POST" action="{{route('ADD_GROUP_USER')}}">
                         @csrf
                         <div class="hidden"></div>
                         <div class="kt-portlet__body">

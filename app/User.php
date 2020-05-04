@@ -14,9 +14,10 @@ class User extends Authenticatable
     use Notifiable;
     protected $role;
 
-    public function __construct()
+    public function __construct(array $attributes = [])
     {
         $this->role = new Role();
+        parent::__construct($attributes);
     }
 
     /**
@@ -209,5 +210,9 @@ class User extends Authenticatable
         return self::find($id);
     }
 
-
+    public function addNewUser($name, $email, $password, $role_id)
+    {
+        $user = self::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+        $user->roles()->sync($role_id);
+    }
 }

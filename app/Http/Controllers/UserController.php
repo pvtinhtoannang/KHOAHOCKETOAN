@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    protected $user;
+    protected $user, $role;
 
     public function __construct()
     {
         $this->user = new User();
+        $this->role = new Role();
     }
 
     public function getMyProfile(Request $request)
@@ -44,4 +45,22 @@ class UserController extends Controller
             return redirect()->back()->with('messages', 'Cập nhật thông tin thành công!');
         }
     }
+
+    public function getAllUser()
+    {
+        $data_user = $this->user->getAllUser();
+        $data_role = $this->role->getAllRole();
+        return view('admin.users.all-user', ['dataUsers' => $data_user, 'dataRole' => $data_role]);
+    }
+
+    public function addNewUser(Request $request)
+    {
+        if (!empty($request->name) && !empty($request->email) && !empty($request->password)) {
+            $user = $this->user->addNewUser($request->name, $request->email, $request->password, $request->role_id);
+            return redirect()->back()->with('messages', 'Cập nhật thông tin thành công!');
+        } else {
+            return redirect()->back()->with('messages', 'Cập nhật thông tin thất bại!');
+        }
+    }
+
 }

@@ -154,4 +154,18 @@ class PermissionController extends Controller
             return redirect()->back()->withInput()->with('messages', 'Cập nhật thất bại');
         }
     }
+
+    public function addNewGroup(Request $request)
+    {
+        if (!empty($request->name)) {
+            if ($this->group->addNewGroup($request->name)) {
+                return redirect()->back()->with('messages', 'Thêm nhóm mới thành công!');
+            } else {
+                return redirect()->back()->with('messages', 'Thêm nhóm mới thất bại!');
+            }
+        } else {
+            return redirect()->back()->with('messages', 'Thêm nhóm mới thất bại!');
+        }
+    }
+
 }

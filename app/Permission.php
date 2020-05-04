@@ -62,7 +62,10 @@ class Permission extends Model
         return self::find($id);
     }
 
-    public function updatePermissionByID($request_name, $request_display_name, $request_group_id, $id){
-        return self::find($id)->update(['name'=>$request_name, 'display_name'=>$request_display_name, 'group_id'=>$request_group_id]);
+    public function updatePermissionByID($request_name, $request_display_name, $request_group_id, $id)
+    {
+        return self::find($id)->update(['name' => $request_name, 'display_name' => $request_display_name, 'group_id' => $request_group_id]);
     }
+
+
 }
