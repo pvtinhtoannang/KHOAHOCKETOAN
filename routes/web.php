@@ -71,6 +71,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/post-name-generator/{post_name}', 'AdminAjaxController@postNameGenerator');
     Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
     Route::get('/get-attachment', 'AdminAjaxController@getAttachment');
+
+    //course
+    Route::get('/courses/{status?}', ['as' => 'GET_COURSE_ROUTE', 'uses' => 'CourseController@index']);
 });
 
 Route::get('/', 'ThemeController@index');
