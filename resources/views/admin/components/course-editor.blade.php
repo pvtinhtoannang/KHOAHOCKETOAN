@@ -120,49 +120,31 @@ if (isset($post_type)) {
                     </button>
                 </div>
             </div>
-            @if($type === 'post')
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-bg-primary">
-                        <div class="kt-portlet__head-label">
-                            <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Chuyên mục</h3>
-                        </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head kt-bg-primary">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Chuyên mục</h3>
                     </div>
-                    <div class="kt-portlet__body">
-                        <div class="kt-checkbox-list">
-                            <div id="category-list">
-                                <ul class="categorychecklist">
-                                    @foreach($taxonomy->parent_id(0)->category()->get() as $term)
-                                        <li>
-                                            <label class="kt-checkbox">
-                                                <input name="post_category[]" type="checkbox"
-                                                       value="{{$term->term_id}}" @if(in_array($term->term_id, $cats)) {{'checked'}} @endif> {{$term->term->name}}
-                                                <span></span>
-                                            </label>
-                                            @include('admin.components.category-children', ['parent' => $term->term_id])
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-checkbox-list">
+                        <div id="category-list">
+                            <ul class="categorychecklist">
+                                @foreach($taxonomy->parent_id(0)->name('course_cat')->get() as $term)
+                                    <li>
+                                        <label class="kt-checkbox">
+                                            <input name="post_category[]" type="checkbox"
+                                                   value="{{$term->term_id}}" @if(in_array($term->term_id, $cats)) {{'checked'}} @endif> {{$term->term->name}}
+                                            <span></span>
+                                        </label>
+                                        @include('admin.components.course-cat-children', ['parent' => $term->term_id])
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-bg-primary">
-                        <div class="kt-portlet__head-label">
-                            <h3 class="kt-font-bolder kt-portlet__head-title kt-font-light">Thẻ</h3>
-                        </div>
-                    </div>
-                    <div class="kt-portlet__body">
-                        <div class="form-group form-group-last">
-                            <label for="post-tag" hidden>Thêm thẻ</label>
-                            <input type="text" class="form-control" id="post-tag" name="post_tag" data-role="tagsinput"
-                                   value="{{$tags}}">
-                            <span class="form-text text-muted">Phân cách các thẻ bằng dấu phẩy (,).</span>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
+            </div>
             <div class="kt-portlet">
                 <div class="kt-portlet__head kt-portlet__head--noborder kt-bg-primary">
                     <div class="kt-portlet__head-label">
@@ -192,6 +174,5 @@ if (isset($post_type)) {
             </div>
         </div>
     </div>
-    <input type="hidden" name="post_type" value="{{$type}}">
     {{ csrf_field() }}
 </form>

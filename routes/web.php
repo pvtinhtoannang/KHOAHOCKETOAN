@@ -74,6 +74,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     //course
     Route::get('/courses/{status?}', ['as' => 'GET_COURSE_ROUTE', 'uses' => 'CourseController@index']);
+    Route::get('/course/create', ['as' => 'GET_CREATE_COURSE_ROUTE', 'uses' => 'CourseController@getCourseEditor']);
+    Route::post('/course/create', ['as' => 'GET_CREATE_COURSE_ROUTE', 'uses' => 'CourseController@createCourse']);
+
+    //course cat
+    Route::get('/course-cat', ['as' => 'GET_COURSE_CATEGORY_ROUTE', 'uses' => 'CourseCategoryController@getCourseCategory']);
+    Route::post('/course-cat', ['as' => 'POST_COURSE_CATEGORY_ROUTE', 'uses' => 'CourseCategoryController@addCourseCategory']);
 });
 
 Route::get('/', 'ThemeController@index');
