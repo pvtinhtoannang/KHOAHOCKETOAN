@@ -37,7 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('nav-menu', ['as' => 'GET_NAV_MENU', 'uses'=>'NavMenuController@getViewNavMenu']);
     Route::post('add-postion-nav-menu', ['as' => 'POST_ADD_NEW_MENU_POSITION', 'uses'=>'NavMenuController@addPositionMenu']);
 
-
+    Route::POST('ajax-update-menu', ['as' => 'UPDATE_MENU_ITEM' , 'uses'=> 'NavMenuController@updateMenuItem']);
+    Route::POST('ajax-add-menu', ['as' => 'ADD_MENU_ITEM' , 'uses'=> 'NavMenuController@addMenuItem']);
 
 });
 

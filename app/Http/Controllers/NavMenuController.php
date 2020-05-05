@@ -67,4 +67,28 @@ class NavMenuController extends Controller
         }
 
     }
+
+    public function updateMenuItem(Request $request)
+    {
+        $id = $request->id;
+        $link = $request->link;
+        $label = $request->label;
+        if (!empty($id) && !empty($link) && !empty($label)) {
+            echo json_encode($this->menu->updateInformationMenuItem($id, $link, $label));
+            exit;
+        }
+        exit;
+    }
+
+    public function addMenuItem(Request $request)
+    {
+        $label = $request->label;
+        $link = $request->link;
+        $position = $request->position;
+        if(!empty($link) && !empty($label)){
+            return $this->menu->addMenuItem($link, $label);
+        }
+    }
+
+
 }

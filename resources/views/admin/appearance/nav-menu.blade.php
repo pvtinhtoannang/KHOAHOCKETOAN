@@ -49,12 +49,11 @@
                                                         name="menu_pages[]">
                                                     <option></option>
                                                     @foreach($pages as $page)
-                                                        <option value="{{ $page->ID }}"
-                                                                data-link="{{ $page->post_name }}">{{ $page->post_title }}</option>
+                                                        <option value="{{ $page->post_name }}">{{ $page->post_title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air">Thêm
+                                            <button type="button" class="btn btn-brand btn-elevate btn-elevate-air btn-add-pages-to-menu">Thêm
                                                 vào menu
                                             </button>
                                         </div>
@@ -79,10 +78,8 @@
                                                 <select multiple="multiple" class="form-control m-select2 d-block"
                                                         style="width: 100%" id="menu_posts" name="menu_posts[]">
                                                     <option></option>
-
                                                     @foreach($posts as $post)
-                                                        <option value="{{ $post->ID }}"
-                                                                data-link="{{ $post->post_name }}">{{ $post->post_title }}</option>
+                                                        <option value="{{ $post->post_name }}">{{ $post->post_title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -243,9 +240,13 @@
                             }
 
                             .dd-item button {
-                                display: inline-block;
                                 background: transparent;
                                 border: magenta;
+                                position: absolute;
+                                float: right;
+                                right: 60px;
+                                font-size: 20px;
+                                top: 0;
                             }
 
                             .dd-placeholder {
@@ -265,21 +266,27 @@
                             .dd-item .dd-item a {
                                 color: #FFF;
                             }
+
+                            .dd > .dd-list {
+                                padding-left: 0;
+                            }
                         </style>
                         <div class="kt-portlet__body">
                             <div class="form-group">
                                 <div class="dd">
-                                    <ol class="dd-list">
+                                    <ol class="dd-list dd-list-parent">
                                         @foreach($menus as $menu)
                                             <li class="dd-item" data-id="{{$menu['id']}}">
                                                 <span class="dd-handle"><i class="fa fa-list"></i></span>
-                                                <span class="dd3-content"><span id="1">{{$menu['label']}}</span>
-                                                <a class="edit-button" id="{{$menu['id']}}"
+                                                <span class="dd3-content"><span
+                                                        data-id="{{$menu['id']}}">{{$menu['label']}}</span>
+                                                <a class="edit-button" data-id="{{$menu['id']}}"
                                                    data-label="{{$menu['label']}}" href="javascript:;"
-                                                   data-link="{{$menu['link']}}"><i class="flaticon-edit"></i></a>
+                                                   data-link="{{$menu['link']}}" data-toggle="modal"
+                                                   data-target="#modalEditMenuItem"><i class="flaticon-edit"></i></a>
                                                 <a class="del-button" href="javascript:;" data-id="{{$menu['id']}}"><i
                                                         class="flaticon-delete"></i></a></span>
-                                                @if(!empty($menu->childrenMenus))
+                                                @if(!empty($menu->childrenMenus)  && sizeof($menu->childrenMenus) > 0)
                                                     <ol class="dd-list">
                                                         @foreach($menu->childrenMenus as $menu_children)
                                                             @include ('admin.components.nav-children', ['child_menu' => $menu_children])
@@ -289,13 +296,52 @@
 
                                             </li>
                                         @endforeach
-
                                     </ol>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--begin::Modal-->
+                    <div class="modal fade" id="modalEditMenuItem" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form id="editMenuItem">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Sửa menu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="menu-id" class="form-control-label">Menu ID</label>
+                                            <input type="text" class="form-control" readonly id="menu-id" value="">
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label for="menu-url" class="form-control-label">Menu URL</label>
+                                            <input type="text" class="form-control" id="menu-url" value="">
+                                            <span class="form-text text-muted kt-font-danger">Lưu ý: Nên cân nhắc việc thay đổi đường dẫn có thể ảnh hưởng đến liên kết SEO cũng như có thể phát sinh lỗi không tìm thấy trang (404 Not Found)</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="url-name" class="form-control-label">Tên đường dẫn</label>
+                                            <input type="text" value="" class="form-control" id="url-name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-save-editMenuItem">Lưu lại
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end::Modal-->
                     <!--end::Portlet-->
 
                 </div>

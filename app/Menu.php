@@ -24,4 +24,21 @@ class Menu extends Model
     {
         return $this->hasMany('App\Menu', 'parent', 'id')->with('menus');
     }
+
+    public function addMenuItem($link = '', $label = '', $parent = 0, $sort = 0, $position = 1)
+    {
+        return self::create(['label' => $label, 'link' => $link, 'parent' => $parent, 'sort' => $sort, 'positions_menu_id' => $position]);
+    }
+
+    public function updateInformationMenuItem($id, $link = '', $label = '')
+    {
+        return self::find($id)->update(['link' => $link, 'label' => $label]);
+    }
+
+    public function updateParentMenuItem($id, $parent)
+    {
+
+    }
+
+
 }

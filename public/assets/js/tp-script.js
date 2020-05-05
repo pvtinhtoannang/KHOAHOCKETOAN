@@ -1,5 +1,3 @@
-/* end datatable in permission page.! **/
-"use strict";
 var KTDatatablesPermission = function () {
     var initTablePermission = function () {
         var table = $('#permission');
@@ -286,10 +284,111 @@ var PvtinhMenuManagement = function () {
     var createStructMenu = function () {
         $('.dd').nestable({ /* config options */});
     }
+    var handleEditMenuItem = function () {
+        $('a.edit-button').click(function () {
+            var inputUrlName = $('form#editMenuItem #url-name');
+            var inputMenuID = $('form#editMenuItem #menu-id');
+            var inputMenuUrl = $('form#editMenuItem #menu-url');
+            var label = $(this).attr('data-label');
+            var id = $(this).attr('data-id');
+            var link = $(this).attr('data-link');
+            inputUrlName.val('');
+            inputUrlName.val(label);
+            inputMenuID.val(id);
+            inputMenuUrl.val(link);
+        });
 
-    var handleAddMenuItemForPages = function () {
-
+        $('button.btn-save-editMenuItem').click(function () {
+            var id, label, link, __token;
+            id = $('form#editMenuItem #menu-id').val();
+            label = $('form#editMenuItem #url-name').val();
+            link = $('form#editMenuItem #menu-url').val();
+            __token = $('form#editMenuItem input[name="_token"]').val();
+            $.ajax({
+                method: "POST",
+                url: "/admin/ajax-update-menu",
+                data: {_token: __token, id: id, label: label, link: link}
+            })
+                .done(function (msg) {
+                    if (msg === 'true') {
+                        $('ol.dd-list li.dd-item').each(function (i) {
+                            if ($(this).attr('data-id') === id) {
+                                $(this).find('.dd3-content span').text(label);
+                                $(this).find('.dd3-content a.edit-button').attr('data-label', label);
+                                $(this).find('.dd3-content a.edit-button').attr('data-link', link);
+                                console.log('da luu menu thanh cong');
+                                swal.fire("Hoàn thành!", "Menu này đã được cập nhật", "success");
+                            }
+                        });
+                    } else {
+                        swal.fire("Lỗi rồi!", "Kiểm tra lại thông tin bạn vừa nhập nhé!", "error");
+                        $('form#editMenuItem input').css('border', '1px solid #F40000');
+                    }
+                });
+        });
     }
+    var handleAddMenuItemForPages = function () {
+        $('.btn-add-pages-to-menu').click(function () {
+            var data = $('#menu_pages').select2('data');
+            var __token = $('form#editMenuItem input[name="_token"]').val();
+            $.each(data, function (key, value) {
+                var label = value.text;
+                var link = value.id;
+                var html = '';
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/ajax-add-menu",
+                    data: {_token: __token, label: label, link: link, position: 1}
+                })
+                    .done(function (res) {
+                        var id_html = res.id;
+                        var label_html = res.label;
+                        var label_link = res.link;
+                        console.log(id_html);
+                        if(id_html !== undefined){
+                            html = '<li class="dd-item" data-id="' + id_html + '">\n' +
+                                '    <span class="dd-handle"><i class="fa fa-list"></i></span>\n' +
+                                '    <span class="dd3-content">\n' +
+                                '        <span data-id="' + id_html + '">' + label_html + '</span>\n' +
+                                '        <a class="edit-button" data-id="' + id_html + '"\n' +
+                                '        data-label="' + label_html + '" href="javascript:;"\n' +
+                                '        data-link="' + label_link + '" data-toggle="modal"\n' +
+                                '        data-target="#modalEditMenuItem"><i class="flaticon-edit"></i></a>\n' +
+                                '        <a class="del-button" href="javascript:;" data-id="' + id_html + '"><i\n' +
+                                '        class="flaticon-delete"></i></a>\n' +
+                                '    </span>\n' +
+                                '</li>';
+                            $('ol.dd-list-parent').append(html);
+                        }
+                    });
+            });
+            $('#menu_pages').val(null).trigger('change');
+
+            if (data !== null) {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success("Menu đã thêm vào!");
+            }
+
+        });
+    }
+
 
     return {
         init: function () {
@@ -299,6 +398,7 @@ var PvtinhMenuManagement = function () {
             createSelect2MenuCategories();
             createStructMenu();
             handleAddMenuItemForPages();
+            handleEditMenuItem();
         }
     }
 }();
