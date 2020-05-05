@@ -141,6 +141,7 @@ function mediaSelect() {
 
 function featured_image_select() {
     let attachments = $('ul.attachments');
+    let thumbnail = $('#thumbnail_id');
     let thumbnail_button_select = $('#featured-image-modal #thumbnail-button-select');
     let featured_image_modal = $('#featured-image-modal');
     let featured_image = $('.featured-image');
@@ -148,6 +149,7 @@ function featured_image_select() {
     thumbnail_button_select.click(function () {
         $.each($('#featured-image-modal li.attachment'), function (index, value) {
             if ($(this).hasClass('selected')) {
+                thumbnail.attr('value', $(this).attr('data-id'));
                 featured_image.empty();
                 featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
                 attachments.find('.selected').removeClass('selected');
