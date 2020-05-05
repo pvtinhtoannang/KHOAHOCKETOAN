@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/slug-generator/{slug}', 'AdminAjaxController@slugGenerator');
     Route::get('/post-name-generator/{post_name}', 'AdminAjaxController@postNameGenerator');
     Route::get('/get-attached-file/{id}', 'AdminAjaxController@getAttachedFile');
+    Route::get('/get-attachment', 'AdminAjaxController@getAttachment');
 });
 
 Route::get('/', 'ThemeController@index');

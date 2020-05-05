@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Attachment;
 use App\Post;
 use App\Term;
 use Illuminate\Http\Request;
 
 class AdminAjaxController extends Controller
 {
-    private $term, $post;
+    private $term, $post, $attachment;
 
     /**
      * AdminAjaxController constructor.
@@ -17,6 +18,7 @@ class AdminAjaxController extends Controller
     {
         $this->term = new Term();
         $this->post = new Post();
+        $this->attachment = new Attachment();
     }
 
     /**
@@ -42,6 +44,12 @@ class AdminAjaxController extends Controller
     function postNameGenerator(Request $request)
     {
         echo json_encode($this->post->slugGenerator($request->post_name));
+        exit;
+    }
+
+    function getAttachment()
+    {
+        echo json_encode($this->attachment->latest()->get());
         exit;
     }
 }

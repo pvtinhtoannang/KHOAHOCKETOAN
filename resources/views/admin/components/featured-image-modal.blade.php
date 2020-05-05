@@ -16,7 +16,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#menu-item-browse" role="tab">
+                        <a class="nav-link active" id="featured-browse-btn" data-toggle="tab" href="#menu-item-browse" role="tab">
                             <i class="la la-camera-retro"></i> Thư viện
                         </a>
                     </li>

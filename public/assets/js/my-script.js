@@ -58,50 +58,6 @@ var CategoriesTable = function () {
 
 }();
 
-var insertMedia = function (context) {
-    var ui = $.summernote.ui;
-    let attachment = $('#insert-media-modal li.attachment');
-    let media_button_select = $('#insert-media-modal #media-button-select');
-    var button = ui.button({
-        contents: '<i class="note-icon-picture"/>',
-        tooltip: 'Thêm Media',
-        click: function () {
-            let featured_image_modal = $('#insert-media-modal');
-            featured_image_modal.modal('show');
-            media_button_select.click(function () {
-                $.each($('#insert-media-modal li.attachment'), function (index, value) {
-                    if ($(this).hasClass('selected')) {
-                        context.invoke('editor.insertImage', $(this).attr('data-src'));
-                        attachment.removeClass('selected');
-                        attachment.attr('aria-checked', 'false');
-                        featured_image_modal.modal('hide');
-                    }
-                });
-            });
-        }
-    });
-
-    return button.render();   // return button as jquery object
-};
-
-$('.summernote-post-content').summernote({
-    height: 500,
-    toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['fontname', ['fontname']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['table', ['table']],
-        ['insert', ['link', 'media', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']],
-        ['mybutton', ['hello']]
-    ],
-    buttons: {
-        media: insertMedia
-    }
-});
-
 function remove_unicode(str) {
     str = str.toLowerCase();
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -166,44 +122,86 @@ function removeThumbnail() {
 }
 
 function mediaSelect() {
-    let attachment = $('.media-modal li.attachment');
+    let attachments = $('ul.attachments');
     let media_button_select = $('.media-modal .media-button-select');
-    attachment.click(function () {
+    attachments.on('click', '.attachment', function () {
         //reset status
-        attachment.removeClass('selected');
-        attachment.attr('aria-checked', 'false');
+        attachments.find('.selected').removeClass('selected');
+        attachments.find('[aria-checked="true"]').attr('aria-checked', 'false');
 
         $(this).addClass('selected');
-        if (attachment.hasClass('selected')) {
-            $(this).attr('aria-checked', 'true');
+        $(this).attr('aria-checked', 'true');
+        if (attachments.find('.selected')) {
             media_button_select.removeAttr('disabled');
         } else {
-            $(this).attr('aria-checked', 'false');
             media_button_select.attr('disabled', 'disabled');
         }
     });
 }
 
 function featured_image_select() {
-    let attachment = $('#featured-image-modal li.attachment');
-    let thumbnail = $('#thumbnail_id');
+    let attachments = $('ul.attachments');
     let thumbnail_button_select = $('#featured-image-modal #thumbnail-button-select');
     let featured_image_modal = $('#featured-image-modal');
     let featured_image = $('.featured-image');
 
     thumbnail_button_select.click(function () {
-        attachment.each(function (index, value) {
+        $.each($('#featured-image-modal li.attachment'), function (index, value) {
             if ($(this).hasClass('selected')) {
-                thumbnail.attr('value', $(this).attr('data-id'));
                 featured_image.empty();
                 featured_image.append('<img src="' + $(this).attr('data-src') + '" />');
-                attachment.removeClass('selected');
-                attachment.attr('aria-checked', 'false');
+                attachments.find('.selected').removeClass('selected');
+                attachments.find('[aria-checked="true"]').attr('aria-checked', 'false');
                 featured_image_modal.modal('hide');
             }
         });
     });
 }
+
+let insertMedia = function (context) {
+    let ui = $.summernote.ui;
+    let attachments = $('ul.attachments');
+    let media_button_select = $('#insert-media-modal #media-button-select');
+    let button = ui.button({
+        contents: '<i class="note-icon-picture"/>',
+        tooltip: 'Thêm Media',
+        click: function () {
+            let featured_image_modal = $('#insert-media-modal');
+            featured_image_modal.modal('show');
+            media_button_select.click(function () {
+                $.each($('#insert-media-modal li.attachment'), function (index, value) {
+                    if ($(this).hasClass('selected')) {
+                        context.invoke('editor.insertImage', $(this).attr('data-src'));
+                        attachments.find('.selected').removeClass('selected');
+                        attachments.find('[aria-checked="true"]').attr('aria-checked', 'false');
+                        featured_image_modal.modal('hide');
+                    }
+                });
+            });
+        }
+    });
+
+    return button.render();   // return button as jquery object
+};
+
+$('.summernote-post-content').summernote({
+    height: 500,
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'media', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']],
+        ['mybutton', ['hello']]
+    ],
+    buttons: {
+        media: insertMedia
+    }
+});
+
 
 function postTagGenerator() {
     let tagInput = $('#post-tag');
@@ -231,6 +229,31 @@ function postTagGenerator() {
     });
 }
 
+function ajax_upload() {
+    $.ajax({
+        url: '/admin/get-attachment/',
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            let uploads_url = '/contents/uploads';
+            let attachments = $('ul.attachments');
+            attachments.empty();
+            $.each(response, function (key, value) {
+                let file_url = uploads_url + '/' + value.meta.meta_value;
+                attachments.append(
+                    '<li class="attachment" data-id="' + value.ID + '" data-src="' + file_url + '">' +
+                    '<div class="attachment-preview">' +
+                    '<div class="thumbnail">' +
+                    '<img src="' + file_url + '" alt="">' +
+                    '</div>' +
+                    '</div>' +
+                    '</li>'
+                );
+            });
+        }
+    });
+}
+
 jQuery(function ($) {
     try {
         $(document).ready(function () {
@@ -242,6 +265,13 @@ jQuery(function ($) {
             postTagGenerator();
             removeThumbnail();
             mediaSelect();
+            ajax_upload();
+            $('#browse-btn').on('click', function () {
+                ajax_upload();
+            });
+            $('#featured-browse-btn').on('click', function () {
+                ajax_upload();
+            });
         });
     } catch (e) {
         console.log(e);
