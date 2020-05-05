@@ -15,5 +15,13 @@ class Menu extends Model
         return $this->belongsTo('App\PositionMenu', 'positions_menu_id');
     }
 
+    public function menus()
+    {
+        return $this->hasMany('App\Menu', 'parent', 'id');
+    }
 
+    public function childrenMenus()
+    {
+        return $this->hasMany('App\Menu', 'parent', 'id')->with('menus');
+    }
 }

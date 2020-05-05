@@ -32,12 +32,14 @@ class NavMenuController extends Controller
         $posts = $this->post->type('post')->latest()->get();
         $tags = $this->tag->get();
         $category = $this->taxonomy->category()->get();
+        $menus = Menu::where('positions_menu_id', 1)->where('parent', 0)->with('childrenMenus')->get();
         return view('admin.appearance.nav-menu', [
             'position_menu' => $position_menu,
             'pages' => $pages,
             'posts' => $posts,
             'tags' => $tags,
-            'categories' => $category
+            'categories' => $category,
+            'menus' => $menus
         ]);
     }
 

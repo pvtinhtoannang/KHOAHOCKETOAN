@@ -213,12 +213,14 @@
                             </div>
                         </div>
                         <style>
-                            .dd-list, .dd-item{
-                                border-bottom: 1px solid #FFF;
+
+                            .dd ol {
+                                list-style: none;
                             }
+
                             .dd-item {
                                 border: 1px solid #f2f3f8;
-                                padding: 5px 10px;
+                                padding: 5px 0 5px 30px;
                                 background: #f2f3f8;
                                 margin-bottom: 5px;
                                 font-weight: 700;
@@ -228,48 +230,66 @@
                                 -ms-transition: all .3s ease-in-out;
                                 -o-transition: all .3s ease-in-out;
                                 transition: all .3s ease-in-out;
+                                position: relative;
                             }
-                            /*.dd-item:hover{*/
-                            /*    border: 1px solid #5c78ff;*/
-                            /*    background: #5c78ff;*/
-                            /*    color: #FFF;*/
-                            /*}*/
 
-                            .dd-handle, .dd-item button{
+                            .dd-handle {
+                                display: block;
+                                position: absolute;
+                                left: 10px;
+                                top: 5px;
+                                width: calc(100% - 80px);
+                                height: 100%;
+                            }
+
+                            .dd-item button {
                                 display: inline-block;
+                                background: transparent;
+                                border: magenta;
+                            }
+
+                            .dd-placeholder {
+                                background-color: #f2f3f8;
+                            }
+
+                            .dd-item a {
+                                float: right;
+                                padding: 0 10px;
+                            }
+
+                            .dd-item .dd-item {
+                                background: #5c78ff;
+                                color: #FFF;
+                            }
+
+                            .dd-item .dd-item a {
+                                color: #FFF;
                             }
                         </style>
                         <div class="kt-portlet__body">
                             <div class="form-group">
                                 <div class="dd">
                                     <ol class="dd-list">
-                                        <li class="dd-item" data-id="1">
-                                            <span class="dd-handle"><i class="fa fa-list"></i></span>
-                                            <span class="dd3-content"><span id="1">Item 1</span>
-                                                <a class="edit-button" id="2" data-label="item 2" href="javascript:;"
-                                                   data-link="item-2"><i class="flaticon-edit"></i></a>
-                                                <a class="del-button" href="javascript:;" id="2"><i
-                                                        class="flaticon-delete"></i></a></span></span>
-                                        </li>
-                                        <li class="dd-item" data-id="2">
-                                            <span class="dd-handle"><i class="fa fa-list"></i></span>
-                                            <span class="dd3-content"><span id="1">Item 2</span>
-                                                <a class="edit-button" id="2" data-label="item 2" href="javascript:;"
-                                                   data-link="item-2"><i class="flaticon-edit"></i></a>
-                                                <a class="del-button" href="javascript:;" id="2"><i
-                                                        class="flaticon-delete"></i></a></span></span>
-                                        </li>
-                                        <li class="dd-item" data-id="3">
-                                            <div class="dd-handle"><i class="fa fa-list"></i></div>
-                                            <ol class="dd-list">
-                                                <li class="dd-item" data-id="4">
-                                                    <div class="dd-handle">Item 4</div>
-                                                </li>
-                                                <li class="dd-item" data-id="5">
-                                                    <div class="dd-handle">Item 5</div>
-                                                </li>
-                                            </ol>
-                                        </li>
+                                        @foreach($menus as $menu)
+                                            <li class="dd-item" data-id="{{$menu['id']}}">
+                                                <span class="dd-handle"><i class="fa fa-list"></i></span>
+                                                <span class="dd3-content"><span id="1">{{$menu['label']}}</span>
+                                                <a class="edit-button" id="{{$menu['id']}}"
+                                                   data-label="{{$menu['label']}}" href="javascript:;"
+                                                   data-link="{{$menu['link']}}"><i class="flaticon-edit"></i></a>
+                                                <a class="del-button" href="javascript:;" data-id="{{$menu['id']}}"><i
+                                                        class="flaticon-delete"></i></a></span>
+                                                @if(!empty($menu->childrenMenus))
+                                                    <ol class="dd-list">
+                                                        @foreach($menu->childrenMenus as $menu_children)
+                                                            @include ('admin.components.nav-children', ['child_menu' => $menu_children])
+                                                        @endforeach
+                                                    </ol>
+                                                @endif
+
+                                            </li>
+                                        @endforeach
+
                                     </ol>
                                 </div>
                             </div>

@@ -285,8 +285,12 @@ var PvtinhMenuManagement = function () {
     }
     var createStructMenu = function () {
         $('.dd').nestable({ /* config options */});
+    }
+
+    var handleAddMenuItemForPages = function () {
 
     }
+
     return {
         init: function () {
             createSelect2MenuPages();
@@ -294,6 +298,7 @@ var PvtinhMenuManagement = function () {
             createSelect2MenuTags();
             createSelect2MenuCategories();
             createStructMenu();
+            handleAddMenuItemForPages();
         }
     }
 }();
